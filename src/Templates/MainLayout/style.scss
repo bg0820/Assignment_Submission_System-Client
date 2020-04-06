@@ -1,0 +1,125 @@
+.MainLayout {
+	width: 100%;
+	height: 100%;
+	display: flex;
+	flex-direction: row;
+
+	.Menu {
+		position: relative;
+		background: #F8F8FA;
+		border-right: 1px solid #DDDDDD;
+		height: 100%;
+		width: 220px;
+		padding: 10px 10px;
+
+		.Top {
+			padding-bottom: 10px;
+			overflow: hidden;
+			border-bottom: 1px solid #DDDDDD;
+
+			.VisibleMenu {
+				float: left;
+			}
+
+			.UserInfo {
+				float: right;
+
+				.studentNumber,
+				.studentName {
+					text-align: right;
+				}
+
+				.studentNumber {
+					font-size: 18px;
+					font-weight: bold;
+					color: #626262;
+				}
+
+				.studentName {
+					font-size: 14px;
+					color: #848484;
+				}
+			}
+		}
+
+		.MainMenu {
+			border-bottom: 1px solid #DDDDDD;
+
+			ul {
+				list-style: none;
+
+				li {
+					display: flex;
+					align-items: center;
+					height: 60px;
+					width: 100%;
+
+					.lectureIcon,
+					p,
+					.notification {
+						float: left;
+					}
+
+					.lectureIcon {
+						width: 24px;
+						height: 24px;
+						margin-left: 10px;
+						margin-right: 15px;
+					}
+
+					p {
+						flex: 1;
+						line-height: 24px;
+						font-size: 16px;
+						color: #848484;
+					}
+
+					.notification {
+						float: right;
+						display: flex;
+						justify-content: center;
+						align-items: center;
+
+						p {
+							color: #fff;
+							font-size: 13px;
+							line-height: 24px;
+							width: 35px;
+							background: #FF6464;
+							border-radius: 8px;
+							text-align: center;
+						}
+					}
+				}
+			}
+		}
+
+		.SubMenu {}
+
+		.Bottom {
+			position: absolute;
+			bottom: 20px;
+			left: 20px;
+
+			.logoutIcon,
+			.logoutText {
+				float: left;
+			}
+
+			.logoutIcon {
+				width: 24px;
+				height: 24px;
+				margin-right: 15px;
+			}
+
+			.logoutText {
+				font-size: 18px;
+				font-weight: 500;
+				color: #838383;
+				line-height: 24px;
+			}
+		}
+	}
+
+	.Content {}
+}
