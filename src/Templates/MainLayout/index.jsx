@@ -3,6 +3,9 @@ import React, { useEffect, useState, memo } from "react";
 import ClassIcon from "@asset/class.svg";
 import ToDoIcon from "@asset/clipboard.svg";
 import LogoutIcon from "@asset/logout.svg";
+import noticeIcon from "@asset/bullhorn.svg";
+import questionIcon from "@asset/help.svg";
+import gradeIcon from "@asset/exam.svg";
 
 import Button from "@components/Button";
 
@@ -41,7 +44,36 @@ const MainLayout = props => {
                         </li>
                     </ul>
                 </div>
-                <div className="SubMenu"></div>
+                <div className="SubMenu">
+                <div className="lectureInfo">
+                        <p className="lectureName">Java 프로그래밍</p>
+                        <p className="professorName">홍길동</p>
+                    </div>
+                    <ul>
+                        <li>
+                            <img className="lectureIcon" src={noticeIcon}></img>
+                            <p>공지 톡</p>
+                            <div className="notification">
+                                <p>10</p>
+                            </div>
+                        </li>
+                        <li>
+                            <img className="lectureIcon" src={questionIcon}></img>
+                            <p>강의 톡</p>
+                            <div className="notification">
+                                <p>99+</p>
+                            </div>
+                        </li>
+                        <li>
+                            <img className="lectureIcon" src={ToDoIcon}></img>
+                            <p>과제 목록</p>
+                        </li>
+                        <li>
+                            <img className="lectureIcon" src={gradeIcon}></img>
+                            <p>성적</p>
+                        </li>
+                    </ul>
+                </div>
                 <div className="Bottom">
                     <div className="logoutBtn">
                         <img className="logoutIcon" src={LogoutIcon}></img>
