@@ -4,6 +4,8 @@
 	"description": "과제 제출 시스템",
 	"main": "index.js",
 	"scripts": {
+		"start": "parcel public/index.html -p 3000",
+		"build": "parcel build src/index.js --no-source-maps --out-dir build/",
 		"test": "echo \"Error: no test specified\" && exit 1"
 	},
 	"repository": {
