@@ -2,6 +2,12 @@ import React, { useEffect, useState, memo } from "react";
 
 import "./style.scss";
 
+/*
+    * value
+    width - %, px,
+    height - %, px
+    color - zzz
+*/
 const Button = props => {
     let clsName = "Button ";
     let colorClsName = "color-default";
@@ -21,6 +27,7 @@ const Button = props => {
             value={props.value}
             style={{
                 width: props.width ? props.width : "100%",
+                height: props.height ? props.height: "100%",
                 margin: props.margin ? props.margin : "0"
             }}
             onClick={buttonOnClick}
