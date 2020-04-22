@@ -7,6 +7,7 @@ import LoginPage from "./Pages/Login";
 import LecutrePage from "./Pages/Lecture";
 import LecutreStudentPage from "./Pages/LectureStudent";
 import AssignmentListPro from "./Pages/AssignmentListPro";
+import CreateLecturePage from "./Pages/CreateLecture";
 
 import "./index.scss";
 
@@ -21,6 +22,7 @@ const App = (props) => {
                     <Route exact path="/lecture" component={LecutrePage} />
                     <Route exact path="/lectureStudent" component={LecutreStudentPage} />
                     <Route exact path="/assignmentListPro" component={AssignmentListPro} />
+                    <Route exact path="/createLecture" component={CreateLecturePage} />
                 </Switch>
             </BrowserRouter>
         </React.Fragment>
