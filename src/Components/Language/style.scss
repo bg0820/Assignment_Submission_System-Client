@@ -1,0 +1,38 @@
+.Language {
+    height: 28px;
+    line-height: 28px;
+    text-align: center;
+    width: 80px;
+    margin: 0 auto;
+
+
+	&.color-default {
+		background: #F6FBFF;
+		border: 1px solid #86C3EE;
+		color: #86C3EE;
+	}
+
+	&.color-blue {
+		background: #F6FBFF;
+		border: 1px solid #86C3EE;
+		color: #86C3EE;
+	}
+
+	&.color-green {
+		background: #F5FBF7;
+		border: 1px solid #88BA97;
+		color: #88BA97;
+    }
+    
+    &.color-yellow {
+		background: #FDF5ED;
+		border: 1px solid #FFBA4D;
+		color: #FFBA4D;
+    }
+
+    &.color-pink {
+		background: #FEF7FC;
+		border: 1px solid #EFA8DE;
+		color: #EFA8DE;
+	}
+}
