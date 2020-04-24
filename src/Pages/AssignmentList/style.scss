@@ -1,0 +1,14 @@
+table {
+    width: 100%;
+}
+
+.submitType{
+    &.color-default{
+        color: #646464;
+    }
+
+    &.color-blue {
+        color: #048DEE;
+    }
+}
+
