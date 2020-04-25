@@ -8,6 +8,7 @@ import AssignmentListPage from "./Pages/AssignmentList";
 import LecutrePage from "./Pages/Lecture";
 import LecutreStudentPage from "./Pages/LectureStudent";
 import AssignmentListPro from "./Pages/AssignmentListPro";
+import AssignmentAdd from "./Pages/AssignmentAdd";
 
 import "./index.scss";
 
@@ -23,6 +24,7 @@ const App = (props) => {
                     <Route exact path="/lectureStudent" component={LecutreStudentPage} />
                     <Route exact path="/assignmentList" component={AssignmentListPage} />
                     <Route exact path="/assignmentListPro" component={AssignmentListPro} />
+                    <Route exact path="/assignmentAdd" component={AssignmentAdd} />
                 </Switch>
             </BrowserRouter>
         </React.Fragment>
