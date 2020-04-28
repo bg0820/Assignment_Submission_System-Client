@@ -28,7 +28,6 @@
             text-align : left;
             margin-bottom: 10px;
         }
-    
         
         .InfoInput{
             width: 100%;
@@ -49,25 +48,55 @@
                     width: 100%;
                     margin-bottom:15px;
 
-                    .selectLanguage{
+                    .tableStyle{
                         width: 100%;
-                        height: auto;
-                        line-height: 21px;
-                        font-weight: 500;
-                        border-bottom: 1px solid #DDDDDD; 
-                        background: #F8F8FA;
-                        -webkit-appearance: none;
-                        outline: none;
-                        color:#ABABAB;
-                        padding-bottom: 3px;
-                        
-                        &:focus {
-                            border-bottom: 2px solid #048DEE;
-                        }
-                    
+                        overflow:scroll;
+                        overflow-x:hidden;
+                        height:150px;
+                        border : 1px solid #CCCCCC;
                     }
-        
                 }
+
+                .label{
+                    margin-bottom: -10px;
+                    padding: 0px;
+                    
+                }
+
+                .Table{
+
+                    
+
+                    thead {
+                        tr {
+                            height: 30px;
+                            border-bottom: 1px solid #ddd;
+                            
+                            th {
+                                color: #048DEE;
+                                font-size: 12px;
+                            }
+                            
+                        }
+                    }
+                
+                    tbody {
+                        tr {
+                            height: 25px;
+                            border-bottom: 1px solid #eee;
+                
+                            td {
+                                color: #646464;
+                                font-size: 13px;
+                            }
+
+                            td[align="center"] {
+                                text-align: center;
+                            }
+                        }
+                    }
+                }
+
             }
         }
     }
