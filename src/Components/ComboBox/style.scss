@@ -1,0 +1,23 @@
+.ComboBox {
+	cursor: pointer;
+	width: 100%;
+    height: auto;
+    line-height: 21px;
+    font-size: 14px;
+    font-weight: 500;
+    border-bottom: 1px solid #DDDDDD; 
+    background: #F8F8FA;
+    outline: none;
+    color:#ABABAB;
+    padding-bottom: 10px;
+
+
+	&:focus {
+        border-bottom: 2px solid #048DEE;
+        color:black;
+    }
+
+}
+
+
+
