@@ -1,100 +1,107 @@
 .main {
-    width:100%;
-    height: 100%;
-    padding:10px;
-    
-    .explain {
-        width:370px;
-        height: 100%;
-        border-right: 1px solid #CCCCCC;
-        padding-right: 10px;
+	width: 100%;
+	height: 100%;
+	padding: 10px;
 
-        
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
+	.explain {
+		width: 370px;
+		height: 100%;
+		border-right: 1px solid #CCCCCC;
+		padding-right: 10px;
+		overflow: hidden;
+		display: flex;
+		flex-direction: column;
 
-        .title{
-            width:100%;
-            height: 110px;
-            border-bottom:1px solid #EEEEEE;
-            .language{
-                width:70px;
-                height:35px;
-                font-size: 20px;
-                background: #F6FBFF;
-		        border: 1px solid #86C3EE;
-                color: #86C3EE;
-                text-align: center;
-                float:left;
-                padding: 1px;
-            }
-            .text{
-                width: 270px;
-                font-size: 17px;
-                color:#646464;
-                float: right;
-            }
-        }
-        .middle{
-            overflow-y:scroll;
-            .description {
-                width: 100%;
-                padding: 10px;
-                border-bottom: 1px solid #EEEEEE;
-                min-height: 400px;
-                p {
-                    white-space: pre-wrap;
-                    word-break: break-all;
-                    font-size: 15px;
-                    color: #646464;
-                }
-            }
-            .bottom{
-                width: 100%;
-                padding: 15px;
-                .escape {
-                    font-size: 14px;
-                    color:#646464;
-                    margin-bottom: 10px;
-                }
-                .example{
-                    width: 100%;
-                    padding: 12px 0px;
-                    p{
-                        font-size: 20px;
-                        color:#646464;
-                        margin-bottom: 10px;
-                        font-weight: 400;
-                    }
+		.title {
+			width: 100%;
+			padding-bottom: 10px;
+			border-bottom: 1px solid #EEEEEE;
 
-                    .input, .output {
-                        width:100%;
-                        font-size: 18px;
-                        padding: 3px 8px;
-                    }
+			.language {
+				width: 70px;
+				height: 35px;
+				font-size: 20px;
+				background: #F6FBFF;
+				border: 1px solid #86C3EE;
+				color: #86C3EE;
+				text-align: center;
+				float: left;
+				padding: 1px;
+			}
 
-                    .input{
-                        background: #F6FBFF;
-                        border: 1px solid #86C3EE;
-                        color: #86C3EE;
-                        margin: 15px 0px;
-                    }
-                    .output{
-                        background: #F5FBF7;
-                        border: 1px solid #88BA97;
-                        color: #88BA97;
-                    }
-                }
-            }
-        }
-        
-        
+			.text {
+				width: 270px;
+				font-size: 17px;
+				color: #646464;
+				float: right;
+			}
+		}
 
-        
-    }
+		.middle {
+			overflow-y: scroll;
 
-    .codeEditor{
+			.description {
+				width: 100%;
+				padding: 10px;
+				border-bottom: 1px solid #EEEEEE;
+				min-height: 400px;
 
-    }
+				p {
+					white-space: pre-wrap;
+					word-break: break-all;
+					font-size: 15px;
+					color: #646464;
+				}
+			}
+
+			.bottom {
+				width: 100%;
+				padding: 15px;
+
+				.escape {
+					font-size: 14px;
+					color: #646464;
+					margin-bottom: 10px;
+				}
+
+				.example {
+					width: 100%;
+					padding: 12px 0px;
+
+					p {
+						font-size: 20px;
+						color: #646464;
+						margin-bottom: 10px;
+						font-weight: 400;
+					}
+
+					.input,
+					.output {
+						width: 100%;
+						font-size: 18px;
+						padding: 3px 8px;
+					}
+
+					.input {
+						background: #F6FBFF;
+						border: 1px solid #86C3EE;
+						color: #86C3EE;
+						margin: 15px 0px;
+					}
+
+					.output {
+						background: #F5FBF7;
+						border: 1px solid #88BA97;
+						color: #88BA97;
+					}
+				}
+			}
+		}
+
+
+
+
+	}
+
+	.codeEditor {}
 }
