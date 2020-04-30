@@ -1,0 +1,22 @@
+.codeViewer{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-end;
+
+.codeArea{
+        resize : none;
+        overflow:scroll;
+        overflow-x: hidden;
+        border : 1px solid #646464;
+        width: 100%;
+        min-height: 400px;
+        max-height: 85%;
+    }
+
+
+.submit{
+    cursor: pointer;
+    }
+}
