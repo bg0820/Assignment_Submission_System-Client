@@ -2,6 +2,8 @@
 	width: 100%;
 	height: 100%;
 	padding: 10px;
+	display: flex;
+	flex-direction: row;
 
 	.explain {
 		width: 370px;
@@ -30,7 +32,6 @@
 			}
 
 			.text {
-				width: 270px;
 				font-size: 17px;
 				color: #646464;
 				float: right;
@@ -103,5 +104,8 @@
 
 	}
 
-	.codeEditor {}
+	.codeEditor {
+		padding-left : 10px;
+		flex: 1;
+	}
 }
