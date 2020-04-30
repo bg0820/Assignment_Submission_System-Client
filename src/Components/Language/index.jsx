@@ -6,15 +6,17 @@ const Language = props => {
     let clsName = "Language ";
     let colorClsName = "color-default";
 
-    if(props.language === 'C/C++') {
+    if(props.language.toLowerCase() === 'c') 
         colorClsName = "color-blue";
-    } else if(props.language === 'Java') {
+    else if(props.language.toLowerCase() === 'c++')
+        colorClsName = "color-blue";
+     else if(props.language.toLowerCase() === 'java') 
         colorClsName = "color-green";
-    } else if(props.language === 'Html') {
+     else if(props.language.toLowerCase() === 'html') 
         colorClsName = "color-pink";
-    } else if(props.language === 'Python') {
+     else if(props.language.toLowerCase() === 'python') 
         colorClsName = "color-yellow";
-    }
+    
 
     clsName += colorClsName;
 
