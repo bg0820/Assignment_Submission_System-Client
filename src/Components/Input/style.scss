@@ -14,4 +14,16 @@
     &::placeholder {
         color: #ABABAB;
     }
+
+    &.height {
+        &-default {
+            height: 50px;
+            line-height: 50px;
+        }
+
+        &-small {
+            height: 35px;
+            line-height: 35px;
+        }
+    }
 }

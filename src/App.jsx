@@ -9,8 +9,8 @@ import AssignmentListPage from "./Pages/AssignmentList";
 import LecutrePage from "./Pages/Lecture";
 import LecutreStudentPage from "./Pages/LectureStudent";
 import AssignmentListPro from "./Pages/AssignmentListPro";
-import AssignmentAdd from "./Pages/AssignmentAdd";
 import CreateLecturePage from "./Pages/CreateLecture";
+import AssignmentAdd from "./Pages/AssignmentAdd";
 
 import "./index.scss";
 

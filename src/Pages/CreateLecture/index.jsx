@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef, memo } from "react";
 
-import Input from '@components/InputType';
+import Input from '@components/Input';
 import Button from '@components/Button';
 import MainLayout from '@templates/MainLayout';
 import ComboBox from '@components/ComboBox';

@@ -22,13 +22,9 @@ const Input = props => {
     };
 
     if (props.height) {
-        clsName += " height_" + props.height;
-    } else clsName += " height_default";
-
-    if (props.design) {
-        clsName += " style_" + props.design;
-    }
-
+        clsName += " height-" + props.height;
+    } else clsName += " height-default";
+    
     if (props.width) {
         style.width = props.width;
     }
