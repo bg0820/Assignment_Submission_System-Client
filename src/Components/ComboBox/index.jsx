@@ -8,8 +8,8 @@ import "./style.scss";
     height - %, px
     color - zzz
 */
-const InputType = props => {
-    let clsName = "InputType ";
+const ComboBox = props => {
+    let clsName = "ComboBox ";
     let colorClsName = "color-default";
 
     if (props.color) colorClsName = "color-" + props.color;
@@ -21,10 +21,8 @@ const InputType = props => {
     };
 
     return (
-        <input type="input"
+        <select
             className={clsName}
-            value={props.value}
-            placeholder={props.placeholder}
             onClick={props.onClick ? handleClick : null}
             
             style={{
@@ -33,9 +31,14 @@ const InputType = props => {
                 margin: props.margin ? props.margin : "0",
                 padding: props.padding ? props.padding : "0"
             }}
-            
-        ></input>
+        >
+            <option selected disabled hidden>언어를 선택하세요.</option>
+            <option>Java</option>
+            <option>Html</option>
+            <option>Python</option>
+            <option>C</option>
+        </select>
     );
 };
 
-export default InputType;
+export default ComboBox;

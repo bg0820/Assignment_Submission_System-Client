@@ -1,0 +1,103 @@
+.CreateLecturePage {
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.3);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(5px);
+    
+    .CreateLecture {
+        position: relative;
+        width: 380px;
+        background: #F8F8FA;
+        border: 1px solid #DDDDDD;
+        border-radius: 15px;
+        box-shadow: 0px 0px 10px#A8A8A8;
+        padding: 20px 20px;
+
+        .Title {
+            width: 100%;
+            height: auto;
+            line-height: 35px;
+            font-size: 20px;
+            color: #838383;
+            text-align : left;
+            margin-bottom: 10px;
+        }
+        
+        .InfoInput{
+            width: 100%;
+            height: auto;
+    
+            ul{
+                list-style: none;
+                position: relative;
+                float: left;
+                    
+                width: 90%;
+                right: -5%;
+                margin : 15px 0px;
+        
+                li{
+                    display: flex;
+                    flex-direction: row;
+                    width: 100%;
+                    margin-bottom:15px;
+
+                    .tableStyle{
+                        width: 100%;
+                        overflow:scroll;
+                        overflow-x:hidden;
+                        height:150px;
+                        border : 1px solid #CCCCCC;
+                    }
+                }
+
+                .label{
+                    margin-bottom: -10px;
+                    padding: 0px;
+                    
+                }
+
+                .Table{
+
+                    
+
+                    thead {
+                        tr {
+                            height: 30px;
+                            border-bottom: 1px solid #ddd;
+                            
+                            th {
+                                color: #048DEE;
+                                font-size: 12px;
+                            }
+                            
+                        }
+                    }
+                
+                    tbody {
+                        tr {
+                            height: 25px;
+                            border-bottom: 1px solid #eee;
+                
+                            td {
+                                color: #646464;
+                                font-size: 13px;
+                            }
+
+                            td[align="center"] {
+                                text-align: center;
+                            }
+                        }
+                    }
+                }
+
+            }
+        }
+    }
+}
