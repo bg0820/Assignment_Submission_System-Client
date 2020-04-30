@@ -3,9 +3,26 @@ import MainLayout from "@templates/MainLayout";
 import Table from "@components/Table";
 import Language from "@components/Language";
 
+import * as Util from "@util";
 import './style.scss';
 
 const AssignmentListPage = props => {
+
+    const [list, setList] = useState([]);
+
+    useEffect(() => {
+        Util.requestServer('task/list', 'GET', {}).then(function(result) {
+            console.log(result);
+            if(result.code === 200) {
+                setList(result.body.list);
+            } else {
+                //alert(result.body.msg);
+            }
+        });
+    }, []);
+
+    /*
+>>>>>>> Stashed changes
     let data = [
         {
             professorName: '이승진',
@@ -43,7 +60,7 @@ const AssignmentListPage = props => {
             grade: 100,
             expireDate:'2020/04/02 PM 12:00'
         }
-    ]
+    ]*/
 
     
 
@@ -80,7 +97,8 @@ const AssignmentListPage = props => {
     ]
 
 
-    let childElement = data.map((item, idx) => {
+    let childElement = list.map((item, idx) => {
+
         return (
             <tr key={idx}>
                 <td align="center">{item.professorName}</td>
