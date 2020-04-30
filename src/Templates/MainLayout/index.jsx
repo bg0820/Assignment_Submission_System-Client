@@ -11,6 +11,7 @@ import Button from "@components/Button";
 
 import "./style.scss";
 
+
 const MainLayout = props => {
     const textBtnClick = event => {
         console.log(event);
@@ -22,8 +23,8 @@ const MainLayout = props => {
                 <div className="Top">
                     <div className="VisibleMenu"></div>
                     <div className="UserInfo">
-                        <p className="studentNumber">201734005</p>
-                        <p className="studentName">홍길동</p>
+                        <p className="studentNumber">{props.number}</p>
+                        <p className="studentName">{props.name}</p>
                     </div>
                 </div>
                 <div className="MainMenu">
@@ -45,9 +46,9 @@ const MainLayout = props => {
                     </ul>
                 </div>
                 <div className="SubMenu">
-                <div className="lectureInfo">
-                        <p className="lectureName">Java 프로그래밍</p>
-                        <p className="professorName">홍길동</p>
+                    <div className="lectureInfo">
+                        <p className="lectureName">{props.lectureName}</p>
+                        <p className="professorName">{props.professorName}</p>
                     </div>
                     <ul>
                         <li>
