@@ -3,48 +3,23 @@ import MainLayout from "@templates/MainLayout";
 import Table from "@components/Table";
 import Language from "@components/Language";
 
+import * as Util from "@util";
 import './style.scss';
 
 const AssignmentListPage = props => {
-    let data = [
-        {
-            professorName: '이승진',
-            courseName: '캡스톤디자인',
-            assignmentName:'1차 릴리즈 완성',
-            language: 'C/C++',
-            submitType:'제출',
-            grade: 100,
-            expireDate:'2020/04/02 PM 12:00'
-        },
-        {
-            professorName: '이승진',
-            courseName: 'ㄱ',
-            assignmentName:'ㄴ',
-            language: 'Python',
-            submitType:'미제출',
-            grade: 100,
-            expireDate:'2020/04/02 PM 12:00'
-        },
-        {
-            professorName: '이승진',
-            courseName: 'ㄱ',
-            assignmentName:'ㄴ',
-            language: 'Java',
-            submitType:'제출',
-            grade: 100,
-            expireDate:'2020/04/02 PM 12:00'
-        },
-        {
-            professorName: '이승진',
-            courseName: 'ㄱ',
-            assignmentName:'ㄴ',
-            language: 'Html',
-            submitType:'미제출',
-            grade: 100,
-            expireDate:'2020/04/02 PM 12:00'
-        }
-    ]
 
+    const [list, setList] = useState([]);
+
+    useEffect(() => {
+        Util.requestServer('task/list', 'GET', {}).then(function(result) {
+            console.log(result);
+            if(result.code === 200) {
+                setList(result.body.list);
+            } else {
+                //alert(result.body.msg);
+            }
+        });
+    }, []);
     
 
     let headerItem= [
@@ -80,7 +55,8 @@ const AssignmentListPage = props => {
     ]
 
 
-    let childElement = data.map((item, idx) => {
+    let childElement = list.map((item, idx) => {
+
         return (
             <tr key={idx}>
                 <td align="center">{item.professorName}</td>
