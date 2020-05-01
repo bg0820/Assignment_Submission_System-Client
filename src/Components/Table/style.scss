@@ -15,8 +15,14 @@
 
 	tbody {
 		tr {
-			height: 50px;
+			cursor: pointer;
+			height: 60px;
 			border-bottom: 1px solid #eee;
+
+			&:hover {
+				background: #F5FAFF;
+				color: #5FA8F3;
+			}
 
 			td {
 				color: #646464;
