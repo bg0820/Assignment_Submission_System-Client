@@ -9,11 +9,10 @@
 		background: #F8F8FA;
 		border-right: 1px solid #DDDDDD;
 		height: 100%;
-		width: 220px;
-		padding: 10px 10px;
+		min-width: 220px;
 
 		.Top {
-			padding-bottom: 10px;
+			padding: 10px;
 			overflow: hidden;
 			border-bottom: 1px solid #DDDDDD;
 
@@ -44,15 +43,32 @@
 
 		.MainMenu {
 			border-bottom: 1px solid #DDDDDD;
+		}
 
+		.nav {
 			ul {
 				list-style: none;
 
 				li {
-					display: flex;
-					align-items: center;
-					height: 60px;
-					width: 100%;
+					padding-left: 10px;
+					padding-right: 10px;
+					cursor: pointer;
+
+					a {
+						display: flex;
+						align-items: center;
+						height: 60px;
+						width: 100%;
+					}
+
+					&.select {
+						background: #E4F3FF;
+						border-right: 5px solid #048DEE;
+					}
+
+					&:hover {
+						background: #E4F3FF;
+					}
 
 					.lectureIcon,
 					p,
@@ -94,10 +110,14 @@
 			}
 		}
 
-		.SubMenu {padding-top: 10px;
+		.SubMenu {
+			padding-top: 10px;
+
 			.lectureInfo{
 				margin-left: 5px;
 				margin-right: 5px;
+				margin-bottom: 10px;
+				padding: 0px 10px;
 			}
 			
 			.lectureName{
@@ -111,49 +131,11 @@
 			}
 
 			ul {
-				list-style: none;
-
 				li {
-					display: flex;
-					align-items: center;
 					height: 50px;
-					width: 100%;
 
-					.lectureIcon,
-					p,
-					.notification {
-						float: left;
-					}
-
-					.lectureIcon {
-						width: 24px;
-						height: 24px;
-						margin-left: 10px;
-						margin-right: 15px;
-					}
-
-					p {
-						flex: 1;
-						line-height: 24px;
-						font-size: 16px;
-						color: #848484;
-					}
-
-					.notification {
-						float: right;
-						display: flex;
-						justify-content: center;
-						align-items: center;
-
-						p {
-							color: #fff;
-							font-size: 13px;
-							line-height: 24px;
-							width: 35px;
-							background: #FF6464;
-							border-radius: 8px;
-							text-align: center;
-						}
+					a {
+						height: 50px;
 					}
 				}
 			}
@@ -161,8 +143,10 @@
 
 		.Bottom {
 			position: absolute;
+			cursor: pointer;
 			bottom: 20px;
-			left: 20px;
+			padding-left: 20px;
+			width: 100%;
 
 			.logoutIcon,
 			.logoutText {
@@ -181,10 +165,12 @@
 				color: #838383;
 				line-height: 24px;
 			}
+
 		}
 	}
 
-	.Content { 
+	.Content {
 		flex: 1;
+		padding: 10px;
 	}
 }
