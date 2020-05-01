@@ -3,17 +3,7 @@ import React, { useEffect, useState, memo } from "react";
 import "./style.scss";
 
 const Input = props => {
-    const handleChange = e => {
-        props.onChange(e);
-    };
 
-    const handleBlur = e => {
-        props.onBlur(e);
-    };
-
-    const handleClick = e => {
-        props.onClick(e);
-    };
 
     let clsName = "form-control";
     let style = {
@@ -55,11 +45,11 @@ const Input = props => {
                     : props.value
             }
             min={props.min}
-            onChange={handleChange}
-            onClick={props.onClick ? handleClick : null}
-            onBlur={props.onBlur ? handleBlur : null}
+            onChange={props.onChange}
+            onClick={props.onClick ? props.onClick : null}
+            onBlur={props.onBlur ? props.onBlur : null}
         ></input>
     );
 };
 
-export default Input;
+export default memo(Input);
