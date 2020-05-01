@@ -26,69 +26,39 @@
             font-size: 20px;
             color: #838383;
             text-align : left;
-            margin-bottom: 10px;
+            margin-bottom: 20px;
         }
     
         
         .InfoInput{
             width: 100%;
-            height: auto;
     
-            ul{
-                list-style: none;
-                position: relative;
-                float: left;
-                    
+            .wrap {
                 width: 90%;
-                right: -5%;
-                margin : 15px 0px;
-        
-                li{
-                    display: flex;
-                    flex-direction: row;
-                    width: 100%;
-                    margin-bottom:15px;
-        
-                }
+                margin: 0 auto;
             }
         }
     
         .Bottom{
-    
-            position: relative;
+            position: relative; 
+            padding-top: 10px;
+            width: 90%;
+            margin: 0 auto;
+
+            .findDirect {
                 float: left;
-                
-                width: 90%;
-                right: -5%;
-    
-            .IdPwButton{
-                cursor: pointer;
-                background: #F8F8FA;
-                color : #048DEE;
-                text-align: left;
-                float: left;
-                font-size: 13px;
-                margin-bottom : 10px;
+                margin-bottom: 10px;
             }
-    
-            .EnrollButton{
-                cursor: pointer;
-                background: #F8F8FA;
-                color : #048DEE;
-                text-align: right;
-                float: right; 
-                font-size: 13px;
-                margin-bottom : 10px;
+
+            .regDirect {
+                float: right;
+                margin-bottom: 10px;
             }
-    
-        
+            
+            a {
+                font-size: 13px;
+                color : #048DEE;
+            }
         }
     }
-        /*.Login {
-            
-        }*/
-    
-        
-    
-    
 }
