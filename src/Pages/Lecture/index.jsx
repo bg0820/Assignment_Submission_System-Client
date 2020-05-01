@@ -1,84 +1,101 @@
 import React, { useEffect, useState, useRef, memo } from "react";
+import { observer, inject } from "mobx-react";
+
 import MainLayout from "@templates/MainLayout";
 import Table from "@components/Table";
 import Language from "@components/Language";
 
+import * as Util from "@util";
 import './style.scss';
 
 const LecturePage = props => {
-    let data = [
-        {
-            professorName: '이승진',
-            courseName: 'ㄱ',
-            language: 'C/C++',
-            grade: 100
-        },
-        {
-            professorName: '이승진',
-            courseName: 'ㄴ',
-            language: 'Python',
-            grade: 100
-        },
-        {
-            professorName: '이승진',
-            courseName: 'ㄷ',
-            language: 'Java',
-            grade: 100
-        },
-        {
-            professorName: '이승진',
-            courseName: 'ㄹ',
-            language: 'Html',
-            grade: 100
-        },
-    ]
+    const {storeMain, storeLecture}=props;
+    const [list, setList] = useState([]);
+    let headerItem = [];
+    let childElement = null;
 
+    useEffect(() => {
+        Util.requestServer('course/list', 'GET', {}).then(function(result) {
+            console.log(result);
+            if(result.code === 200) {
+                setList(result.body.list);
+            }
+        });
+    }, []);
     
+    const handleLecture = (item) => {
+        storeLecture.selectLectureItem(item);
+    }
 
-    let headerItem= [
-        {
-            text: '교수 이름',
-            width: '100px',
-            align: 'center'
-        },
-        {
-            text: '수강 강의명',
-            align: 'left'
-        },
-        {
-            text: '언어',
-            width: '100px'
-        },
-        {
-            text: '성적',
-            width: '100px'
-        }
-    ]
-
-    let childElement = data.map((item, idx) => {
-        return (
-            <tr key={idx}>
-                <td align="center">{item.professorName}</td>
-                <td align="left" >{item.courseName}</td>
-                <td align="center">
-                    <Language language={item.language}>
-                    </Language>
-                </td>
-                <td align="center" >{item.grade}</td>
-            </tr>
-        )
-    });
-
+    if(storeMain.userType === 0) {
+        headerItem = [
+            {
+                text: '교수 이름',
+                width: '100px',
+                align: 'center'
+            },
+            {
+                text: '수강 강의명',
+                align: 'left'
+            },
+            {
+                text: '언어',
+                width: '100px'
+            },
+            {
+                text: '성적',
+                width: '100px'
+            }
+        ];
+        childElement = list.map((item, idx) => {
+            return (
+                <tr key={item.courseIdx} onClick={(e) => handleLecture(item)}>
+                    <td align="center">{item.professorName}</td>
+                    <td align="left" >{item.courseName}</td>
+                    <td align="center">
+                        <Language language={item.language}>
+                        </Language>
+                    </td>
+                    <td align="center" >{item.grade ? item.grade + '점' : '없음'}</td>
+                </tr>
+            )
+        });
+    } else {
+        headerItem= [
+            {
+                text: '강의명',
+                align: 'left'
+            },
+            {
+                text: '학생수',
+                width: '100px'
+            },
+            {
+                text: '언어',
+                width: '100px'
+            }
+        ]
+        childElement = list.map((item, idx) => {
+            return (
+                <tr key={item.courseIdx} data-num={idx} onClick={(e) => handleLecture(item)}>
+                    <td align="left">{item.professorName}</td>
+                    <td align="center" >{item.courseName}</td>
+                    <td align="center">
+                        <Language language={item.language}>
+                        </Language>
+                    </td>
+                </tr>
+            )
+        });
+    }
 
     return (
         <MainLayout>
-
             <Table header={headerItem}  className="lectureTable">
                 {childElement}
             </Table>
-
         </MainLayout>
     );
 };
 
-export default LecturePage;
+export default inject('storeMain', 'storeLecture')(observer(LecturePage));

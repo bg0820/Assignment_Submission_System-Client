@@ -6,33 +6,9 @@ import Language from "@components/Language";
 import './style.scss';
 
 const LectureStudentPage = props => {
-    let data = [
-        {
-            professorName: '이승진',
-            courseName: 'ㄱ',
-            language: 'C/C++',
-            grade: 100
-        },
-        {
-            professorName: '이승진',
-            courseName: 'ㄴ',
-            language: 'Python',
-            grade: 100
-        },
-        {
-            professorName: '이승진',
-            courseName: 'ㄷ',
-            language: 'Java',
-            grade: 100
-        },
-        {
-            professorName: '이승진',
-            courseName: 'ㄹ',
-            language: 'Html',
-            grade: 100
-        },
-    ]
-
+    useEffect(() => {
+        
+    }, []);
     
 
     let headerItem= [
