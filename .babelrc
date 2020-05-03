@@ -31,7 +31,7 @@
 					"@pages": "./src/Pages",
 					"@router": "./src/Router",
 					"@store": "./src/Store",
-					"@system": "./src/System",
+					"@systems": "./src/Systems",
 					"@templates": "./src/Templates",
 					"@util": "./src/Util"
 				}

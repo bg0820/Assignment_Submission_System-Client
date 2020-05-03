@@ -1,122 +1,156 @@
-.add {
-    width:100%;
-    height: 100%;
-    padding:10px;
-    
-    .explain {
-        width:370px;
-        height: 100%;
-        border-right: 1px solid #CCCCCC;
-        padding-right: 10px;
-        overflow: hidden;
-        display: flex;
-        flex-direction: column;
-        form{
-            max-height:100%;
-            width: 100%;
-        .title{
-            width:100%;
-            height: auto;
-            border-bottom:1px solid #EEEEEE;
-            padding: 5px;
-            overflow: hidden;
-            
-            .language{
-                width:70px;
-                height:35px;
-                font-size: 11px;
-                background: #F6FBFF;
-		        border: 1px solid #86C3EE;
-                color: #86C3EE;
-                text-align-last: center;
-                float: left;
-                padding: 1px;
-                -webkit-appearance:none;
-	            -moz-appearance:none;
-	            appearance:none
-            }
-            .text{
-                width: 270px;
-                min-height: 35px;
-                font-size: 12px;
-                border-bottom: 1px solid #CCCCCC;
-                background-color: transparent;
-                outline:none;
-                padding-top: 5px;
-                padding-left: 5px;
-                color:#646464;
-                float: right;
-                resize:none;
-                margin-bottom: 10px;
-                overflow-y:hidden;
+.AssignmentAdd {
+	width: 100%;
+	height: 100%;
+	display: flex;
 
-                &:focus {
-                    border-bottom: 2px solid #048DEE;
-                }
+	.text {
+		min-height: 35px;
+		height: 35px;
+		font-size: 12px;
+		line-height: 22px;
+		border-bottom: 1px solid #CCCCCC;
+		background-color: transparent;
+		outline: none;
+		padding-top: 5px;
+		padding-left: 5px;
+		color: #646464;
+		resize: none;
+		overflow-y: hidden;
 
-                &::placeholder {
-                    color: #ABABAB;
-                }
-            }
-        }
-        .middle{
-            overflow-y:scroll;
-            padding: 10px;
-            
-            .content {
-                width: 100%;
-                padding: 10px;
-                border-bottom: 1px solid #CCCCCC;
-                height: 50px;
-                font-size: 15px;
-                color: #646464;
-                outline:none;
-                resize:none;
-                overflow-y:hidden;
-            }
-            .bottom{
-                width: 100%;
-                padding-top: 15px;
-                .example{
-                    width: 100%;
-                    padding: 15px 0px;
-                    p{
-                        font-size: 20px;
-                        color:#646464;
-                        margin-bottom: 10px;
-                        font-weight: 400;
-                    }
-                    .input, .output {
-                        width:100%;
-                        font-size: 18px;
-                        padding: 3px 8px;
-                        outline:none;
-                        resize:none;
-                        overflow-y:hidden;
-                        min-height: 70px;
-                    }
+		&:focus {
+			border-bottom: 2px solid #048DEE;
+		}
 
-                    .input{
-                        background: #F6FBFF;
-                        border: 1px solid #86C3EE;
-                        color: #86C3EE;
-                        margin: 15px 0px;
-                    }
-                    .output{
-                        background: #F5FBF7;
-                        border: 1px solid #88BA97;
-                        color: #88BA97;
-                    }
-                }
-            }
-        }
-    }
-        
+		&::placeholder {
+			color: #ABABAB;
+		}
+	}
 
-        
-    }
+	.explain {
+		position: relative;
+		width: 370px;
+		height: 100%;
+		border-right: 1px solid #CCCCCC;
+		padding-right: 10px;
+		overflow: hidden;
+		display: flex;
+		flex-direction: column;
+		float: left;
 
-    .codeEditor{
+		.title {
+			width: 100%;
+			height: auto;
+			border-bottom: 1px solid #eee;
+			padding: 5px;
+			overflow: hidden;
 
-    }
+			display: flex;
+			flex-direction: row;
+
+			.language {
+				width: 70px;
+				height: 35px;
+				font-size: 11px;
+				background: #F6FBFF;
+				border: 1px solid #86C3EE;
+				color: #86C3EE;
+				text-align-last: center;
+				float: left;
+				padding: 1px;
+				-webkit-appearance: none;
+				-moz-appearance: none;
+				appearance: none;
+				margin-right: 5px;
+				border-radius: 0px;
+			}
+
+			.text {
+				flex: 1;
+				margin-bottom: 5px;
+			}
+		}
+
+		.middle {
+			overflow-y: auto;
+			padding: 10px;
+			flex: 1;
+
+			hr {
+				margin: 15px 0px;
+			}
+
+			.item_title {
+				font-size: 11px;
+				color: #646464;
+				padding-left: 5px;
+				padding-bottom: 5px;
+			}
+
+			.text {
+				width: 100%;
+			}
+
+			.date {
+
+				.wrap {
+					margin-bottom: 15px;
+				}
+
+				.extend {
+
+					.typeLabel {
+						font-size: 13px;
+						color: #646464;
+						padding-right: 15px;
+					}
+
+					.extendType {
+						margin: 0px 5px;
+						-webkit-appearance: checkbox;
+
+					}
+
+					.extendDate {}
+				}
+			}
+		}
+	}
+
+	.code {
+		flex: 1;
+		display: flex;
+		flex-direction: column;
+		float: left;
+		padding-left: 10px;
+
+		.testTitle {
+			font-size: 16px;
+			color: #646464;
+			padding: 10px;
+			border-bottom: 1px solid #CCCCCC;
+			width: 100%;
+		}
+
+		.editor {
+			.content {
+				width: 100%;
+				height: 640px;
+				padding: 10px;
+				border-bottom: 1px solid #CCCCCC;
+				font-size: 12px;
+				color: #646464;
+				outline: none;
+				resize: none;
+				overflow-y: hidden;
+			}
+		}
+
+		.result {
+			padding-top: 5px;
+
+			.buttons {
+				float: right;
+			}
+		}
+	}
 }

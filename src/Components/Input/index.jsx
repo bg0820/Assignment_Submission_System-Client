@@ -2,13 +2,10 @@ import React, { useEffect, useState, memo } from "react";
 
 import "./style.scss";
 
-const Input = props => {
-
-
+const Input = (props) => {
     let clsName = "form-control";
     let style = {
         width: "100%",
-        margin: "0"
     };
 
     if (props.height) {

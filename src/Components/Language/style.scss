@@ -1,10 +1,8 @@
 .Language {
-    height: 28px;
-    line-height: 28px;
-    text-align: center;
-    width: 80px;
-    margin: 0 auto;
-
+	height: 35px;
+	line-height: 35px;
+	text-align: center;
+	width: 80px;
 
 	&.color-default {
 		background: #F6FBFF;
@@ -22,15 +20,15 @@
 		background: #F5FBF7;
 		border: 1px solid #88BA97;
 		color: #88BA97;
-    }
-    
-    &.color-yellow {
+	}
+
+	&.color-yellow {
 		background: #FDF5ED;
 		border: 1px solid #FFBA4D;
 		color: #FFBA4D;
-    }
+	}
 
-    &.color-pink {
+	&.color-pink {
 		background: #FEF7FC;
 		border: 1px solid #EFA8DE;
 		color: #EFA8DE;

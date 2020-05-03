@@ -3,13 +3,13 @@
 		tr {
 			height: 50px;
 			border-bottom: 1px solid #ddd;
-			
+
 			th {
 				color: #048DEE;
 				font-size: 13px;
 				font-weight: 500;
 			}
-			
+
 		}
 	}
 
@@ -27,13 +27,19 @@
 			td {
 				color: #646464;
 				font-size: 13px;
+
 			}
 
 			td[align='left'] {
 				padding-left: 5px;
 			}
+
 			td[align="center"] {
 				text-align: center;
+
+				&>* {
+					margin: 0 auto;
+				}
 			}
 		}
 	}

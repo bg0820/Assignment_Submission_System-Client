@@ -1,14 +1,17 @@
-.CodeViewerLayout {
+.CodeEditorLayout {
 	width: 100%;
 	height: 100%;
 	display: flex;
 
 	.text {
-		width: 100%;
 		min-height: 35px;
 		height: 35px;
 		font-size: 12px;
 		line-height: 22px;
+		border-bottom: 1px solid #CCCCCC;
+		background-color: transparent;
+		outline: none;
+		padding-top: 5px;
 		padding-left: 5px;
 		color: #646464;
 		resize: none;
@@ -38,42 +41,53 @@
 			width: 100%;
 			height: auto;
 			border-bottom: 1px solid #eee;
-			padding-bottom: 10px;
+			padding: 5px;
 			overflow: hidden;
 
 			display: flex;
 			flex-direction: row;
 
-			.Language {
+			.language {
+				width: 70px;
+				height: 35px;
+				font-size: 11px;
+				background: #F6FBFF;
+				border: 1px solid #86C3EE;
+				color: #86C3EE;
+				text-align-last: center;
+				float: left;
+				padding: 1px;
+				-webkit-appearance: none;
+				-moz-appearance: none;
+				appearance: none;
 				margin-right: 5px;
+				border-radius: 0px;
+			}
+
+			.text {
+				flex: 1;
+				margin-bottom: 5px;
 			}
 		}
 
 		.middle {
-			position: relative;
 			overflow-y: auto;
-			padding-top: 10px;
+			padding: 10px;
 			flex: 1;
-			display: flex;
-			flex-direction: column;
 
 			hr {
 				margin: 15px 0px;
 			}
 
-			.top {
-				flex: 3;
+			.item_title {
+				font-size: 11px;
+				color: #646464;
+				padding-left: 5px;
+				padding-bottom: 5px;
 			}
 
-			.bottom {
-				flex: 2;
-				overflow: hidden;
-
-				.exampleArea {
-					overflow: scroll;
-					height: 100%;
-					padding-bottom: 30px;
-				}
+			.text {
+				width: 100%;
 			}
 
 			.date {
@@ -133,10 +147,6 @@
 
 		.result {
 			padding-top: 5px;
-
-			.outputMsgArea {
-				float: left;
-			}
 
 			.buttons {
 				float: right;

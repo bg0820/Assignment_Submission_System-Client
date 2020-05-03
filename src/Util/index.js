@@ -50,6 +50,9 @@ export const requestServer = async function(_url, _method, _params) {
 
 
 export const dateForm = function(date, type) {
+	if(date === null)
+		return '';
+		
 	date = new Date(date);
 	var year = date.getFullYear();
 	var month = (date.getMonth() + 1) < 10 ? '0' + (date.getMonth() + 1) : (date.getMonth() + 1);
