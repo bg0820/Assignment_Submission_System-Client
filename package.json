@@ -1,0 +1,45 @@
+{
+	"name": "assignment_submission_system-client",
+	"version": "1.0.0",
+	"description": "과제 제출 시스템",
+	"main": "index.js",
+	"scripts": {
+		"start": "parcel public/index.html -p 3000",
+		"build": "parcel build src/index.js --no-source-maps --out-dir build/",
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/bg0820/Assignment_Submission_System-Client.git"
+	},
+	"author": "bg0820",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/bg0820/Assignment_Submission_System-Client/issues"
+	},
+	"homepage": "https://github.com/bg0820/Assignment_Submission_System-Client#readme",
+	"dependencies": {
+		"@babel/polyfill": "^7.8.3",
+		"@material-ui/core": "^4.9.9",
+		"@types/react": "^16.9.34",
+		"axios": "^0.19.2",
+		"mobx": "^4.15.4",
+		"mobx-react": "^6.1.4",
+		"react": "^16.13.1",
+		"react-dom": "^16.13.1",
+		"react-router-dom": "^5.1.2",
+		"styled-components": "^5.0.0"
+	},
+	"devDependencies": {
+		"@babel/cli": "^7.8.3",
+		"@babel/core": "^7.8.4",
+		"@babel/plugin-proposal-class-properties": "^7.8.3",
+		"@babel/plugin-proposal-decorators": "^7.8.3",
+		"@babel/plugin-transform-runtime": "^7.8.3",
+		"@babel/preset-env": "^7.8.4",
+		"@babel/preset-react": "^7.8.3",
+		"@babel/preset-stage-2": "^7.8.3",
+		"babel-plugin-module-resolver": "^4.0.0",
+		"sass": "^1.25.1-test.1"
+	}
+}

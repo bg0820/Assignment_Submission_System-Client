@@ -1,0 +1,146 @@
+.CodeViewerLayout {
+	width: 100%;
+	height: 100%;
+	display: flex;
+
+	.text {
+		width: 100%;
+		min-height: 35px;
+		height: 35px;
+		font-size: 12px;
+		line-height: 22px;
+		padding-left: 5px;
+		color: #646464;
+		resize: none;
+		overflow-y: hidden;
+
+		&:focus {
+			border-bottom: 2px solid #048DEE;
+		}
+
+		&::placeholder {
+			color: #ABABAB;
+		}
+	}
+
+	.explain {
+		position: relative;
+		width: 370px;
+		height: 100%;
+		border-right: 1px solid #CCCCCC;
+		padding-right: 10px;
+		overflow: hidden;
+		display: flex;
+		flex-direction: column;
+		float: left;
+
+		.title {
+			width: 100%;
+			height: auto;
+			border-bottom: 1px solid #eee;
+			padding-bottom: 10px;
+			overflow: hidden;
+
+			display: flex;
+			flex-direction: row;
+
+			.Language {
+				margin-right: 5px;
+			}
+		}
+
+		.middle {
+			position: relative;
+			overflow-y: auto;
+			padding-top: 10px;
+			flex: 1;
+			display: flex;
+			flex-direction: column;
+
+			hr {
+				margin: 15px 0px;
+			}
+
+			.top {
+				flex: 3;
+			}
+
+			.bottom {
+				flex: 2;
+				overflow: hidden;
+
+				.exampleArea {
+					overflow: scroll;
+					height: 100%;
+					padding-bottom: 30px;
+				}
+			}
+
+			.date {
+
+				.wrap {
+					margin-bottom: 15px;
+				}
+
+				.extend {
+
+					.typeLabel {
+						font-size: 13px;
+						color: #646464;
+						padding-right: 15px;
+					}
+
+					.extendType {
+						margin: 0px 5px;
+						-webkit-appearance: checkbox;
+
+					}
+
+					.extendDate {}
+				}
+			}
+		}
+	}
+
+	.code {
+		flex: 1;
+		display: flex;
+		flex-direction: column;
+		float: left;
+		padding-left: 10px;
+
+		.testTitle {
+			font-size: 16px;
+			color: #646464;
+			padding: 10px;
+			border-bottom: 1px solid #CCCCCC;
+			width: 100%;
+		}
+
+		.editor {
+			.content {
+				width: 100%;
+				height: 640px;
+				padding: 10px;
+				border-bottom: 1px solid #CCCCCC;
+				font-size: 12px;
+				color: #646464;
+				outline: none;
+				resize: none;
+				overflow-y: hidden;
+			}
+		}
+
+		.result {
+			padding-top: 5px;
+
+			.outputMsgArea {
+				float: left;
+			}
+
+			.buttons {
+				float: right;
+			}
+		}
+	}
+}

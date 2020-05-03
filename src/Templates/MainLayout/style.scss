@@ -1,0 +1,176 @@
+.MainLayout {
+	width: 100%;
+	height: 100%;
+	display: flex;
+	flex-direction: row;
+
+	.Menu {
+		position: relative;
+		background: #F8F8FA;
+		border-right: 1px solid #DDDDDD;
+		height: 100%;
+		min-width: 220px;
+
+		.Top {
+			padding: 10px;
+			overflow: hidden;
+			border-bottom: 1px solid #DDDDDD;
+
+			.VisibleMenu {
+				float: left;
+			}
+
+			.UserInfo {
+				float: right;
+
+				.studentNumber,
+				.studentName {
+					text-align: right;
+				}
+
+				.studentNumber {
+					font-size: 18px;
+					font-weight: bold;
+					color: #626262;
+				}
+
+				.studentName {
+					font-size: 14px;
+					color: #848484;
+				}
+			}
+		}
+
+		.MainMenu {
+			border-bottom: 1px solid #DDDDDD;
+		}
+
+		.nav {
+			ul {
+				list-style: none;
+
+				li {
+					padding-left: 10px;
+					padding-right: 10px;
+					cursor: pointer;
+
+					a {
+						display: flex;
+						align-items: center;
+						height: 60px;
+						width: 100%;
+					}
+
+					&.select {
+						background: #E4F3FF;
+						border-right: 5px solid #048DEE;
+					}
+
+					&:hover {
+						background: #E4F3FF;
+					}
+
+					.lectureIcon,
+					p,
+					.notification {
+						float: left;
+					}
+
+					.lectureIcon {
+						width: 24px;
+						height: 24px;
+						margin-left: 10px;
+						margin-right: 15px;
+					}
+
+					p {
+						flex: 1;
+						line-height: 24px;
+						font-size: 16px;
+						color: #848484;
+					}
+
+					.notification {
+						float: right;
+						display: flex;
+						justify-content: center;
+						align-items: center;
+
+						p {
+							color: #fff;
+							font-size: 13px;
+							line-height: 24px;
+							width: 35px;
+							background: #FF6464;
+							border-radius: 8px;
+							text-align: center;
+						}
+					}
+				}
+			}
+		}
+
+		.SubMenu {
+			padding-top: 10px;
+
+			.lectureInfo{
+				margin-left: 5px;
+				margin-right: 5px;
+				margin-bottom: 10px;
+				padding: 0px 10px;
+			}
+			
+			.lectureName{
+				font-size: 18px;
+				font-weight: bold;
+				color: #626262;
+			}
+			.professorName{
+				font-size: 14px;
+				color: #848484;
+			}
+
+			ul {
+				li {
+					height: 50px;
+
+					a {
+						height: 50px;
+					}
+				}
+			}
+		}
+
+		.Bottom {
+			position: absolute;
+			cursor: pointer;
+			bottom: 20px;
+			padding-left: 20px;
+			width: 100%;
+
+			.logoutIcon,
+			.logoutText {
+				float: left;
+			}
+
+			.logoutIcon {
+				width: 24px;
+				height: 24px;
+				margin-right: 15px;
+			}
+
+			.logoutText {
+				font-size: 18px;
+				font-weight: 500;
+				color: #838383;
+				line-height: 24px;
+			}
+
+		}
+	}
+
+	.Content {
+		flex: 1;
+		padding: 10px;
+	}
+}

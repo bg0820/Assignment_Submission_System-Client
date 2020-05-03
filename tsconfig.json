@@ -1,0 +1,22 @@
+{
+	"compilerOptions": {
+		"experimentalDecorators": true,
+		"allowJs": true,
+
+		/////////// React ///////////
+		"jsx": "react", // jsx 지원
+		"jsxFactory": "React.createElement", // jsx 팩토리 함수 설정,
+
+		"allowSyntheticDefaultImports": true,
+		"sourceMap": true,
+		"noImplicitReturns": true,
+		"module": "es2015",
+		"moduleResolution": "node",
+		"target": "es5",
+
+		"strictFunctionTypes": false
+	},
+	"include": [
+		"./src/**/*"
+	]
+}
