@@ -7,6 +7,8 @@ import Textarea from "@components/Textarea";
 import Example from "@components/Example";
 import Language from "@components/Language";
 
+import CodeHighlighter from "@components/CodeHighlighter";
+
 import * as Util from "@util";
 import "./style.scss";
 
@@ -238,7 +240,8 @@ const CodeEditorLayout = (props) => {
             <div className="code">
                 <p className="testTitle">코드 테스트</p>
                 <div className="editor">
-                    <textarea className="content"></textarea>
+                    
+                <CodeHighlighter></CodeHighlighter>
                 </div>
                 <div className="result">
                     <div className="buttons">
