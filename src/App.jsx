@@ -8,6 +8,7 @@ import EditorRouter from "@router/Editor";
 import AssignmentRouter from "@router/Assignment";
 import LecutrePage from "./Pages/Lecture";
 import CreateLecturePage from "./Pages/CreateLecture";
+import MyPage from "./Pages/MyPage";
 
 /*
 import LecutreStudentPage from "./Pages/LectureStudent";
@@ -50,6 +51,7 @@ const App = (props) => {
                     <Route path="/login" component={LoginPage} />
                     <Route path="/editor" component={EditorRouter} />
                     <Route path="/assignment" component={AssignmentRouter} />
+                    <Route path="/MyPage" component={MyPage} />
                     <Route
                         path="/createLecture"
                         component={CreateLecturePage}
