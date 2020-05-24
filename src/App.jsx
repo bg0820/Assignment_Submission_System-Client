@@ -8,7 +8,10 @@ import EditorRouter from "@router/Editor";
 import AssignmentRouter from "@router/Assignment";
 import LecutrePage from "./Pages/Lecture";
 import CreateLecturePage from "./Pages/CreateLecture";
-
+import LectureTalkPage from "./Pages/LectureTalk";
+import NoticeChat from "./Pages/NoticeChat";
+        
+import PwFind from "./Pages/PwFind"; 
 
 /*
 import LecutreStudentPage from "./Pages/LectureStudent";
@@ -55,6 +58,9 @@ const App = (props) => {
                         path="/createLecture"
                         component={CreateLecturePage}
                     />
+                    <Route path="/lectureTalk" component={LectureTalkPage} />
+                    <Route path="/noticeChat" component={NoticeChat} />
+                    <Route path="/pwFind" component={PwFind} /> 
                 </Switch>
             </BrowserRouter>
         </React.Fragment>
