@@ -9,6 +9,8 @@ import AssignmentRouter from "@router/Assignment";
 import LecutrePage from "./Pages/Lecture";
 import CreateLecturePage from "./Pages/CreateLecture";
 
+import PwFind from "./Pages/PwFind"; 
+
 /*
 import LecutreStudentPage from "./Pages/LectureStudent";
 import AssignmentListPro from "./Pages/AssignmentListPro";
@@ -54,6 +56,7 @@ const App = (props) => {
                         path="/createLecture"
                         component={CreateLecturePage}
                     />
+                    <Route path="/pwFind" component={PwFind} /> 
                 </Switch>
             </BrowserRouter>
         </React.Fragment>
