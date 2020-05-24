@@ -1,4 +1,3 @@
-
 import React, { PureComponent, useEffect } from "react";
 import { BrowserRouter, Route, Switch, withRouter } from "react-router-dom";
 import { observer, inject } from "mobx-react";
