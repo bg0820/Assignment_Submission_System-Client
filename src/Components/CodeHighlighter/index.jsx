@@ -49,22 +49,62 @@ const CodeHighlighter = (props) => {
     };
 
     const handleWord = (text) => {
+        let lines = text.split(/\n/g);
+
+        for (var i = 0; i < lines.length; i++) {
+            const words = lines[i].split(/([(){}\s]+)/g);
+
+            const output = words.map((word) => {
+                return visualization(word);
+            });
+
+            lines[i] = output.join("");
+        }
+
+        /*
         text = text.replace(/</g, "&lt").replace(/>/g, "&gt");
+        let functionRegex = /([a-zA-Z_{1}][a-zA-Z0-9_]+)(?=\()/g;
 
-        const words = text.split(/([()\s]+)/g);
+        let functions = text.match(functionRegex);
+
+        for (var i = 0; i < functions.length; i++) {
+            text = text.replace(
+                functionRegex,
+                "<span class='functionType'>" + functions[0] + "</span>"
+            );
+            console.log("function : " + functions[i]);
+        }
+
+        const words = text.split(/([(){}\s]+)/g);
+
         const output = words.map((word) => {
-            // 소괄호 있는지 검사
-            if (/[^()]+(?=\))/g.test(word)) {
-                // 소괄호 안에 있는 내용
-                let smallBracket = word.match(/[^()]+(?=\))/g);
+            // 첫글자는 숫자가 올수 없고 영문만 가능 두번째부터는 숫자 영어 언더바가능 '(' 소괄호 앞까지의 문자 찾기
 
-                return visualization(smallBracket);
+            if (functionRegex.test(word)) {
+                let functions = word.match(functionRegex);
+                // console.log(functions);
+                return "<span class='functionType'>" + functions[0] + "</span>";
             } else {
                 return visualization(word);
             }
         });
 
-        return output.join("");
+        var result = output.join("");
+
+        console.log("result", result);
+
+        /*
+        functions.map((word) => {
+            result = result.replace(
+                /([a-zA-Z_{1}][a-zA-Z0-9_]+)(?=\()/g,
+                "<span class='functionType'>" + word + "</span>"
+            );
+        });*/
+        /*for (var i = 0; i < functions.length; i++) {
+            result.replace(/([a-zA-Z_{1}][a-zA-Z0-9_]+)(?=\()/g, functions[i]);
+        }*/
+
+        return lines.join("<br/>");
     };
 
     const handleCode = (e) => {
@@ -80,6 +120,8 @@ const CodeHighlighter = (props) => {
     const handleKeyDown = (e) => {
         if (e.key === "Tab") {
             e.preventDefault();
+            e.target;
+            console.log(e.target.selectionStart);
         }
     };
 
@@ -92,6 +134,7 @@ const CodeHighlighter = (props) => {
             ></div>
             <textarea
                 ref={editor}
+                spellCheck="false"
                 onChange={handleCode}
                 value={code}
                 onKeyDown={handleKeyDown}
