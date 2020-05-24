@@ -8,7 +8,7 @@ import EditorRouter from "@router/Editor";
 import AssignmentRouter from "@router/Assignment";
 import LecutrePage from "./Pages/Lecture";
 import CreateLecturePage from "./Pages/CreateLecture";
-
+import LectureTalkPage from "./Pages/LectureTalk";
 /*
 import LecutreStudentPage from "./Pages/LectureStudent";
 import AssignmentListPro from "./Pages/AssignmentListPro";
@@ -54,6 +54,7 @@ const App = (props) => {
                         path="/createLecture"
                         component={CreateLecturePage}
                     />
+                    <Route path="/lectureTalk" component={LectureTalkPage} />
                 </Switch>
             </BrowserRouter>
         </React.Fragment>
