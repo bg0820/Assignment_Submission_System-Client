@@ -1,3 +1,4 @@
+
 import React, { PureComponent, useEffect } from "react";
 import { BrowserRouter, Route, Switch, withRouter } from "react-router-dom";
 import { observer, inject } from "mobx-react";
@@ -11,6 +12,8 @@ import CreateLecturePage from "./Pages/CreateLecture";
 import LectureTalkPage from "./Pages/LectureTalk";
 import NoticeChat from "./Pages/NoticeChat";
         
+import PwFind from "./Pages/PwFind"; 
+
 /*
 import LecutreStudentPage from "./Pages/LectureStudent";
 import AssignmentListPro from "./Pages/AssignmentListPro";
@@ -58,6 +61,7 @@ const App = (props) => {
                     />
                     <Route path="/lectureTalk" component={LectureTalkPage} />
                     <Route path="/noticeChat" component={NoticeChat} />
+                    <Route path="/pwFind" component={PwFind} /> 
                 </Switch>
             </BrowserRouter>
         </React.Fragment>
