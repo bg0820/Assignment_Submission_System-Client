@@ -10,6 +10,7 @@ import questionIcon from "@asset/help.svg";
 import gradeIcon from "@asset/exam.svg";
 
 import LectureCreateModal from "@systems/Post/LectureCreate";
+import EvaluateAssignment from "@systems/Post/EvaluateAssignment";
 
 import "./style.scss";
 
@@ -26,6 +27,13 @@ const MainLayout = (props) => {
             ></LectureCreateModal>
         );
 
+    if(storeModal.modalView === "evaluateAssignment")
+        modal = (
+            <EvaluateAssignment
+                modalData={storeModal.modalData}
+            ></EvaluateAssignment>
+        )
+    
     const handleLogout = (e) => {
         sessionStorage["token"] = "";
         storeMain.logout();
