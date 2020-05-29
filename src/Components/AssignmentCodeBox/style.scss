@@ -1,0 +1,41 @@
+.AssignmentCodeBox {
+    border: 1px solid #707070;
+    width: 1250px;
+    height: 360px;
+    padding: 15px;
+    display: flex;
+    flex-direction: row;
+    .left {
+        margin-right: 50px;
+        .studentInfo {
+            margin-bottom: 15px;
+            margin-left: 3px;
+    
+            .studentNumber {
+                font-size: 17px;
+                font-weight: bold;
+                color: #626262;
+            }
+            .studentName {
+                font-size: 13px;
+                color: #848484;
+            }
+        }
+        .result {
+            border: 1px solid #707070;
+            width: 580px;
+            height: 260px;
+        }
+    }
+    .right {
+        text-align: right;
+        .code {
+            margin-top: 18px;
+            border: 1px solid #707070;
+            width: 580px;
+            height: 260px;
+        }
+    }
+    
+    
+}
