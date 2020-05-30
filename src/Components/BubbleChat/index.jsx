@@ -1,26 +1,25 @@
-import React, { useEffect, useState, memo } from "react";
-
-import "./style.scss";
-
-/*
-    * value
-    width - %, px,
-    height - %, px
-    color - zzz
-*/
-const BubbleChat = props => {
-    let clsName = "BubbleChat ";
-    let colorClsName = "color-default";
-
-    if (props.color) colorClsName = "color-" + props.color;
-
+import React, { useEffect, useState, memo } from "react"; 
+ 
+import "./style.scss"; 
+ 
+/* 
+    * value 
+    width - %, px, 
+    height - %, px 
+    color - zzz 
+*/ 
+const BubbleChat = props => { 
+  let clsName = "BubbleChat "; 
+    let colorClsName = "color-default"; 
+ 
+    if (props.color) colorClsName = "color-" + props.color; 
+ 
     clsName += colorClsName;
 
     return (
-        
         <div className={clsName}>
-            <p className="ProName">이승진</p>
-
+          <p className="Name">이승진</p>
+        
             <div className="Chat">
                 <p>안녕하세요.</p>
             </div>
