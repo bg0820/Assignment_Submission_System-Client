@@ -12,8 +12,8 @@ import LectureTalkPage from "./Pages/LectureTalk";
 import NoticeChat from "./Pages/NoticeChat";
 import MyPage from "./Pages/MyPage"; 
 import PwFind from "./Pages/PwFind"; 
-
-
+import NoticeChat from "./Pages/NoticeChat"; 
+        
 /*
 import LecutreStudentPage from "./Pages/LectureStudent";
 import AssignmentListPro from "./Pages/AssignmentListPro";
@@ -63,6 +63,7 @@ const App = (props) => {
                     <Route path="/noticeChat" component={NoticeChat} />
                     <Route path="/pwFind" component={PwFind} /> 
                     <Route path="/MyPage" component={MyPage} /> 
+                      <Route path="/noticeChat" component={NoticeChat} /> 
                 </Switch>
             </BrowserRouter>
         </React.Fragment>
