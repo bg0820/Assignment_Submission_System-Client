@@ -19,7 +19,8 @@ const LectureTalk = (props) => {
                         </BubbleChat>
 
             </TalkLayout>
-        </MainLayout>);
+        </MainLayout>
+    );
 }
 
 export default LectureTalk;

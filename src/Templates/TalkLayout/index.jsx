@@ -19,7 +19,7 @@ const TalkLayout = (props) => {
     };
 
     const btnClick = (e) => {
-
+      
     };
 
     return (

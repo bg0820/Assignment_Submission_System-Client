@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef, memo } from "react";
 import { observer, inject } from "mobx-react";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 
 import Input from "@components/Input";
 import Button from "@components/Button";
@@ -10,7 +10,7 @@ import * as Util from "@util";
 import "./style.scss";
 
 const LoginPage = (props) => {
-    const {storeMain} = props;
+    const { storeMain } = props;
     const [id, setId] = useState("");
     const [pw, setPw] = useState("");
 
@@ -28,13 +28,17 @@ const LoginPage = (props) => {
             pw: pw,
         }).then(async function (result) {
             if (result.code == 200) {
-                sessionStorage['token'] = result.body.token;
+                sessionStorage["token"] = result.body.token;
 
-                let resp = await Util.requestServer('auth/info', 'get', {});
-                storeMain.login(resp.body.info.id, resp.body.info.name, resp.body.info.userType);
+                let resp = await Util.requestServer("auth/info", "get", {});
+                storeMain.login(
+                    resp.body.info.id,
+                    resp.body.info.name,
+                    resp.body.info.userType
+                );
                 alert(result.body.msg);
 
-                props.history.push('/');
+                props.history.push("/");
             } else {
                 alert(result.body.msg);
             }
@@ -56,7 +60,7 @@ const LoginPage = (props) => {
                                 value={id}
                                 onChange={handleIdChange}
                                 margin="0px 0px 10px 0px"
-                                />
+                            />
                             <Input
                                 type="password"
                                 className="Password"
@@ -64,11 +68,11 @@ const LoginPage = (props) => {
                                 value={pw}
                                 onChange={handlePwChange}
                                 margin="0px 0px 10px 0px"
-                                />
+                            />
                         </div>
                     </div>
 
-                    <div className="Bottom">                        
+                    <div className="Bottom">
                         <div className="findDirect">
                             <Link to="/register">아이디/비밀번호 찾기</Link>
                         </div>
@@ -88,6 +92,4 @@ const LoginPage = (props) => {
     );
 };
 
-export default inject(
-    "storeMain"
-)(memo(LoginPage));
+export default inject("storeMain")(memo(LoginPage));
