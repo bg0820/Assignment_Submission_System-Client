@@ -23,5 +23,5 @@ const NoticeChat = (props) => {
         </MainLayout> 
     ); 
 }; 
- 
+  
 export default NoticeChat;

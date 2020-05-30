@@ -20,4 +20,4 @@ const AssignmentAddPage = (props) => {
     return <MainLayout>{codeElem}</MainLayout>;
 };
 
-export default inject("storeMain", "storeTask")(observer(AssignmentAddPage));
+export default inject("storeMain")(observer(AssignmentAddPage));

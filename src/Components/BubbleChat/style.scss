@@ -1,10 +1,9 @@
-    .BubbleChat{
+.BubbleChat{
 		width: 100%;
-        font-size: 15px;
+    font-size: 15px;
 		font-weight: 500;
 		color: #848484;
 		margin-top:10px;
-
 		display: flex;
 		flex-direction: column;
 
@@ -17,40 +16,39 @@
 		}
 
 	    &.color-default {
-			.Name{
-				color: #7BC1F3;
-			}
-			.Chat{
-				background: #F6FBFF;
-				border: 1px solid #7BC1F3;
-				margin-right: auto;
-			}
+        .Name{
+          color: #7BC1F3;
+        }
+        .Chat{
+          background: #F6FBFF;
+          border: 1px solid #7BC1F3;
+          margin-right: auto;
+			  }
 	    }
 
 	    &.color-blue {
-			.Name{
-				color: #7BC1F3;
-			}
-			.Chat{
-				background: #F6FBFF;
-				border: 1px solid #7BC1F3;
-				margin-right: auto;
-			}
+        .Name{
+          color: #7BC1F3;
+        }
+        .Chat{
+          background: #F6FBFF;
+          border: 1px solid #7BC1F3;
+          margin-right: auto;
+        }
 	    }
 
 	    &.color-green {
-			
-			.Name{
-				color: #88BA97;
-				text-align: right;
-			}
-			.Chat{
-				background: #F5FBF7;
-				border: 1px solid #88BA97;
-				margin-left: auto;
-			}
-			.Date{
-				text-align: right;
-			}
+        .Name{
+          color: #88BA97;
+          text-align: right;
         }
-    }
+        .Chat{
+          background: #F5FBF7;
+          border: 1px solid #88BA97;
+          margin-left: auto;
+        }
+        .Date{
+          text-align: right;
+        }
+      }
+}
