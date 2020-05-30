@@ -12,19 +12,13 @@
         width: 100%;
         margin-bottom: 10px;
     }
+
     .talk{
         display: flex;
-        flex-direction: row;
+        flex-direction: column;
         height: 85%;
-        
-        .leftTalk{
-            flex: 1;
-        }
-        .rightTalk{
-            flex: 1;
-            text-align: right;
-        }
     }
+
     .bottom {
         width: 100%;
         margin-top: auto;
