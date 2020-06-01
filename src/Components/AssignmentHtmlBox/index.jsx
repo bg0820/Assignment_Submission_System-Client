@@ -13,7 +13,7 @@ const AssignmentHtmlBox = (props) => {
     const [score, setScore] = useState("");
 
     const handleEvaluation = (e) => {
-        //score에 담겨있는거 서버연동해서 DB로 옮기기
+        
     };
 
     const handleScoreChange = (e) => {
@@ -35,7 +35,7 @@ const AssignmentHtmlBox = (props) => {
     if (codeView)
         codeElem = (
             <div className="codeView">
-                코드내용
+                {props.code}
             </div>
         );
 
@@ -73,7 +73,7 @@ const AssignmentHtmlBox = (props) => {
                     </div>
                 </div>
                 <div className="result">
-                    {props.children}
+                    {props.result}
                 </div>
                 {codeElem}
 

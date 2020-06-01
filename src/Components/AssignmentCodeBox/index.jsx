@@ -28,7 +28,7 @@ const AssignmentCodeBox = (props) => {
                     <p className="studentName">강현지</p>
                 </div>
                 <div className="result">
-
+                    {props.result}
                 </div>
             </div>
             <div className="right">
@@ -48,7 +48,7 @@ const AssignmentCodeBox = (props) => {
                     onClick={handleEvaluation}
                 ></Button>
                 <div className="code">
-
+                    {props.code}
                 </div>
             </div>
         </div>
