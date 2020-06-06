@@ -10,10 +10,9 @@ import LecutrePage from "./Pages/Lecture";
 import CreateLecturePage from "./Pages/CreateLecture";
 import LectureTalkPage from "./Pages/LectureTalk";
 import NoticeChat from "./Pages/NoticeChat";
-import MyPage from "./Pages/MyPage"; 
-import PwFind from "./Pages/PwFind"; 
-import NoticeChat from "./Pages/NoticeChat"; 
-        
+import MyPage from "./Pages/MyPage";
+import PwFind from "./Pages/PwFind";
+
 /*
 import LecutreStudentPage from "./Pages/LectureStudent";
 import AssignmentListPro from "./Pages/AssignmentListPro";
@@ -37,7 +36,8 @@ const App = (props) => {
                     storeMain.login(
                         resp.body.info.id,
                         resp.body.info.name,
-                        resp.body.info.userType
+                        resp.body.info.userType,
+                        resp.body.info.userIdx
                     );
                 });
             } else {
@@ -61,9 +61,9 @@ const App = (props) => {
                     />
                     <Route path="/lectureTalk" component={LectureTalkPage} />
                     <Route path="/noticeChat" component={NoticeChat} />
-                    <Route path="/pwFind" component={PwFind} /> 
-                    <Route path="/MyPage" component={MyPage} /> 
-                      <Route path="/noticeChat" component={NoticeChat} /> 
+                    <Route path="/pwFind" component={PwFind} />
+                    <Route path="/MyPage" component={MyPage} />
+                    <Route path="/noticeChat" component={NoticeChat} />
                 </Switch>
             </BrowserRouter>
         </React.Fragment>

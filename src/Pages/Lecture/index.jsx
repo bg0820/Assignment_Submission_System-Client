@@ -27,6 +27,15 @@ const LecturePage = (props) => {
 
     const handleLecture = (item) => {
         storeLecture.selectLectureItem(item);
+
+        console.log(item);
+        storeMain.socket.emit("message", {
+            token: sessionStorage.token,
+            type: "join",
+            data: {
+                courseIdx: item.courseIdx,
+            },
+        });
     };
 
     const handleFloating = (e) => {
