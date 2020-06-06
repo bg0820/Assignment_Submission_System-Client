@@ -1,29 +1,29 @@
 .TalkLayout {
-    padding : 10px;
-    height: 100%;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
+	padding: 10px;
+	height: 100%;
+	overflow: hidden;
+	display: flex;
+	flex-direction: column;
 
-    .title{
-        font-size: 24px;
-        font-weight: 200;
-        color: #838383;
-        width: 100%;
-        margin-bottom: 10px;
-    }
+	.title {
+		font-size: 24px;
+		font-weight: 200;
+		color: #838383;
+		width: 100%;
+		margin-bottom: 10px;
+	}
 
-    .talk{
-        display: flex;
-        flex-direction: column;
-        height: 85%;
-    }
+	.talk {
+		display: flex;
+		flex-direction: column;
+		overflow: scroll;
+	}
 
-    .bottom {
-        width: 100%;
-        margin-top: auto;
-        display: flex;
-        flex-direction: row;
-    }
-    
+	.bottom {
+		width: 100%;
+		margin-top: auto;
+		display: flex;
+		flex-direction: row;
+	}
+
 }
