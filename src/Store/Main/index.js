@@ -14,7 +14,10 @@ export default class Main {
     id = '';
 
     @observable
-    name = '';
+	name = '';
+	
+	@observable
+	userIdx = -1;
 
     @observable
     userType = 0;
@@ -22,12 +25,13 @@ export default class Main {
 	@action setSocket = (socket) => { 
 		this.socket = socket; 
 	} 
-
-    @action login = (id, name, userType) => {
+	
+    @action login = (id, name, userType, userIdx) => {
         this.isLogin = true;
         this.id = id;
         this.name = name;
-        this.userType = userType;
+		this.userType = userType;
+		this.userIdx = userIdx;
     }
 
     @action logout = () => {

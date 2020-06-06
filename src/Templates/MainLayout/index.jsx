@@ -43,8 +43,8 @@ const MainLayout = (props) => {
                     </p>
                 </div>
                 <ul>
-                    <li className={location === "/assignment1" ? "select" : ""}>
-                        <Link to="/assignment">
+                    <li className={location === "/noticeChat" ? "select" : ""}>
+                        <Link to="/noticeChat">
                             <img className="lectureIcon" src={noticeIcon}></img>
                             <p>공지 톡</p>
                             <div className="notification">
