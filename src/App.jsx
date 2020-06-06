@@ -8,6 +8,7 @@ import EditorRouter from "@router/Editor";
 import AssignmentRouter from "@router/Assignment";
 import LecutrePage from "./Pages/Lecture";
 import CreateLecturePage from "./Pages/CreateLecture";
+import EvaluationPage from "./Pages/AssignmentEvaluation"
 import LectureTalkPage from "./Pages/LectureTalk";
 import NoticeChat from "./Pages/NoticeChat";
 import MyPage from "./Pages/MyPage";
@@ -59,6 +60,7 @@ const App = (props) => {
                         path="/createLecture"
                         component={CreateLecturePage}
                     />
+                    <Route path="/evaluation" component={EvaluationPage} />
                     <Route path="/lectureTalk" component={LectureTalkPage} />
                     <Route path="/noticeChat" component={NoticeChat} />
                     <Route path="/pwFind" component={PwFind} />
