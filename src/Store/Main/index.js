@@ -1,6 +1,8 @@
 import { observable, action } from 'mobx';
 
 export default class Main {
+	@observable 
+	socket = null; 
 
     @observable
     view = '';
@@ -17,6 +19,9 @@ export default class Main {
     @observable
     userType = 0;
 
+	@action setSocket = (socket) => { 
+		this.socket = socket; 
+	} 
 
     @action login = (id, name, userType) => {
         this.isLogin = true;
