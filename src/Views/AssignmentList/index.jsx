@@ -1,35 +1,39 @@
+
 import React, { useEffect, useState, useRef, memo } from "react";
 import { observer, inject } from "mobx-react";
 
-import MainLayout from "@templates/MainLayout";
 import Table from "@components/Table";
 import Language from "@components/Language";
 import FloatingMenu from "@components/FloatingMenu";
 
 import * as Util from "@util";
-import "./style.scss";
 
-const AssignmentListPage = (props) => {
+const AssignmentListView = (props) => {
     const { storeMain, storeLecture, storeTask } = props;
     const [list, setList] = useState([]);
+
     let headerItem = [];
     let childElement = null;
     let createBtnElem = null;
 
     useEffect(() => {
         Util.requestServer("task/list", "GET", {
-            courseIdx: storeLecture.selectLecture.courseIdx,
-        }).then(function (result) {
-            console.log(result);
-            if (result.code === 200) {
-                setList(result.body.list);
-            }
+            courseIdx: props.match.params.courseIdx,
+        }).then(async function (result) {
+          
+                if (result.code === 200) {
+                    setList(result.body.list);
+                }
         });
     }, []);
 
+    
     const handleTask = (item) => {
-        storeTask.selectTaskItem(item);
-        props.history.push("/editor/" + item.taskIdx);
+        storeTask.setSelectTaskItem(item);
+        storeMain.setMenu('editor');
+
+        console.log(props.match.params.courseIdx + "/" + item.taskIdx);
+        props.history.replace('/'+ props.match.params.courseIdx + "/" + item.taskIdx);
     };
 
     const handleFloating = (e) => {
@@ -122,17 +126,19 @@ const AssignmentListPage = (props) => {
     }
 
     return (
-        <MainLayout>
+        <React.Fragment>
             <Table header={headerItem} className="lectureTable">
                 {childElement}
             </Table>
             {createBtnElem}
-        </MainLayout>
+        </React.Fragment>
     );
-};
+
+}
 
 export default inject(
     "storeMain",
-    "storeLecture",
-    "storeTask"
-)(observer(AssignmentListPage));
+    "storeModal",
+    "storeTask",
+    "storeLecture"
+)(observer(AssignmentListView));

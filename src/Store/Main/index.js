@@ -5,7 +5,7 @@ export default class Main {
 	socket = null; 
 
     @observable
-    view = '';
+    menu = 'lectureList';
 
     @observable
     isLogin = false;
@@ -41,8 +41,8 @@ export default class Main {
         this.userType = 0;
     }
 
-    @action setView = (view) => {
-        this.view = view;
+    @action setMenu = (menu) => {
+        this.menu = menu;
     }
 
 }
