@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState, useRef, memo } from "react";
 import { observer, inject } from "mobx-react";
 
@@ -6,7 +5,13 @@ import Table from "@components/Table";
 import Language from "@components/Language";
 import FloatingMenu from "@components/FloatingMenu";
 
+import gradeIcon from "@asset/exam-2.svg";
+import editIcon from "@asset/edit.svg";
+import deleteIcon from "@asset/trash.svg";
+
 import * as Util from "@util";
+
+import "./style.scss";
 
 const AssignmentListView = (props) => {
     const { storeMain, storeLecture, storeTask } = props;
@@ -20,24 +25,40 @@ const AssignmentListView = (props) => {
         Util.requestServer("task/list", "GET", {
             courseIdx: props.match.params.courseIdx,
         }).then(async function (result) {
-          
-                if (result.code === 200) {
-                    setList(result.body.list);
-                }
+            if (result.code === 200) {
+                setList(result.body.list);
+            }
         });
     }, []);
 
-    
     const handleTask = (item) => {
         storeTask.setSelectTaskItem(item);
-        storeMain.setMenu('editor');
+        storeMain.setMenu("editor");
 
         console.log(props.match.params.courseIdx + "/" + item.taskIdx);
-        props.history.replace('/'+ props.match.params.courseIdx + "/" + item.taskIdx);
+        props.history.replace(
+            "/" + props.match.params.courseIdx + "/" + item.taskIdx
+        );
     };
 
     const handleFloating = (e) => {
         props.history.push("/editor");
+    };
+
+    const clickEdit = (item) => {
+        storeTask.selectTaskItem(item);
+        props.history.push("/editor/" + item.taskIdx);
+    };
+
+    const clickGrade = (item) => {};
+
+    const clickDelete = (item) => {
+        console.log(item.taskIdx);
+        /*
+        Util.requestServer("task/delete", "PUT", {
+            taskIdx: e.target,
+        }).then(function (result) {
+        });*/
     };
 
     if (storeMain.userType === 0) {
@@ -60,13 +81,21 @@ const AssignmentListView = (props) => {
                 width: "100px",
             },
             {
+                text: "평가",
+                width: "160px",
+            },
+            {
                 text: "제출 기간",
                 width: "160px",
             },
         ];
         childElement = list.map((item, idx) => {
             return (
-                <tr key={item.taskIdx} onClick={(e) => handleTask(item)}>
+                <tr
+                    key={item.taskIdx}
+                    data-taskidx={item.taskIdx}
+                    onClick={(e) => handleTask(item)}
+                >
                     <td align="left">{item.title}</td>
                     <td align="left">{item.content}</td>
                     <td align="center">
@@ -82,6 +111,7 @@ const AssignmentListView = (props) => {
                     >
                         {item.isSubmission ? "제출" : "미제출"}
                     </td>
+                    <td align="center">{item.score}</td>
                     <td align="center">
                         {Util.dateForm(item.expireDate, "full")}
                     </td>
@@ -107,10 +137,14 @@ const AssignmentListView = (props) => {
                 text: "연장 기간",
                 width: "160px",
             },
+            {
+                text: " ",
+                width: "100px",
+            },
         ];
         childElement = list.map((item, idx) => {
             return (
-                <tr key={item.taskIdx} onClick={(e) => handleTask(item)}>
+                <tr key={item.taskIdx} data-taskidx={item.taskIdx}>
                     <td align="left">{item.title}</td>
                     <td align="left">{item.content}</td>
                     <td align="center">
@@ -118,6 +152,25 @@ const AssignmentListView = (props) => {
                     </td>
                     <td align="center">
                         {Util.dateForm(item.extendDate, "full")}
+                    </td>
+                    <td align="center">
+                        <div>
+                            <img
+                                className="lectureIcon"
+                                src={gradeIcon}
+                                onClick={(e) => clickGrade(item)}
+                            ></img>
+                            <img
+                                className="lectureIcon"
+                                src={editIcon}
+                                onClick={(e) => clickEdit(item)}
+                            ></img>
+                            <img
+                                className="lectureIcon"
+                                src={deleteIcon}
+                                onClick={(e) => clickDelete(item)}
+                            ></img>
+                        </div>
                     </td>
                 </tr>
             );
@@ -133,8 +186,7 @@ const AssignmentListView = (props) => {
             {createBtnElem}
         </React.Fragment>
     );
-
-}
+};
 
 export default inject(
     "storeMain",
