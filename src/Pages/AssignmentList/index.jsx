@@ -9,6 +9,10 @@ import FloatingMenu from "@components/FloatingMenu";
 import * as Util from "@util";
 import "./style.scss";
 
+import gradeIcon from "@asset/exam-2.svg";
+import editIcon from "@asset/edit.svg";
+import deleteIcon from "@asset/trash.svg";
+
 const AssignmentListPage = (props) => {
     const { storeMain, storeLecture, storeTask } = props;
     const [list, setList] = useState([]);
@@ -36,6 +40,26 @@ const AssignmentListPage = (props) => {
         props.history.push("/editor");
     };
 
+    const clickEdit = item => {
+        storeTask.selectTaskItem(item);
+        props.history.push("/editor/" + item.taskIdx);
+    }
+    
+    const clickGrade = item => {
+        
+    }
+    
+    const clickDelete = item => {
+        
+        console.log(item.taskIdx);
+        /*
+        Util.requestServer("task/delete", "PUT", {
+            taskIdx: e.target,
+        }).then(function (result) {
+
+        });*/
+    }
+
     if (storeMain.userType === 0) {
         headerItem = [
             {
@@ -56,13 +80,17 @@ const AssignmentListPage = (props) => {
                 width: "100px",
             },
             {
+                text: "평가",
+                width: "160px",
+            },
+            {
                 text: "제출 기간",
                 width: "160px",
             },
         ];
         childElement = list.map((item, idx) => {
             return (
-                <tr key={item.taskIdx} onClick={(e) => handleTask(item)}>
+                <tr key={item.taskIdx} data-taskidx={item.taskIdx} onClick={(e) => handleTask(item)}>
                     <td align="left">{item.title}</td>
                     <td align="left">{item.content}</td>
                     <td align="center">
@@ -77,6 +105,9 @@ const AssignmentListPage = (props) => {
                         align="center"
                     >
                         {item.isSubmission ? "제출" : "미제출"}
+                    </td>
+                    <td align="center">
+                        {item.score}
                     </td>
                     <td align="center">
                         {Util.dateForm(item.expireDate, "full")}
@@ -103,10 +134,14 @@ const AssignmentListPage = (props) => {
                 text: "연장 기간",
                 width: "160px",
             },
+            {
+                text: " ",
+                width: "100px",
+            },
         ];
         childElement = list.map((item, idx) => {
             return (
-                <tr key={item.taskIdx} onClick={(e) => handleTask(item)}>
+                <tr key={item.taskIdx} data-taskidx={item.taskIdx}>
                     <td align="left">{item.title}</td>
                     <td align="left">{item.content}</td>
                     <td align="center">
@@ -114,6 +149,13 @@ const AssignmentListPage = (props) => {
                     </td>
                     <td align="center">
                         {Util.dateForm(item.extendDate, "full")}
+                    </td>
+                    <td align="center">
+                        <div>
+                            <img className="lectureIcon" src={gradeIcon} onClick={(e) => clickGrade(item)}></img>
+                            <img className="lectureIcon" src={editIcon} onClick={(e) => clickEdit(item)}></img>
+                            <img className="lectureIcon" src={deleteIcon} onClick={(e) => clickDelete(item)}></img>
+                        </div>
                     </td>
                 </tr>
             );
