@@ -52,7 +52,6 @@ const TalkLayout = (props) => {
             <div className="bottom">
                 <Input
                     value={chat}
-                    disabled={""}
                     onChange={handleChat}
                     placeholder="내용을 입력하세요."
                     height="40px"
