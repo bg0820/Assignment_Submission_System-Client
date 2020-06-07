@@ -1,4 +1,4 @@
-import '@babel/polyfill';
+// import '@babel/polyfill'; 잠시 오류나서 제외
 
 import React from 'react';
 import ReactDOM from 'react-dom';
