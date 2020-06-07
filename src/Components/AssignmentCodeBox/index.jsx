@@ -12,7 +12,14 @@ const AssignmentCodeBox = (props) => {
     const [score, setScore] = useState("");
 
     const handleEvaluation = (e) => {
-        
+        Util.requestServer("task/evaluate", "PUT", {
+            evaluationIdx: props.evaluationIdx,
+            score: score,
+        }).then(function (result) {
+            if(result.code === 200) {
+                console.log("과제 점수 변경");
+            }
+        });
     };
 
     const handleScoreChange = (e) => {
@@ -24,8 +31,8 @@ const AssignmentCodeBox = (props) => {
         <div className="box">
             <div className="left">
                 <div className="studentInfo">
-                    <p className="studentNumber">201734001</p>
-                    <p className="studentName">강현지</p>
+                    <p className="studentNumber">{props.id}</p>
+                    <p className="studentName">{props.studentName}</p>
                 </div>
                 <div className="result">
                     {props.result}
@@ -33,7 +40,7 @@ const AssignmentCodeBox = (props) => {
             </div>
             <div className="right">
                 <Input
-                    placeholder="점수"
+                    placeholder={props.score}
                     width="45px"
                     height="small"
                     margin="0px 15px 0px 0px"

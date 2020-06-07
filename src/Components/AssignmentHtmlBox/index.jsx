@@ -8,12 +8,19 @@ import * as Util from "@util";
 import "./style.scss";
 
 const AssignmentHtmlBox = (props) => {
-    const { storeMain, storeModal, storeLecture } = props;
+    const { storeMain, storeModal, storeTask,storeLecture } = props;
     const [codeView, setCodeView] = useState(false);
     const [score, setScore] = useState("");
 
     const handleEvaluation = (e) => {
-        
+        Util.requestServer("task/evaluate", "PUT", {
+            evaluationIdx: props.evaluationIdx,
+            score: score,
+        }).then(function (result) {
+            if(result.code === 200) {
+                console.log("과제 점수 변경");
+            }
+        });
     };
 
     const handleScoreChange = (e) => {
@@ -44,12 +51,12 @@ const AssignmentHtmlBox = (props) => {
             <div className="box">
                 <div className="top">
                     <div className="studentInfo">
-                        <p className="studentNumber">201734001</p>
-                        <p className="studentName">강현지</p>
+                        <p className="studentNumber">{props.id}</p>
+                        <p className="studentName">{props.studentName}</p>
                     </div>
                     <div className="score">
                         <Input
-                            placeholder="점수"
+                            placeholder={props.score}
                             width="45px"
                             height="small"
                             margin="0px 15px 0px 0px"
@@ -85,5 +92,6 @@ const AssignmentHtmlBox = (props) => {
 export default inject(
     "storeMain",
     "storeModal",
-    "storeLecture"
+    "storeLecture",
+    "storeTask"
 )(observer(AssignmentHtmlBox));
