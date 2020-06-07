@@ -74,7 +74,7 @@ const LoginPage = (props) => {
 
                     <div className="Bottom">
                         <div className="findDirect">
-                            <Link to="/register">아이디/비밀번호 찾기</Link>
+                            <Link to="/register">비밀번호 찾기</Link>
                         </div>
 
                         <div className="regDirect">

@@ -1,10 +1,10 @@
 import { observable, action } from 'mobx';
 
-export default class Lecture {
+export default class Task {
     @observable
     selectTask = null;
 
-    @action selectTaskItem = (task) => {
+    @action setSelectTaskItem = (task) => {
         this.selectTask = task;
     }
 

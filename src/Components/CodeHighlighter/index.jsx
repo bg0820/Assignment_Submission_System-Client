@@ -1,10 +1,12 @@
 import React, { useEffect, useState, memo, useRef } from "react";
+import { observer, inject } from "mobx-react";
 
 import "./style.scss";
 
 const CodeHighlighter = (props) => {
+    const { storeMain, storeCode } = props;
+
     const editor = useRef(null);
-    const [code, setCode] = useState("");
     const [highlight, setHighlight] = useState("");
 
     const [lines, setLines] = useState([]);
@@ -68,8 +70,12 @@ const CodeHighlighter = (props) => {
     };
 
     const handleCode = (e) => {
-        console.log(e.target.value);
-        setCode(e.target.value);
+        // console.log(e.target.value);
+        // setCode(e.target.value);
+
+        // console.log(storeCode.code);
+
+        storeCode.setCode(e.target.value);
 
         let out = handleWord(e.target.value);
 
@@ -93,11 +99,11 @@ const CodeHighlighter = (props) => {
             <textarea
                 ref={editor}
                 onChange={handleCode}
-                value={code}
+                value={storeCode.code}
                 onKeyDown={handleKeyDown}
             ></textarea>
         </div>
     );
 };
 
-export default CodeHighlighter;
+export default inject("storeMain", "storeCode")(observer(CodeHighlighter));

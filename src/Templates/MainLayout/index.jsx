@@ -16,7 +16,6 @@ import "./style.scss";
 
 const MainLayout = (props) => {
     const { storeMain, storeModal, storeLecture } = props;
-    let location = props.location.pathname;
     let lectureInfoElem = null;
     let modal = null;
 
@@ -27,13 +26,13 @@ const MainLayout = (props) => {
             ></LectureCreateModal>
         );
 
-    if(storeModal.modalView === "evaluateAssignment")
+    if (storeModal.modalView === "evaluateAssignment")
         modal = (
             <EvaluateAssignment
                 modalData={storeModal.modalData}
             ></EvaluateAssignment>
-        )
-    
+        );
+
     const handleLogout = (e) => {
         sessionStorage["token"] = "";
         storeMain.logout();
@@ -51,17 +50,20 @@ const MainLayout = (props) => {
                     </p>
                 </div>
                 <ul>
-                    <li className={location === "/noticeChat" ? "select" : ""}>
-                        <Link to="/noticeChat">
+                    <li className={storeMain.menu === "notice" ? "select" : ""}  onClick={() => {
+                            storeMain.setMenu('notice');
+                            props.history.replace('/'+props.match.params.courseIdx);
+                        }}>
                             <img className="lectureIcon" src={noticeIcon}></img>
                             <p>공지 톡</p>
                             <div className="notification">
                                 <p>0</p>
                             </div>
-                        </Link>
                     </li>
-                    <li className={location === "/lectureTalk" ? "select" : ""}>
-                        <Link to="/lectureTalk">
+                    <li className={storeMain.menu === "qna" ? "select" : ""} onClick={() => {
+                            storeMain.setMenu('qna');
+                            props.history.replace('/'+props.match.params.courseIdx);
+                        }}>
                             <img
                                 className="lectureIcon"
                                 src={questionIcon}
@@ -70,19 +72,20 @@ const MainLayout = (props) => {
                             <div className="notification">
                                 <p>0</p>
                             </div>
-                        </Link>
                     </li>
-                    <li className={location === "/assignment" ? "select" : ""}>
-                        <Link to="/assignment">
+                    <li className={storeMain.menu === "assignmentList"  || storeMain.menu === "editor"? "select" : ""}  onClick={() => {
+                            storeMain.setMenu('assignmentList');
+                            props.history.replace('/'+props.match.params.courseIdx);
+                        }}>
                             <img className="lectureIcon" src={ToDoIcon}></img>
                             <p>과제 목록</p>
-                        </Link>
                     </li>
-                    <li className={location === "/assignment3" ? "select" : ""}>
-                        <Link to="/assignment">
+                    <li className={storeMain.menu === "grade" ? "select" : ""} onClick={() => {
+                            storeMain.setMenu('grade');
+                            props.history.replace('/'+props.match.params.courseIdx);
+                        }}>
                             <img className="lectureIcon" src={gradeIcon}></img>
                             <p>성적</p>
-                        </Link>
                     </li>
                 </ul>
             </React.Fragment>
@@ -103,17 +106,19 @@ const MainLayout = (props) => {
                 </div>
                 <div className="MainMenu nav">
                     <ul>
-                        <li className={location === "/" ? "select" : ""}>
-                            <Link to="/">
+                        <li className={storeMain.menu === "lectureList" ? "select" : ""} onClick={() => {
+                                storeMain.setMenu('lectureList')
+                                props.history.replace('/');
+                            }}>
+
                                 <img
                                     className="lectureIcon"
                                     src={ClassIcon}
                                 ></img>
                                 <p>강의 목록</p>
-                            </Link>
                         </li>
-                        <li>
-                            <Link to="/assignment">
+                        <li className={storeMain.menu === "nonLectureList" ? "select" : ""}>
+
                                 <img
                                     className="lectureIcon"
                                     src={ToDoIcon}
@@ -122,7 +127,6 @@ const MainLayout = (props) => {
                                 <div className="notification">
                                     <p>0</p>
                                 </div>
-                            </Link>
                         </li>
                     </ul>
                 </div>

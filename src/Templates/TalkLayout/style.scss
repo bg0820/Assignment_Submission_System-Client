@@ -16,7 +16,7 @@
 	.talk {
 		display: flex;
 		flex-direction: column;
-		overflow: auto;
+		overflow-y: scroll;
 	}
 
 	.bottom {

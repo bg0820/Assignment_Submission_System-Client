@@ -4,14 +4,15 @@ import { observer, inject } from "mobx-react";
 
 import RegisterPage from "./Pages/Register";
 import LoginPage from "./Pages/Login";
-import EditorRouter from "@router/Editor";
-import AssignmentRouter from "@router/Assignment";
-import LecutrePage from "./Pages/Lecture";
+
+import MainPage from "./Pages/Main";
 import CreateLecturePage from "./Pages/CreateLecture";
-import EvaluationPage from "./Pages/AssignmentEvaluation"
-import LectureTalkPage from "./Pages/LectureTalk";
+import EvaluationPage from "./Pages/AssignmentEvaluation";
+
+import QnAChat from "./Pages/LectureTalk";
 import NoticeChat from "./Pages/NoticeChat";
 import MyPage from "./Pages/MyPage";
+
 import PwFind from "./Pages/PwFind";
 
 /*
@@ -29,44 +30,35 @@ const App = (props) => {
     const { storeMain } = props;
 
     useEffect(() => {
-        if (!storeMain.isLogin) {
-            if (sessionStorage["token"]) {
-                Util.requestServer("auth/info", "get", {}).then(function (
-                    resp
-                ) {
-                    storeMain.login(
-                        resp.body.info.id,
-                        resp.body.info.name,
-                        resp.body.info.userType,
-                        resp.body.info.userIdx
-                    );
-                });
-            } else {
-                if (location.pathname !== "/login") location.href = "/login";
-            }
+        if (sessionStorage["token"]) {
+            Util.requestServer("auth/info", "get", {}).then(function (resp) {
+                storeMain.login(
+                    resp.body.info.id,
+                    resp.body.info.name,
+                    resp.body.info.userType
+                );
+            });
+        } else {
+            if (location.pathname !== "/login") location.href = "/login";
         }
     }, [storeMain.isLogin]);
 
     return (
         <React.Fragment>
             <BrowserRouter>
+                <Route exact path="/" component={MainPage} />
+                <Route path="/register" component={RegisterPage} />
+                <Route path="/login" component={LoginPage} />
+                <Route path="/createLecture" component={CreateLecturePage} />
+                <Route path="/evaluation" component={EvaluationPage} />
                 <Switch>
-                    <Route exact path="/" component={LecutrePage} /> //
-                    <Route path="/register" component={RegisterPage} />
-                    <Route path="/login" component={LoginPage} />
-                    <Route path="/editor" component={EditorRouter} />
-                    <Route path="/assignment" component={AssignmentRouter} />
-                    <Route
-                        path="/createLecture"
-                        component={CreateLecturePage}
-                    />
-                    <Route path="/evaluation" component={EvaluationPage} />
-                    <Route path="/lectureTalk" component={LectureTalkPage} />
-                    <Route path="/noticeChat" component={NoticeChat} />
-                    <Route path="/pwFind" component={PwFind} />
-                    <Route path="/MyPage" component={MyPage} />
-                    <Route path="/noticeChat" component={NoticeChat} />
+                    <Route path="/:courseIdx/notice" component={NoticeChat} />
+                    <Route path="/:courseIdx/qna" component={QnAChat} />
+                    <Route path="/:courseIdx/:taskIdx" component={MainPage} />
+                    <Route path="/:courseIdx" component={MainPage} />
                 </Switch>
+                <Route path="/pwFind" component={PwFind} />
+                <Route path="/MyPage" component={MyPage} />
             </BrowserRouter>
         </React.Fragment>
     );
