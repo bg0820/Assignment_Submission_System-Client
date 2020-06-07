@@ -11,6 +11,7 @@ const NoticeChat = (props) => {
     const { storeMain, storeLecture, storeChat } = props;
 
     useEffect(() => {
+        storeChat.init();
         storeMain.socket.on(
             storeLecture.selectLecture.courseIdx + "_chat_notice",
             onMessage

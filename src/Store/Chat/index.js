@@ -8,4 +8,8 @@ export default class Chat {
     @action addChat = (data) => {
         this.chats = this.chats.concat(data);
     }
+
+    @action init = () => {
+        this.chats = [];
+    }
 }
