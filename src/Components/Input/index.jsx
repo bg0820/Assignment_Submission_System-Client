@@ -35,7 +35,7 @@ const Input = (props) => {
             className={clsName}
             placeholder={props.placeholder}
             style={style}
-            disabled={props.disabled === undefined ? false : true}
+            disabled={props.disabled ? props.disabled : false}
             value={
                 props.value === null || props.value === undefined
                     ? ""

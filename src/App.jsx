@@ -31,11 +31,12 @@ const App = (props) => {
 
     useEffect(() => {
         if (sessionStorage["token"]) {
-            Util.requestServer("auth/info", "get", {}).then(function (resp) {
+            Util.requestServer("auth/info", "GET", {}).then(function (resp) {
                 storeMain.login(
                     resp.body.info.id,
                     resp.body.info.name,
-                    resp.body.info.userType
+                    resp.body.info.userType,
+                    resp.body.info.userIdx
                 );
             });
         } else {
@@ -52,8 +53,8 @@ const App = (props) => {
                 <Route path="/createLecture" component={CreateLecturePage} />
                 <Route path="/evaluation" component={EvaluationPage} />
                 <Switch>
-                    <Route path="/:courseIdx/notice" component={NoticeChat} />
-                    <Route path="/:courseIdx/qna" component={QnAChat} />
+                    <Route path="/:courseIdx/notice" component={MainPage} />
+                    <Route path="/:courseIdx/qna" component={MainPage} />
                     <Route path="/:courseIdx/:taskIdx" component={MainPage} />
                     <Route path="/:courseIdx" component={MainPage} />
                 </Switch>

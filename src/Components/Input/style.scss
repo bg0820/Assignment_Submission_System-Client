@@ -15,6 +15,14 @@
 		color: #ABABAB;
 	}
 
+	&:disabled {
+
+		&::placeholder {
+
+			color: #646464;
+		}
+	}
+
 	&.height {
 		&_default {
 			height: 50px;

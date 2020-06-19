@@ -15,11 +15,15 @@ import "./style.scss";
 const CodeEditorLayout = (props) => {
     const { storeTask, storeLecture } = props;
 
-    const [title, setTitle] = useState("");
-    const [language, setLanguage] = useState("none");
-    const [content, setContent] = useState("");
+    const [title, setTitle] = useState(props.title ? props.title : "");
+    const [language, setLanguage] = useState(
+        props.language ? props.language : "none"
+    );
+    const [content, setContent] = useState(props.content ? props.content : "");
 
-    const [exampleList, setExampleList] = useState([]);
+    const [exampleList, setExampleList] = useState(
+        props.example ? props.example : []
+    );
     const [expire, setExpire] = useState("");
     const [extendType, setExtendtype] = useState(false);
     const [extend, setExtend] = useState("");
@@ -240,8 +244,7 @@ const CodeEditorLayout = (props) => {
             <div className="code">
                 <p className="testTitle">코드 테스트</p>
                 <div className="editor">
-                    
-                <CodeHighlighter></CodeHighlighter>
+                    <CodeHighlighter></CodeHighlighter>
                 </div>
                 <div className="result">
                     <div className="buttons">

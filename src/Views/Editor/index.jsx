@@ -1,7 +1,6 @@
 import React, { useEffect, useState, useRef, memo } from "react";
 import { observer, inject } from "mobx-react";
 
-
 import CodeViewerLayout from "@templates/CodeViewerLayout";
 import CodeEditorLayout from "@templates/CodeEditorLayout";
 
@@ -18,15 +17,22 @@ const EditorView = (props) => {
     });
 
     useEffect(() => {
-        Util.requestServer("task/detail", "GET", {
-            taskIdx: props.match.params.taskIdx,
-        }).then(function (resp) {
-            let body = resp.body;
+        if (props.match.params.taskIdx) {
+            Util.requestServer("task/detail", "GET", {
+                taskIdx: props.match.params.taskIdx,
+            }).then(function (resp) {
+                let body = resp.body;
 
-            if (resp.code === 200) {
-                setInfo(body.info);
-            }
-        });
+                if (resp.code === 200) {
+                    setInfo({
+                        title: body.info.title,
+                        content: body.info.content,
+                        language: body.info.language,
+                        example: body.info.example,
+                    });
+                }
+            });
+        }
     }, []);
 
     let codeElem = null;
@@ -43,10 +49,18 @@ const EditorView = (props) => {
         );
     } else {
         console.log("교수");
-        codeElem = <CodeEditorLayout></CodeEditorLayout>;
+        codeElem = (
+            <CodeEditorLayout
+                id={props.match.params.id}
+                title={info.title}
+                content={info.content}
+                language={info.language}
+                example={info.example}
+            ></CodeEditorLayout>
+        );
     }
 
     return codeElem;
-}
+};
 
 export default inject("storeMain")(observer(EditorView));

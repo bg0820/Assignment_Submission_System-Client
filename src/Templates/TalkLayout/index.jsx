@@ -43,6 +43,19 @@ const TalkLayout = (props) => {
             : false,
         storeMain.userType
     );
+
+    let disabled = false;
+    let placeHolderMsg = "메시지 입력";
+    let btnMsg = "전송";
+
+    if (props.type === "notice") {
+        if (storeMain.userType == 0) {
+            placeHolderMsg = "교수님만 사용 가능합니다.";
+            btnMsg = "전송 불가";
+            disabled = true;
+        }
+    }
+
     return (
         <div className="TalkLayout">
             <p className="title">{props.title}</p>
@@ -53,13 +66,15 @@ const TalkLayout = (props) => {
                 <Input
                     value={chat}
                     onChange={handleChat}
-                    placeholder="내용을 입력하세요."
+                    placeholder={placeHolderMsg}
                     height="40px"
                     margin="0px 10px 0px 0px"
+                    disabled={disabled}
                 ></Input>
                 <Button
                     onClick={btnSend}
-                    value="전송"
+                    value={btnMsg}
+                    disabled={disabled}
                     width="110px"
                     height="40px"
                     margin="10px 0px 0px 0px"

@@ -22,13 +22,15 @@ const AssignmentListView = (props) => {
     let createBtnElem = null;
 
     useEffect(() => {
-        Util.requestServer("task/list", "GET", {
-            courseIdx: props.match.params.courseIdx,
-        }).then(async function (result) {
-            if (result.code === 200) {
-                setList(result.body.list);
-            }
-        });
+        if (props.match.params.courseIdx) {
+            Util.requestServer("task/list", "GET", {
+                courseIdx: props.match.params.courseIdx,
+            }).then(async function (result) {
+                if (result.code === 200) {
+                    setList(result.body.list);
+                }
+            });
+        }
     }, []);
 
     const handleTask = (item) => {
@@ -42,12 +44,16 @@ const AssignmentListView = (props) => {
     };
 
     const handleFloating = (e) => {
-        props.history.push("/editor");
+        storeMain.setMenu("editor");
+        props.history.push("/" + props.match.params.courseIdx);
     };
 
     const clickEdit = (item) => {
-        storeTask.selectTaskItem(item);
-        props.history.push("/editor/" + item.taskIdx);
+        storeMain.setMenu("editor");
+        storeTask.setSelectTaskItem(item);
+        props.history.push(
+            "/" + props.match.params.courseIdx + "/" + item.taskIdx
+        );
     };
 
     const clickGrade = (item) => {};
@@ -66,7 +72,7 @@ const AssignmentListView = (props) => {
             {
                 text: "과제 명",
                 align: "left",
-                width: "200px",
+                width: "150px",
             },
             {
                 text: "과제 설명",
@@ -78,11 +84,11 @@ const AssignmentListView = (props) => {
             },
             {
                 text: "제출 여부",
-                width: "100px",
+                width: "80px",
             },
             {
                 text: "평가",
-                width: "160px",
+                width: "80px",
             },
             {
                 text: "제출 기간",
