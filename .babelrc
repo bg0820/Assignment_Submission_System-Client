@@ -33,7 +33,8 @@
 					"@store": "./src/Store",
 					"@systems": "./src/Systems",
 					"@templates": "./src/Templates",
-					"@util": "./src/Util"
+					"@util": "./src/Util",
+					"@views": "./src/Views"
 				}
 			}
 		]

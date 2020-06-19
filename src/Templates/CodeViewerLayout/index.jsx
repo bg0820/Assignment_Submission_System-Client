@@ -7,13 +7,37 @@ import Textarea from "@components/Textarea";
 import Example from "@components/Example";
 import Language from "@components/Language";
 
+import CodeHighlighter from "@components/CodeHighlighter";
+
 import * as Util from "@util";
 import "./style.scss";
 
 const CodeViewerLayout = (props) => {
-    const { storeMain, storeTask } = props;
-    const [code, setCode] = useState("");
-    const [output, setOutput] = useState([]);
+    const { storeMain, storeTask, storeCode } = props;
+
+    useEffect(() => {
+        storeMain.socket.on("code_exec", onExec);
+        storeMain.socket.on("code_compile", onCompile);
+
+        return () => {
+            storeMain.socket.off("code_exec", onExec);
+            storeMain.socket.off("code_compile", onCompile);
+        };
+    }, []);
+
+    const onExec = (data) => {
+        console.log("onExec", data);
+
+        if (data.type !== "exit") {
+            storeCode.addOutput(data.msg);
+        }
+    };
+
+    const onCompile = (data) => {
+        console.log("onCompile", data);
+        storeCode.addOutput(data.msg);
+        storeCode.addOutput("=====================");
+    };
 
     let outputElem = null;
     let exampleListElem = props.example.map((item, i) => {
@@ -27,16 +51,22 @@ const CodeViewerLayout = (props) => {
             ></Example>
         );
     });
-
-    const handleCode = (e) => {
-        setCode(e.target.value);
-    };
-
     const handleSubmission = (e) => {};
 
     const handleExcute = (e) => {
         console.log(storeTask.selectTask);
+        storeCode.clearOutput();
+        storeMain.socket.emit("message", {
+            type: "code_exec",
+            data: {
+                studentId: storeMain.id,
+                taskIdx: storeTask.selectTask.taskIdx,
+                code: storeCode.code,
+                language: storeTask.selectTask.language,
+            },
+        });
 
+        /*
         Util.requestServer("test/submission", "POST", {
             studentId: storeMain.id,
             taskIdx: storeTask.selectTask.taskIdx,
@@ -46,11 +76,12 @@ const CodeViewerLayout = (props) => {
             if (resp.code === 200) {
                 setOutput(resp.body.output.output);
             }
-        });
+        });*/
     };
 
-    outputElem = output.map((item, i) => {
-        return <pre key={i}>{item.data}</pre>;
+    console.log(storeCode.output);
+    outputElem = storeCode.output.map((item, i) => {
+        return <pre key={i}>{item}</pre>;
     });
     return (
         <div className="CodeViewerLayout">
@@ -72,10 +103,7 @@ const CodeViewerLayout = (props) => {
             <div className="code">
                 <p className="testTitle">코드 테스트</p>
                 <div className="editor">
-                    <textarea
-                        className="content"
-                        onChange={handleCode}
-                    ></textarea>
+                    <CodeHighlighter></CodeHighlighter>
                 </div>
                 <div className="result">
                     <div className="outputMsgArea">{outputElem}</div>
@@ -101,4 +129,8 @@ const CodeViewerLayout = (props) => {
     );
 };
 
-export default inject("storeMain", "storeTask")(observer(CodeViewerLayout));
+export default inject(
+    "storeMain",
+    "storeTask",
+    "storeCode"
+)(observer(CodeViewerLayout));

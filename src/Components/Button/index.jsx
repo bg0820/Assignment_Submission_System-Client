@@ -8,7 +8,7 @@ import "./style.scss";
     height - %, px
     color - zzz
 */
-const Button = props => {
+const Button = (props) => {
     let clsName = "Button ";
     let colorClsName = "color-default";
 
@@ -16,7 +16,7 @@ const Button = props => {
 
     clsName += colorClsName;
 
-    const buttonOnClick = event => {
+    const buttonOnClick = (event) => {
         props.onClick(event);
     };
 
@@ -27,9 +27,10 @@ const Button = props => {
             value={props.value}
             style={{
                 width: props.width ? props.width : "100%",
-                height: props.height ? props.height: "100%",
-                margin: props.margin ? props.margin : "0"
+                height: props.height ? props.height : "100%",
+                margin: props.margin ? props.margin : "0",
             }}
+            disabled={props.disabled ? props.disabled : false}
             onClick={buttonOnClick}
         ></input>
     );

@@ -1,32 +1,43 @@
 import React, { useEffect, useState, useRef, memo } from "react";
 import { observer, inject } from "mobx-react";
-
-import MainLayout from "@templates/MainLayout";
 import Table from "@components/Table";
 import Language from "@components/Language";
 import FloatingMenu from "@components/FloatingMenu";
 
 import * as Util from "@util";
-import "./style.scss";
 
-const LecturePage = (props) => {
+const LectureListView = (props) => {
     const { storeMain, storeModal, storeLecture } = props;
     const [list, setList] = useState([]);
+
     let headerItem = [];
     let childElement = null;
     let createBtnElem = null;
 
     useEffect(() => {
-        Util.requestServer("course/list", "GET", {}).then(function (result) {
-            console.log(result);
+         Util.requestServer("course/list", "GET", {}).then(function (result) {
             if (result.code === 200) {
                 setList(result.body.list);
             }
         });
+        /*
+        storeMain.socket.emit("message", {
+            token: sessionStorage.token,
+            type: "join",
+            data: {
+                courseIdx: item.courseIdx,
+            },
+        });*/
+
+        return (() => {
+        })
     }, []);
 
     const handleLecture = (item) => {
-        storeLecture.selectLectureItem(item);
+        console.log(item.courseIdx);
+        props.history.replace('/' + item.courseIdx);
+        storeMain.setMenu('assignmentList');
+       //storeLecture.view('');
     };
 
     const handleFloating = (e) => {
@@ -104,17 +115,17 @@ const LecturePage = (props) => {
     }
 
     return (
-        <MainLayout>
+        <React.Fragment>
             <Table header={headerItem} className="lectureTable">
                 {childElement}
             </Table>
             {createBtnElem}
-        </MainLayout>
-    );
-};
+        </React.Fragment>
+    )
+}
 
 export default inject(
     "storeMain",
     "storeModal",
     "storeLecture"
-)(observer(LecturePage));
+)(observer(LectureListView));

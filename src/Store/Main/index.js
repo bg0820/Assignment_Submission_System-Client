@@ -1,9 +1,11 @@
 import { observable, action } from 'mobx';
 
 export default class Main {
+	@observable 
+	socket = null; 
 
     @observable
-    view = '';
+    menu = 'lectureList';
 
     @observable
     isLogin = false;
@@ -12,17 +14,24 @@ export default class Main {
     id = '';
 
     @observable
-    name = '';
+	name = '';
+	
+	@observable
+	userIdx = -1;
 
     @observable
     userType = 0;
 
-
-    @action login = (id, name, userType) => {
+	@action setSocket = (socket) => { 
+		this.socket = socket; 
+	} 
+	
+    @action login = (id, name, userType, userIdx) => {
         this.isLogin = true;
         this.id = id;
         this.name = name;
-        this.userType = userType;
+		this.userType = userType;
+		this.userIdx = userIdx;
     }
 
     @action logout = () => {
@@ -32,8 +41,8 @@ export default class Main {
         this.userType = 0;
     }
 
-    @action setView = (view) => {
-        this.view = view;
+    @action setMenu = (menu) => {
+        this.menu = menu;
     }
 
 }
