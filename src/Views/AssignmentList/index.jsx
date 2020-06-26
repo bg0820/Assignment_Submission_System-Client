@@ -56,7 +56,13 @@ const AssignmentListView = (props) => {
         );
     };
 
-    const clickGrade = (item) => {};
+    const clickGrade = (item) => {
+        storeMain.setMenu("evaluation");
+        storeTask.setSelectTaskItem(item);
+        props.history.push(
+            "/" + props.match.params.courseIdx + "/" + item.taskIdx
+        );
+    };
 
     const clickDelete = (item) => {
         console.log(item.taskIdx);

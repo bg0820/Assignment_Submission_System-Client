@@ -51,7 +51,19 @@ const CodeViewerLayout = (props) => {
             ></Example>
         );
     });
-    const handleSubmission = (e) => {};
+    const handleSubmission = (e) => {
+        storeMain.socket.emit("message", {
+            type: "code_submit",
+            data: {
+                studentId: storeMain.id,
+                taskIdx: storeTask.selectTask.taskIdx,
+                code: storeCode.code,
+                language: storeTask.selectTask.language,
+                userIdx: storeMain.userIdx,
+            },
+            token: sessionStorage["token"]
+        });
+    };
 
     const handleExcute = (e) => {
         console.log(storeTask.selectTask);
@@ -64,6 +76,7 @@ const CodeViewerLayout = (props) => {
                 code: storeCode.code,
                 language: storeTask.selectTask.language,
             },
+            token: sessionStorage["token"]
         });
 
         /*
