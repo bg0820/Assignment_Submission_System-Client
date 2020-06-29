@@ -22,6 +22,13 @@ export default class Main {
     @observable
     userType = 0;
 
+    @observable
+    selectStudentIdx = -1;
+
+    @action setSelectStudentIdx = (studentIdx) => {
+        this.selectStudentIdx = studentIdx;
+    }
+
 	@action setSocket = (socket) => { 
 		this.socket = socket; 
 	} 
