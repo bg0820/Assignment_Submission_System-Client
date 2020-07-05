@@ -41,9 +41,9 @@ const AssignmentHtmlBox = (props) => {
 
     if (codeView)
         codeElem = (
-            <div className="codeView">
-                {props.code}
-            </div>
+            <textarea className="codeView" defaultValue={props.code}>
+                
+            </textarea>
         );
 
     return (

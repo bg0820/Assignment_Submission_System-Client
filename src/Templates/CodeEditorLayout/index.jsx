@@ -67,9 +67,10 @@ const CodeEditorLayout = (props) => {
     };
 
     const handleExpireChange = (e) => {
+        console.log(e.target.value);
         setInfo({
             ...info,
-            exipre: e.target.value,
+            expire: e.target.value,
         });
     };
 
@@ -145,7 +146,7 @@ const CodeEditorLayout = (props) => {
     };
 
     const createBtn = (e) => {
-        if (language === "none") {
+        if (info.language === "none") {
             alert("언어를 선택해주세요.");
             return;
         }

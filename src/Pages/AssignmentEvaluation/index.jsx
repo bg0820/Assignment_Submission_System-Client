@@ -10,16 +10,9 @@ import "./style.scss";
 
 const AssignmentEvaluation = (props) => {
     const { storeMain, storeLecture, storeTask } = props;
-    const [list, setList] = useState([]);
-    const [language, setLanguage] = useState();
-    const [assignment, setAssignment] = useState({
-        id: "",
-        studentName: "",
-        score: "",
-        code: "",
-        result: "",
-        evaluationIdx: "",
-    });
+    const [list, setList] = useState();
+    const [users, setUsers] = useState([]);
+    const [language, setLanguage] = useState('java');
 
     let assignmentElem = null;
 
@@ -31,18 +24,20 @@ const AssignmentEvaluation = (props) => {
 
             if(resp.code === 200) {
                 console.log("성공");
-                setList(body.list);
+                //setList(body.list);
+                setLanguage(body.data.language);
+                setUsers(body.data.users);
                 //setAssignment(body.assignment);
-                setLanguage(body.language);
             }
         })
     }, []);
 
 
-    if(language == "HTML") {
-        assignmentElem = list.map((item, idx) => {
+    if(language == "HTML" || language == "html") {
+        assignmentElem = users.map((item, idx) => {
             return(
                 <AssignmentHtmlBox
+                    key={idx}
                     id={item.id}
                     studentName={item.studentName}
                     score={item.score}
@@ -65,18 +60,19 @@ const AssignmentEvaluation = (props) => {
         );
         */
     } else {
-        assignmentElem = list.map((item, idx) => {
+        assignmentElem = users.map((item, idx) => {
             return(
                 <AssignmentCodeBox
+                    key={idx}
                     id={item.id}
                     studentName={item.studentName}
                     score={item.score}
                     code={item.code}
-                    result={item.result}
+                    result={item.output}
                     evaluationIdx={item.evaluationIdx}
                 ></AssignmentCodeBox>
             );
-        })
+        });
         /*
         assignmentElem = (
             <AssignmentCodeBox
