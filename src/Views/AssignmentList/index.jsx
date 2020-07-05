@@ -34,13 +34,25 @@ const AssignmentListView = (props) => {
     }, []);
 
     const handleTask = (item) => {
-        storeTask.setSelectTaskItem(item);
-        storeMain.setMenu("editor");
+        if(item.isSubmission) {
+            if(window.confirm('이미 제출한 과제입니다. 수정하시겠습니까?')) {
+                storeTask.setSelectTaskItem(item);
+                storeMain.setMenu("editor");
 
-        console.log(props.match.params.courseIdx + "/" + item.taskIdx);
-        props.history.replace(
-            "/" + props.match.params.courseIdx + "/" + item.taskIdx
-        );
+                console.log(props.match.params.courseIdx + "/" + item.taskIdx);
+                props.history.replace(
+                    "/" + props.match.params.courseIdx + "/" + item.taskIdx
+                );
+            }
+        } else {
+            storeTask.setSelectTaskItem(item);
+            storeMain.setMenu("editor");
+    
+            console.log(props.match.params.courseIdx + "/" + item.taskIdx);
+            props.history.replace(
+                "/" + props.match.params.courseIdx + "/" + item.taskIdx
+            );
+        }
     };
 
     const handleFloating = (e) => {

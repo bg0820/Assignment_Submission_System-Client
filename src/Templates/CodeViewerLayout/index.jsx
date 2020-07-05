@@ -67,8 +67,18 @@ const CodeViewerLayout = (props) => {
     };
 
     const onSubmit = (data) => {
-        console.log("onSubmit", data.msg);
+        console.log("onSubmit", data);
         alert(data.msg);
+
+        if(data.type == 'result') {
+            if(data.result === 'success') {
+                props.history.replace("/" + props.match.params.courseIdx);
+                storeMain.setMenu('assignmentList');
+            } else if(data.result === 'failed') {
+                alert(data.msg);
+            }
+            
+        }
     }
 
     let outputElem = null;
