@@ -9,6 +9,7 @@ import * as Util from "@util";
 const EditorView = (props) => {
     const { storeMain, storeTask } = props;
 
+    /*
     const [info, setInfo] = useState({
         title: "",
         content: "",
@@ -25,6 +26,7 @@ const EditorView = (props) => {
 
                 if (resp.code === 200) {
                     setInfo({
+                        ...info,
                         title: body.info.title,
                         content: body.info.content,
                         language: body.info.language,
@@ -33,29 +35,22 @@ const EditorView = (props) => {
                 }
             });
         }
-    }, []);
+	}, []);
+	*/
 
     let codeElem = null;
     if (storeMain.userType === 0) {
         console.log("학생");
         codeElem = (
             <CodeViewerLayout
-                id={props.match.params.id}
-                title={info.title}
-                content={info.content}
-                language={info.language}
-                example={info.example}
+                id={props.match.params.taskIdx}
             ></CodeViewerLayout>
         );
     } else {
         console.log("교수");
         codeElem = (
             <CodeEditorLayout
-                id={props.match.params.id}
-                title={info.title}
-                content={info.content}
-                language={info.language}
-                example={info.example}
+                id={props.match.params.taskIdx}
             ></CodeEditorLayout>
         );
     }

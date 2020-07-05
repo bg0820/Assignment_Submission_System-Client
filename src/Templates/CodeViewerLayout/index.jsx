@@ -15,9 +15,34 @@ import "./style.scss";
 const CodeViewerLayout = (props) => {
     const { storeMain, storeTask, storeCode } = props;
 
+    const [info, setInfo] = useState({
+        title: "",
+        content: "",
+        language: "",
+        example: [],
+    });
+
     useEffect(() => {
         storeMain.socket.on("code_exec", onExec);
         storeMain.socket.on("code_compile", onCompile);
+
+        if (props.id) {
+            Util.requestServer("task/detail", "GET", {
+                taskIdx: props.id,
+            }).then(function (resp) {
+                let body = resp.body;
+
+                if (resp.code === 200) {
+                    setInfo({
+                        ...info,
+                        title: body.info.title,
+                        content: body.info.content,
+                        language: body.info.language,
+                        example: body.info.example,
+                    });
+                }
+            });
+        }
 
         return () => {
             storeMain.socket.off("code_exec", onExec);
@@ -40,7 +65,7 @@ const CodeViewerLayout = (props) => {
     };
 
     let outputElem = null;
-    let exampleListElem = props.example.map((item, i) => {
+    let exampleListElem = info.example.map((item, i) => {
         return (
             <Example
                 key={i}
@@ -56,6 +81,7 @@ const CodeViewerLayout = (props) => {
     const handleExcute = (e) => {
         console.log(storeTask.selectTask);
         storeCode.clearOutput();
+
         storeMain.socket.emit("message", {
             type: "code_exec",
             data: {
@@ -65,21 +91,8 @@ const CodeViewerLayout = (props) => {
                 language: storeTask.selectTask.language,
             },
         });
-
-        /*
-        Util.requestServer("test/submission", "POST", {
-            studentId: storeMain.id,
-            taskIdx: storeTask.selectTask.taskIdx,
-            code: code,
-            language: storeTask.selectTask.language,
-        }).then(function (resp) {
-            if (resp.code === 200) {
-                setOutput(resp.body.output.output);
-            }
-        });*/
     };
 
-    console.log(storeCode.output);
     outputElem = storeCode.output.map((item, i) => {
         return <pre key={i}>{item}</pre>;
     });
@@ -87,12 +100,12 @@ const CodeViewerLayout = (props) => {
         <div className="CodeViewerLayout">
             <div className="explain">
                 <div className="title">
-                    <Language language={props.language}></Language>
-                    <p className="text">{props.title}</p>
+                    <Language language={info.language}></Language>
+                    <p className="text">{info.title}</p>
                 </div>
                 <div className="middle">
                     <div className="top">
-                        <p className="text">{props.content}</p>
+                        <p className="text">{info.content}</p>
                     </div>
                     <div className="bottom">
                         <hr />
