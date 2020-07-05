@@ -43,6 +43,8 @@ const EditorView = (props) => {
         console.log("학생");
         codeElem = (
             <CodeViewerLayout
+                match={props.match}
+                history={props.history}
                 id={props.match.params.taskIdx}
             ></CodeViewerLayout>
         );

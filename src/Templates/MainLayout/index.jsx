@@ -21,6 +21,7 @@ const MainLayout = (props) => {
     let lectureInfoElem = null;
     let modal = null;
     let menuElem = null;
+    let nonAssignmentElem = null;
 
     if (storeModal.modalView === "createLecture")
         modal = (
@@ -46,6 +47,30 @@ const MainLayout = (props) => {
         setVisible(!visible);
     }
 
+
+    if(storeMain.userType == 0) {
+        nonAssignmentElem = (
+            <li
+                className={
+                    storeMain.menu === "NonAssignmentList"
+                        ? "select"
+                        : ""
+                }
+                onClick={() => {
+                    storeMain.setMenu("NonAssignmentList");
+                    props.history.replace(
+                        "/nonAssignmentList"
+                    );
+                }}
+            >
+                <img className="lectureIcon" src={ToDoIcon}></img>
+                <p>미제출 과제</p>
+                <div className="notification">
+                    <p>0</p>
+                </div>
+            </li>
+        );
+    }
 
     if (storeLecture.selectLecture) {
         if(visible) {
@@ -216,19 +241,7 @@ const MainLayout = (props) => {
                             <img className="lectureIcon" src={ClassIcon}></img>
                             <p>강의 목록</p>
                         </li>
-                        <li
-                            className={
-                                storeMain.menu === "nonLectureList"
-                                    ? "select"
-                                    : ""
-                            }
-                        >
-                            <img className="lectureIcon" src={ToDoIcon}></img>
-                            <p>미제출 과제</p>
-                            <div className="notification">
-                                <p>0</p>
-                            </div>
-                        </li>
+                        {nonAssignmentElem}
                     </ul>
                 </div>
                 <div className="SubMenu nav">{lectureInfoElem}</div>
