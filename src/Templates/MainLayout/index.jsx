@@ -133,6 +133,8 @@ const MainLayout = (props) => {
                                 storeMain.menu === "lectureList" ? "select" : ""
                             }
                             onClick={() => {
+                                lectureInfoElem = null;
+                                storeLecture.selectLecture = null;
                                 storeMain.setMenu("lectureList");
                                 props.history.replace("/");
                             }}
