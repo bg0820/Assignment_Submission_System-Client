@@ -12,22 +12,23 @@ import * as Util from "@util";
 const LectureListView = (props) => {
     const { storeMain, storeModal, storeLecture } = props;
     const [list, setList] = useState([]);
-    
+
     let headerItem = [];
     let childElement = null;
     let createBtnElem = null;
 
     useEffect(() => {
-         Util.requestServer("course/list", "GET", {}).then(function (result) {
+        Util.requestServer("course/list", "GET", {}).then(function (result) {
             if (result.code === 200) {
                 setList(result.body.list);
             }
-            Util.requestServer("task/list/nonAssignment", "GET", {
-            }).then(async function (result) {
-                if (result.code === 200) {
-                    storeMain.setNonAssignment(result.body.list.length);
+            Util.requestServer("task/list/nonAssignment", "GET", {}).then(
+                async function (result) {
+                    if (result.code === 200) {
+                        storeMain.setNonAssignment(result.body.list.length);
+                    }
                 }
-            });
+            );
         });
         /*
         storeMain.socket.emit("message", {
@@ -38,15 +39,14 @@ const LectureListView = (props) => {
             },
         });*/
 
-        return (() => {
-        })
+        return () => {};
     }, []);
 
     const handleLecture = (item) => {
         console.log(item.courseIdx);
-        props.history.replace('/' + item.courseIdx);
-        storeMain.setMenu('assignmentList');
-       //storeLecture.view('');
+        props.history.replace("/" + item.courseIdx);
+        storeMain.setMenu("assignmentList");
+        //storeLecture.view('');
     };
 
     const handleFloating = (e) => {
@@ -60,18 +60,16 @@ const LectureListView = (props) => {
         storeModal.modalCall({
             modalView: "createLecture",
             modalTitle: "강의 수정",
-            modalData: item.courseIdx
+            modalData: item.courseIdx,
         });
     };
 
     const clickDelete = (item) => {
-        
         console.log(item.courseIdx);
 
         Util.requestServer("course/delete", "POST", {
             courseIdx: item.courseIdx,
-        }).then(function (result) {
-        });
+        }).then(function (result) {});
     };
 
     if (storeMain.userType === 0) {
@@ -114,7 +112,12 @@ const LectureListView = (props) => {
                             <img
                                 className="lectureIcon"
                                 src={deleteIcon}
-                                onClick={(e) =>{window.confirm('삭제?') ? clickDelete(item) : ""; window.location.reload(false);}}
+                                onClick={(e) => {
+                                    window.confirm("삭제 하시겠습니까?")
+                                        ? clickDelete(item)
+                                        : "";
+                                    window.location.reload(false);
+                                }}
                             ></img>
                         </div>
                     </td>
@@ -162,7 +165,12 @@ const LectureListView = (props) => {
                             <img
                                 className="lectureIcon"
                                 src={deleteIcon}
-                                onClick={(e) =>{window.confirm('삭제?') ? clickDelete(item) : ""; window.location.reload(false);}}
+                                onClick={(e) => {
+                                    window.confirm("삭제 하시겠습니까?")
+                                        ? clickDelete(item)
+                                        : "";
+                                    window.location.reload(false);
+                                }}
                             ></img>
                         </div>
                     </td>
@@ -179,8 +187,8 @@ const LectureListView = (props) => {
             </Table>
             {createBtnElem}
         </React.Fragment>
-    )
-}
+    );
+};
 
 export default inject(
     "storeMain",
