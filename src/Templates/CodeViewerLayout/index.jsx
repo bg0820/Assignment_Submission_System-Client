@@ -18,10 +18,12 @@ const CodeViewerLayout = (props) => {
     useEffect(() => {
         storeMain.socket.on("code_exec", onExec);
         storeMain.socket.on("code_compile", onCompile);
+        storeMain.socket.on("code_submit", onSubmit);
 
         return () => {
             storeMain.socket.off("code_exec", onExec);
             storeMain.socket.off("code_compile", onCompile);
+            storeMain.socket.off("code_submit", onSubmit);
         };
     }, []);
 
@@ -38,6 +40,10 @@ const CodeViewerLayout = (props) => {
         storeCode.addOutput(data.msg);
         storeCode.addOutput("=====================");
     };
+
+    const onSubmit = (data) => {
+        console.log("onSubmit", data);
+    }
 
     let outputElem = null;
     let exampleListElem = props.example.map((item, i) => {
