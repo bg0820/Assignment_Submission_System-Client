@@ -86,6 +86,29 @@ const CodeHighlighter = (props) => {
     const handleKeyDown = (e) => {
         if (e.key === "Tab") {
             e.preventDefault();
+
+            let start = e.target.selectionStart;
+            let end = e.target.selectionEnd;
+
+            var output = [
+                storeCode.code.slice(0, start),
+                "\t",
+                storeCode.code.slice(start),
+            ].join("");
+
+            console.log(start);
+            console.log(output);
+
+            storeCode.setCode(output);
+
+            let out = handleWord(output);
+
+            setHighlight(out);
+
+            setTimeout(() => {
+                editor.current.selectionStart = start + 4;
+                editor.current.selectionEnd = end + 4;
+            }, 100);
         }
     };
 

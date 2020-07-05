@@ -42,25 +42,20 @@ const MainLayout = (props) => {
         storeMain.logout();
     };
 
-    const handleVisibleMenu = e => {
+    const handleVisibleMenu = (e) => {
         // console.log('asd');
-        setVisible(!visible);
-    }
+        storeMain.setVisible(!storeMain.visible);
+    };
 
-
-    if(storeMain.userType == 0) {
+    if (storeMain.userType == 0) {
         nonAssignmentElem = (
             <li
                 className={
-                    storeMain.menu === "NonAssignmentList"
-                        ? "select"
-                        : ""
+                    storeMain.menu === "NonAssignmentList" ? "select" : ""
                 }
                 onClick={() => {
                     storeMain.setMenu("NonAssignmentList");
-                    props.history.replace(
-                        "/nonAssignmentList"
-                    );
+                    props.history.replace("/nonAssignmentList");
                 }}
             >
                 <img className="lectureIcon" src={ToDoIcon}></img>
@@ -73,8 +68,7 @@ const MainLayout = (props) => {
     }
 
     if (storeLecture.selectLecture) {
-        if(visible) {
-
+        if (storeMain.visible) {
             lectureInfoElem = (
                 <React.Fragment>
                     <div className="lectureInfo">
@@ -87,18 +81,22 @@ const MainLayout = (props) => {
                     </div>
                     <ul>
                         <li
-                            className={storeMain.menu === "notice" ? "select" : ""}
+                            className={
+                                storeMain.menu === "notice" ? "select" : ""
+                            }
                             onClick={() => {
                                 storeMain.setMenu("notice");
                                 props.history.replace(
-                                    "/" + props.match.params.courseIdx + "/notice"
+                                    "/" +
+                                        props.match.params.courseIdx +
+                                        "/notice"
                                 );
                             }}
                         >
                             <img className="lectureIcon" src={noticeIcon}></img>
                             <p>공지 톡</p>
                             <div className="notification">
-                                <p>0</p>
+                                <p>N</p>
                             </div>
                         </li>
                         <li
@@ -110,10 +108,13 @@ const MainLayout = (props) => {
                                 );
                             }}
                         >
-                            <img className="lectureIcon" src={questionIcon}></img>
+                            <img
+                                className="lectureIcon"
+                                src={questionIcon}
+                            ></img>
                             <p>강의 톡</p>
                             <div className="notification">
-                                <p>0</p>
+                                <p>N</p>
                             </div>
                         </li>
                         <li
@@ -134,7 +135,9 @@ const MainLayout = (props) => {
                             <p>과제 목록</p>
                         </li>
                         <li
-                            className={storeMain.menu === "grade" ? "select" : ""}
+                            className={
+                                storeMain.menu === "grade" ? "select" : ""
+                            }
                             onClick={() => {
                                 storeMain.setMenu("grade");
                                 props.history.replace(
@@ -153,11 +156,15 @@ const MainLayout = (props) => {
                 <React.Fragment>
                     <ul>
                         <li
-                            className={storeMain.menu === "notice" ? "select" : ""}
+                            className={
+                                storeMain.menu === "notice" ? "select" : ""
+                            }
                             onClick={() => {
                                 storeMain.setMenu("notice");
                                 props.history.replace(
-                                    "/" + props.match.params.courseIdx + "/notice"
+                                    "/" +
+                                        props.match.params.courseIdx +
+                                        "/notice"
                                 );
                             }}
                         >
@@ -175,7 +182,10 @@ const MainLayout = (props) => {
                                 );
                             }}
                         >
-                            <img className="lectureIcon" src={questionIcon}></img>
+                            <img
+                                className="lectureIcon"
+                                src={questionIcon}
+                            ></img>
                             <div className="notification">
                                 <p>+</p>
                             </div>
@@ -197,7 +207,9 @@ const MainLayout = (props) => {
                             <img className="lectureIcon" src={ToDoIcon}></img>
                         </li>
                         <li
-                            className={storeMain.menu === "grade" ? "select" : ""}
+                            className={
+                                storeMain.menu === "grade" ? "select" : ""
+                            }
                             onClick={() => {
                                 storeMain.setMenu("grade");
                                 props.history.replace(
@@ -213,7 +225,7 @@ const MainLayout = (props) => {
         }
     }
 
-    if(visible) {
+    if (storeMain.visible) {
         menuElem = (
             <div className="Menu">
                 <div className="Top">
@@ -253,7 +265,8 @@ const MainLayout = (props) => {
                 </div>
             </div>
         );
-    } else { // 메뉴 최소화 눌렀을때
+    } else {
+        // 메뉴 최소화 눌렀을때
         menuElem = (
             <div className="Menu small">
                 <div className="Top">
@@ -274,9 +287,6 @@ const MainLayout = (props) => {
                             }}
                         >
                             <img className="lectureIcon" src={ClassIcon}></img>
-                            <div className="notification">
-                                <p>+</p>
-                            </div>
                         </li>
                         <li
                             className={
@@ -298,7 +308,6 @@ const MainLayout = (props) => {
                         <img className="logoutIcon" src={LogoutIcon}></img>
                     </div>
                 </div>
-
             </div>
         );
     }

@@ -10,6 +10,9 @@ export default class Main {
     @observable
     isLogin = false;
 
+	@observable
+	visible = true;
+
     @observable
     id = '';
 
@@ -32,6 +35,10 @@ export default class Main {
         this.nonAssignmentCount = nonAssignmentCount;
     }
 
+	@action setVisible = (visible) => {
+		this.visible = visible;
+	}
+	
     @action setSelectStudentIdx = (studentIdx) => {
         this.selectStudentIdx = studentIdx;
     }
