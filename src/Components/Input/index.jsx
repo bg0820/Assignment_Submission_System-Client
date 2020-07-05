@@ -43,6 +43,7 @@ const Input = (props) => {
             }
             min={props.min}
             onChange={props.onChange}
+            onKeyDown={props.onKeyDown}
             onClick={props.onClick ? props.onClick : null}
             onBlur={props.onBlur ? props.onBlur : null}
         ></input>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState, memo } from "react";
+import React, { useEffect, useState, useRef, memo } from "react";
 import { observer, inject } from "mobx-react";
 
 import MainLayout from "@templates/MainLayout";
@@ -9,6 +9,8 @@ import * as Util from "@util";
 
 const NoticeTalkView = (props) => {
     const { storeMain, storeLecture, storeChat } = props;
+
+    const chatBoxElem = useRef(null);
 
     useEffect(() => {
         storeChat.init();
@@ -38,6 +40,9 @@ const NoticeTalkView = (props) => {
 
     const onMessage = (msg) => {
         storeChat.addChat(msg.data);
+
+        console.log(chatBoxElem);
+        chatBoxElem.current.scrollTop = chatBoxElem.current.scrollHeight;
     };
 
     let chats = storeChat.chats.map((item, i) => {
@@ -51,7 +56,7 @@ const NoticeTalkView = (props) => {
     });
 
     return (
-        <TalkLayout title="공지 톡" type="notice">
+        <TalkLayout refElem={chatBoxElem} title="공지 톡" type="notice">
             {chats}
         </TalkLayout>
     );
