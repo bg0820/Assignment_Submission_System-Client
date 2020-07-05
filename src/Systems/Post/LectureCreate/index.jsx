@@ -7,11 +7,14 @@ import ComboBox from "@components/ComboBox";
 import Table from "@components/Table";
 import Modal from "@templates/Modal";
 
+import deleteIcon from "@asset/trash.svg";
 import * as Util from "@util";
 
 import "./style.scss";
 
 const LectureCreate = (props) => {
+    const { storeMain, storeModal, storeLecture } = props;
+
     const [title, setTitle] = useState("");
     const [language, setLanguage] = useState("none");
     const [studentName, setStudentName] = useState("");
@@ -23,12 +26,40 @@ const LectureCreate = (props) => {
     useEffect(() => {
         Util.requestServer("user/list", "GET", {}).then(function (resp) {
             if (resp.code === 200) {
+                console.log(resp.body);
                 setOriginalUserList(resp.body.list);
             } else {
                 alert(resp.body.msg);
             }
         });
+
+        if (storeModal.modalTitle != "강의 생성"){
+            Util.requestServer("course/info", "GET", {
+                courseIdx: storeModal.modalData,
+            }).then(function (resp) {
+                if (resp.code === 200) {
+                    let data = resp.body.info;
+
+                    setTitle(data.courseName);
+                    setLanguage(data.language);
+                    setData(data.userList);
+                } else {
+                    alert(resp.body.msg);
+                }
+            });
+        }
     }, []);
+
+
+    const clickUserDelete = (idx, item) => {
+        let newArr = [];
+        for(var i = 0 ; i < data.length; i++) {
+            if(data[i].userIdx != item.userIdx)
+                newArr.push(data[i]);
+        }
+
+        setData(newArr);
+    }
 
     const handleStudentName = (e) => {
         setStudentName(e.target.value);
@@ -60,16 +91,30 @@ const LectureCreate = (props) => {
         let userIdxList = [];
         for (var i = 0; i < data.length; i++) userIdxList.push(data[i].userIdx);
 
-        Util.requestServer("course/create", "POST", {
-            courseName: title,
-            language: language,
-            userIdxList: userIdxList,
-        }).then(function (resp) {
-            if (resp.code === 200) {
-                alert(resp.body.msg);
-                window.location.reload(true);
-            }
-        });
+        if(storeModal.modalData) {
+            Util.requestServer("course/edit", "POST", {
+                courseIdx: storeModal.modalData,
+                courseName: title,
+                language: language,
+                userIdxList: userIdxList,
+            }).then(function (resp) {
+                if (resp.code === 200) {
+                    alert(resp.body.msg);
+                    window.location.reload(true);
+                }
+            });
+        } else {
+            Util.requestServer("course/create", "POST", {
+                courseName: title,
+                language: language,
+                userIdxList: userIdxList,
+            }).then(function (resp) {
+                if (resp.code === 200) {
+                    alert(resp.body.msg);
+                    window.location.reload(true);
+                }
+            });
+        }
     };
 
     let headerItem = [
@@ -92,14 +137,37 @@ const LectureCreate = (props) => {
         );
     });
 
-    let childElement = data.map((item, idx) => {
-        return (
-            <tr key={idx}>
-                <td align="left">{item.name}</td>
-                <td align="left">{item.id}</td>
-            </tr>
-        );
-    });
+    let childElement = null;
+
+    if(storeModal.modalData) {
+        childElement = data.map((item, idx) => {
+            return (
+                <tr key={idx}>
+                    <td align="left">{item.name}</td>
+                    <td align="left">{item.id}</td>
+                    <td align="center">
+                        <div>
+                            <img
+                                className="lectureIcon"
+                                src={deleteIcon}
+                                onClick={(e) =>{clickUserDelete(idx, item)}}
+                            ></img>
+                        </div>
+                    </td>
+                </tr>
+            );
+        });
+    }
+    else {
+        childElement = data.map((item, idx) => {
+            return (
+                <tr key={idx}>
+                    <td align="left">{item.name}</td>
+                    <td align="left">{item.id}</td>
+                </tr>
+            );
+        });
+    }
 
     let searchResultVisible = "none";
     if (visible) searchResultVisible = "block";
@@ -151,7 +219,7 @@ const LectureCreate = (props) => {
                 </div>
 
                 <Button
-                    value="강의 생성"
+                    value={storeModal.modalData ? "강의 수정" : "강의 생성"}
                     height="50px"
                     onClick={handleCreateLecture}
                 ></Button>
@@ -160,4 +228,6 @@ const LectureCreate = (props) => {
     );
 };
 
-export default LectureCreate;
+export default inject(
+    "storeModal"
+)(LectureCreate);

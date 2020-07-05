@@ -57,11 +57,11 @@ const LectureListView = (props) => {
     };
 
     const clickEdit = (item) => {
-        storeMain.setMenu("editor");
-        storeTask.setSelectTaskItem(item);
-        props.history.push(
-            "/" + props.match.params.courseIdx + "/" + item.taskIdx
-        );
+        storeModal.modalCall({
+            modalView: "createLecture",
+            modalTitle: "강의 수정",
+            modalData: item.courseIdx
+        });
     };
 
     const clickDelete = (item) => {
