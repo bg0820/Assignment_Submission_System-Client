@@ -4,6 +4,9 @@ import Table from "@components/Table";
 import Language from "@components/Language";
 import FloatingMenu from "@components/FloatingMenu";
 
+import editIcon from "@asset/edit.svg";
+import deleteIcon from "@asset/trash.svg";
+
 import * as Util from "@util";
 
 const LectureListView = (props) => {
@@ -47,6 +50,24 @@ const LectureListView = (props) => {
         });
     };
 
+    const clickEdit = (item) => {
+        storeMain.setMenu("editor");
+        storeTask.setSelectTaskItem(item);
+        props.history.push(
+            "/" + props.match.params.courseIdx + "/" + item.taskIdx
+        );
+    };
+
+    const clickDelete = (item) => {
+        
+        console.log(item.courseIdx);
+
+        Util.requestServer("course/delete", "DELETE", {
+            courseIdx: item.courseIdx,
+        }).then(function (result) {
+        });
+    };
+
     if (storeMain.userType === 0) {
         headerItem = [
             {
@@ -66,6 +87,10 @@ const LectureListView = (props) => {
                 text: "성적",
                 width: "100px",
             },
+            {
+                text: " ",
+                width: "50px",
+            },
         ];
         childElement = list.map((item, idx) => {
             return (
@@ -77,6 +102,15 @@ const LectureListView = (props) => {
                     </td>
                     <td align="center">
                         {item.grade ? item.grade + "점" : "없음"}
+                    </td>
+                    <td align="center">
+                        <div>
+                            <img
+                                className="lectureIcon"
+                                src={deleteIcon}
+                                onClick={(e) =>{window.confirm('삭제?') ? clickDelete(item) : ""; window.location.reload(false);}}
+                            ></img>
+                        </div>
                     </td>
                 </tr>
             );
@@ -95,6 +129,10 @@ const LectureListView = (props) => {
                 text: "언어",
                 width: "100px",
             },
+            {
+                text: " ",
+                width: "100px",
+            },
         ];
         childElement = list.map((item, idx) => {
             return (
@@ -107,6 +145,20 @@ const LectureListView = (props) => {
                     <td align="center">{item.count}</td>
                     <td align="center">
                         <Language language={item.language}></Language>
+                    </td>
+                    <td align="center">
+                        <div>
+                            <img
+                                className="lectureIcon"
+                                src={editIcon}
+                                onClick={(e) => clickEdit(item)}
+                            ></img>
+                            <img
+                                className="lectureIcon"
+                                src={deleteIcon}
+                                onClick={(e) =>{window.confirm('삭제?') ? clickDelete(item) : ""; window.location.reload(false);}}
+                            ></img>
+                        </div>
                     </td>
                 </tr>
             );
