@@ -62,7 +62,7 @@ const LectureListView = (props) => {
         
         console.log(item.courseIdx);
 
-        Util.requestServer("course/delete", "DELETE", {
+        Util.requestServer("course/delete", "POST", {
             courseIdx: item.courseIdx,
         }).then(function (result) {
         });
