@@ -67,6 +67,7 @@ const LectureCreate = (props) => {
         }).then(function (resp) {
             if (resp.code === 200) {
                 alert(resp.body.msg);
+                window.location.reload(true);
             }
         });
     };

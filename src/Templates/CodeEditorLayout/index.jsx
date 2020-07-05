@@ -13,7 +13,7 @@ import * as Util from "@util";
 import "./style.scss";
 
 const CodeEditorLayout = (props) => {
-    const { storeTask, storeLecture } = props;
+    const { storeMain, storeTask, storeLecture } = props;
 
     const [info, setInfo] = useState({
         title: "",
@@ -183,6 +183,8 @@ const CodeEditorLayout = (props) => {
                 console.log(result);
                 if (result.code == 200) {
                     alert(result.body.msg);
+                    props.history.replace("/" + props.match.params.courseIdx);
+                    storeMain.setMenu('assignmentList');
                 } else {
                     alert(result.body.msg);
                 }
@@ -322,4 +324,4 @@ const CodeEditorLayout = (props) => {
     );
 };
 
-export default inject("storeTask", "storeLecture")(observer(CodeEditorLayout));
+export default inject("storeMain", "storeTask", "storeLecture")(observer(CodeEditorLayout));

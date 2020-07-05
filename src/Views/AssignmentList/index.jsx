@@ -46,6 +46,7 @@ const AssignmentListView = (props) => {
     const handleFloating = (e) => {
         storeMain.setMenu("editor");
         props.history.push("/" + props.match.params.courseIdx);
+        
     };
 
     const clickEdit = (item) => {
@@ -67,10 +68,19 @@ const AssignmentListView = (props) => {
     const clickDelete = (item) => {
         console.log(item.taskIdx);
 
-        Util.requestServer("task/delete", "DELETE", {
+        Util.requestServer("task/delete", "POST", {
             taskIdx: item.taskIdx,
         }).then(function (result) {
+            Util.requestServer("task/list", "GET", {
+                courseIdx: props.match.params.courseIdx,
+            }).then(async function (result) {
+                if (result.code === 200) {
+                    setList(result.body.list);
+                }
+            });
         });
+
+
     };
 
     if (storeMain.userType === 0) {
@@ -181,7 +191,8 @@ const AssignmentListView = (props) => {
                                 className="lectureIcon"
                                 src={deleteIcon}
                                 
-                                onClick={(e) => {window.confirm('삭제?') ? clickDelete(item) : ""; window.location.reload(false);}}
+                                onClick={(e) => {window.confirm('삭제?') ? clickDelete(item) : ""; 
+                                 }}
                             ></img>
                         </div>
                     </td>
