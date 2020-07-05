@@ -12,6 +12,8 @@ const AssignmentHtmlBox = (props) => {
     const [codeView, setCodeView] = useState(false);
     const [score, setScore] = useState("");
 
+    const showHtml = useRef();
+
     const handleEvaluation = (e) => {
         Util.requestServer("task/evaluate", "PUT", {
             evaluationIdx: props.evaluationIdx,
@@ -39,12 +41,13 @@ const AssignmentHtmlBox = (props) => {
 
     let codeElem = null;
 
-    if (codeView)
+    if (codeView) {
         codeElem = (
             <textarea className="codeView" defaultValue={props.code}>
                 
             </textarea>
         );
+    }
 
     return (
         <div className="AssignmentHtmlBox">
@@ -79,8 +82,7 @@ const AssignmentHtmlBox = (props) => {
                             ></Button>
                     </div>
                 </div>
-                <div className="result">
-                    {props.result}
+                <div className="result" dangerouslySetInnerHTML={ {__html: props.code} }>
                 </div>
                 {codeElem}
 

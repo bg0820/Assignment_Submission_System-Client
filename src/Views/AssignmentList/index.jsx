@@ -28,6 +28,12 @@ const AssignmentListView = (props) => {
             }).then(async function (result) {
                 if (result.code === 200) {
                     setList(result.body.list);
+                    Util.requestServer("task/list/nonAssignment", "GET", {
+                    }).then(async function (result) {
+                        if (result.code === 200) {
+                            storeMain.setNonAssignment(result.body.list.length);
+                        }
+                    });
                 }
             });
         }

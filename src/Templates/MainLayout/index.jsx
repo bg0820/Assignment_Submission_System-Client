@@ -66,7 +66,7 @@ const MainLayout = (props) => {
                 <img className="lectureIcon" src={ToDoIcon}></img>
                 <p>미제출 과제</p>
                 <div className="notification">
-                    <p>0</p>
+                <p>{storeMain.nonAssignmentCount}</p>
                 </div>
             </li>
         );
