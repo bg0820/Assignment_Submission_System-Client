@@ -18,7 +18,16 @@
 
 			.VisibleMenu {
 				float: left;
+				
+				.openMenuIcon{
+					width: 18px;
+					height: 18px;
+					margin-top: 5px;
+					margin-left: 5px;
+					cursor: pointer;
+				}
 			}
+
 
 			.UserInfo {
 				float: right;
@@ -53,11 +62,10 @@
 					padding-left: 10px;
 					padding-right: 10px;
 					cursor: pointer;
-
-						display: flex;
-						align-items: center;
-						height: 60px;
-						width: 100%;
+					display: flex;
+					align-items: center;
+					height: 60px;
+					width: 100%;
 					
 
 					&.select {
@@ -166,6 +174,73 @@
 			}
 
 		}
+
+		
+		&.small {    
+			min-width: 45px;
+
+			
+
+			ul {
+				li {
+					position: relative;
+					padding-left: 0px;
+					padding-right: 0px;
+					height: 50px;
+					display: flex;
+					justify-content: center;
+				
+					&.select {
+						border-right: 2px solid #048DEE;
+					}
+
+					img.lectureIcon {
+						width: 18px;
+						height: 18px;
+						margin-left: 0px;
+						margin-right: 0px;
+						opacity: 1.0;
+					}
+
+					.notification {
+						position: absolute;
+						top: 10px;
+						left: 6px;
+
+						p {
+							font-size: 9px;
+							line-height: 12px;
+							width: 12px;
+							height: 12px;
+							text-align:center;
+							border-radius: 50%;
+						}
+					}
+				}
+			}
+			.SubMenu {
+				padding-top: 0px;
+			}
+			
+			.Bottom {
+				padding-right: 5px;
+				padding-left: 5px;
+
+				.logoutBtn {		
+					display: flex;
+					justify-content: center;
+
+					
+					.logoutIcon {
+						width: 18px;
+						height: 18px;
+						margin-right: 0px;
+					}
+				}
+
+			}
+		}
+
 	}
 
 	.Content {
