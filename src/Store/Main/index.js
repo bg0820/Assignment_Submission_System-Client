@@ -25,6 +25,13 @@ export default class Main {
     @observable
     selectStudentIdx = -1;
 
+    @observable
+    nonAssignmentCount = 0;
+
+    @action setNonAssignment = (nonAssignmentCount) => {
+        this.nonAssignmentCount = nonAssignmentCount;
+    }
+
     @action setSelectStudentIdx = (studentIdx) => {
         this.selectStudentIdx = studentIdx;
     }

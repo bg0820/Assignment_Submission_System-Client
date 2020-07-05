@@ -12,7 +12,7 @@ import * as Util from "@util";
 const LectureListView = (props) => {
     const { storeMain, storeModal, storeLecture } = props;
     const [list, setList] = useState([]);
-
+    
     let headerItem = [];
     let childElement = null;
     let createBtnElem = null;
@@ -22,6 +22,12 @@ const LectureListView = (props) => {
             if (result.code === 200) {
                 setList(result.body.list);
             }
+            Util.requestServer("task/list/nonAssignment", "GET", {
+            }).then(async function (result) {
+                if (result.code === 200) {
+                    storeMain.setNonAssignment(result.body.list.length);
+                }
+            });
         });
         /*
         storeMain.socket.emit("message", {
