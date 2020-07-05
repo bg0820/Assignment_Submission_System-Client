@@ -25,6 +25,20 @@ const CodeEditorLayout = (props) => {
         extend: "",
     });
 
+    const formatDate = (date) => {
+        var d = new Date(date),
+            month = '' + (d.getMonth() + 1),
+            day = '' + d.getDate(),
+            year = d.getFullYear();
+    
+        if (month.length < 2) 
+            month = '0' + month;
+        if (day.length < 2) 
+            day = '0' + day;
+    
+        return [year, month, day].join('-');
+    }
+
     useEffect(() => {
         if (props.id) {
             Util.requestServer("task/detail", "GET", {
@@ -33,12 +47,18 @@ const CodeEditorLayout = (props) => {
                 let body = resp.body;
 
                 if (resp.code === 200) {
+                    console.log(body.info);
+
                     setInfo({
                         ...info,
                         title: body.info.title,
                         content: body.info.content,
                         language: body.info.language,
                         example: body.info.example,
+                        expire: formatDate(body.info.expireDate),
+                        extendType: body.info.extendType,
+                        extend: formatDate(body.info.extendDate)
+
                     });
                 }
             });
@@ -153,7 +173,7 @@ const CodeEditorLayout = (props) => {
 
         if (props.id) {
             Util.requestServer("task/edit", "POST", {
-                courseIdx: storeLecture.selectLecture.courseIdx,
+                taskIdx: Number(props.id),
                 title: info.title,
                 content: info.content,
                 language: info.language,
@@ -165,6 +185,8 @@ const CodeEditorLayout = (props) => {
                 console.log(result);
                 if (result.code == 200) {
                     alert(result.body.msg);
+                    props.history.replace("/" + props.match.params.courseIdx);
+                    storeMain.setMenu('assignmentList');
                 } else {
                     alert(result.body.msg);
                 }
@@ -314,7 +336,7 @@ const CodeEditorLayout = (props) => {
                         <Button
                             width="75px"
                             height="35px"
-                            value="생성"
+                            value={props.id ? '수정' : '생성'}
                             onClick={createBtn}
                         ></Button>
                     </div>
