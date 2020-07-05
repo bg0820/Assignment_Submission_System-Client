@@ -9,6 +9,8 @@ import * as Util from "@util";
 const QnATalkView = (props) => {
     const { storeMain, storeLecture, storeChat } = props;
 
+    const chatBoxElem = useRef(null);
+
     useEffect(() => {
         storeChat.init();
 
@@ -37,6 +39,9 @@ const QnATalkView = (props) => {
 
     const onMessage = (msg) => {
         storeChat.addChat(msg.data);
+
+        console.log(chatBoxElem);
+        chatBoxElem.current.scrollTop = chatBoxElem.current.scrollHeight;
     };
 
     let chats = storeChat.chats.map((item, i) => {
@@ -50,7 +55,7 @@ const QnATalkView = (props) => {
     });
 
     return (
-        <TalkLayout title="강의 톡" type="qna">
+        <TalkLayout refElem={chatBoxElem} title="강의 톡" type="qna">
             {chats}
         </TalkLayout>
     );

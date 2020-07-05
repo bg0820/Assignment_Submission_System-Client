@@ -1,4 +1,4 @@
-import React, { useEffect, useState, memo } from "react";
+import React, { useEffect, useState, useRef,  memo } from "react";
 import { observer, inject } from "mobx-react";
 
 import Input from "@components/Input";
@@ -9,8 +9,8 @@ import "./style.scss";
 
 const TalkLayout = (props) => {
     const { storeMain, storeLecture } = props;
-
     const [chat, setChat] = useState("");
+
 
     const inputControl = () => {
         if (props.title.indexOf("공지") == 1) {
@@ -22,6 +22,22 @@ const TalkLayout = (props) => {
         setChat(e.target.value);
     };
 
+    const handleChatKeyDown = e => {
+        if(e.keyCode == 13) {
+            storeMain.socket.emit("message", {
+                token: sessionStorage.token,
+                type: "chat",
+                data: {
+                    courseIdx: storeLecture.selectLecture.courseIdx,
+                    chat: chat,
+                    type: props.type,
+                },
+            });
+    
+            setChat('');
+        }
+    }
+
     const btnSend = (e) => {
         storeMain.socket.emit("message", {
             token: sessionStorage.token,
@@ -32,17 +48,9 @@ const TalkLayout = (props) => {
                 type: props.type,
             },
         });
-    };
 
-    console.log(
-        "input disabled",
-        props.type === "notice"
-            ? storeMain.userType == 1
-                ? false
-                : true
-            : false,
-        storeMain.userType
-    );
+        setChat('');
+    };
 
     let disabled = false;
     let placeHolderMsg = "메시지 입력";
@@ -59,13 +67,14 @@ const TalkLayout = (props) => {
     return (
         <div className="TalkLayout">
             <p className="title">{props.title}</p>
-
-            <div className="talk">{props.children}</div>
-
+            <div className="talk">
+                <div ref={props.refElem} className="scrollbar" >{props.children}</div>
+            </div>
             <div className="bottom">
                 <Input
                     value={chat}
                     onChange={handleChat}
+                    onKeyDown={handleChatKeyDown}
                     placeholder={placeHolderMsg}
                     height="40px"
                     margin="0px 10px 0px 0px"
@@ -81,6 +90,7 @@ const TalkLayout = (props) => {
                 ></Button>
             </div>
         </div>
+       
     );
 };
 
