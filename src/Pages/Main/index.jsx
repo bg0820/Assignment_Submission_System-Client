@@ -14,6 +14,7 @@ import AssignmentGrade from "@views/AssignmentGrade";
 
 import * as Util from "@util";
 import "./style.scss";
+import AssignmentEvaluation from "../AssignmentEvaluation";
 
 const MainPage = (props) => {
     const { storeLecture, storeMain, match, history } = props;
@@ -57,6 +58,10 @@ const MainPage = (props) => {
     } else if (storeMain.menu === "notice") {
         viewElem = (
             <NoticeTalkView match={match} history={history}></NoticeTalkView>
+        );
+    } else if (storeMain.menu === "evaluation") {
+        viewElem = (
+            <AssignmentEvaluation match={match} history={history}></AssignmentEvaluation>
         );
     } else if (storeMain.menu === "grade") {
         viewElem = <GradeView match={match} history={history}></GradeView>;

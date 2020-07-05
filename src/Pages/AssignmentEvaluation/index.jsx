@@ -25,11 +25,12 @@ const AssignmentEvaluation = (props) => {
 
     useEffect(() => {
         Util.requestServer("task/list/apply", "GET", {
-            taskIdx: props.match.params.id,
+            taskIdx: props.match.params.taskIdx,
         }).then(function(resp) {
             let body = resp.body;
 
             if(resp.code === 200) {
+                console.log("성공");
                 setList(body.list);
                 //setAssignment(body.assignment);
                 setLanguage(body.language);
@@ -90,12 +91,9 @@ const AssignmentEvaluation = (props) => {
         */
     }
     return (
-        <MainLayout>
-            <div className="AssignmentEvaluation">
-                {assignmentElem}
-            </div>
-            
-        </MainLayout>
+        <div className="AssignmentEvaluation">
+            {assignmentElem}
+        </div>
     );
 };
 
