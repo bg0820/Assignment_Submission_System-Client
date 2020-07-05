@@ -54,9 +54,9 @@ const AssignmentCodeBox = (props) => {
                     height="40px"
                     onClick={handleEvaluation}
                 ></Button>
-                <div className="code">
-                    {props.code}
-                </div>
+                <textarea className="code" defaultValue= {props.code} >
+                   
+                </textarea>
             </div>
         </div>
         </div>

@@ -67,7 +67,8 @@ const CodeViewerLayout = (props) => {
     };
 
     const onSubmit = (data) => {
-        console.log("onSubmit", data);
+        console.log("onSubmit", data.msg);
+        alert(data.msg);
     }
 
     let outputElem = null;
@@ -100,16 +101,21 @@ const CodeViewerLayout = (props) => {
         console.log(storeTask.selectTask);
         storeCode.clearOutput();
 
-        storeMain.socket.emit("message", {
-            type: "code_exec",
-            data: {
-                studentId: storeMain.id,
-                taskIdx: storeTask.selectTask.taskIdx,
-                code: storeCode.code,
-                language: storeTask.selectTask.language,
-            },
-            token: sessionStorage["token"]
-        });
+        if(info.language == "HTML" || info.language == "html") {
+            let win = window.open("", "new window");
+            win.document.write(storeCode.code);
+        } else {
+            storeMain.socket.emit("message", {
+                type: "code_exec",
+                data: {
+                    studentId: storeMain.id,
+                    taskIdx: storeTask.selectTask.taskIdx,
+                    code: storeCode.code,
+                    language: storeTask.selectTask.language,
+                },
+                token: sessionStorage["token"]
+            });
+        }
     };
 
     outputElem = storeCode.output.map((item, i) => {
