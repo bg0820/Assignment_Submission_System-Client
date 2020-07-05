@@ -15,55 +15,76 @@ import "./style.scss";
 const CodeEditorLayout = (props) => {
     const { storeTask, storeLecture } = props;
 
-    const [title, setTitle] = useState(props.title ? props.title : "");
-    const [language, setLanguage] = useState(
-        props.language ? props.language : "none"
-    );
-    const [content, setContent] = useState(props.content ? props.content : "");
-
-    const [exampleList, setExampleList] = useState(
-        props.example ? props.example : []
-    );
-    const [expire, setExpire] = useState("");
-    const [extendType, setExtendtype] = useState(false);
-    const [extend, setExtend] = useState("");
-
-    const [info, setInfo] = useState(null);
+    const [info, setInfo] = useState({
+        title: "",
+        content: "",
+        language: "c",
+        example: [],
+        expire: "",
+        extendType: false,
+        extend: "",
+    });
 
     useEffect(() => {
-        Util.requestServer("task/detail", "GET", {
-            taskIdx: storeTask.selectTaskIdx,
-        }).then(function (resp) {
-            let body = resp.body;
+        if (props.id) {
+            Util.requestServer("task/detail", "GET", {
+                taskIdx: props.id,
+            }).then(function (resp) {
+                let body = resp.body;
 
-            if (resp.code === 200) {
-                setInfo(resp.body.info);
-            }
-        });
+                if (resp.code === 200) {
+                    setInfo({
+                        ...info,
+                        title: body.info.title,
+                        content: body.info.content,
+                        language: body.info.language,
+                        example: body.info.example,
+                    });
+                }
+            });
+        }
     }, []);
 
     const handleTitleChange = (e) => {
-        setTitle(e.target.value);
+        setInfo({
+            ...info,
+            title: e.target.value,
+        });
     };
 
     const handleLanguageChange = (e) => {
-        setLanguage(e.target.value);
+        setInfo({
+            ...info,
+            language: e.target.value,
+        });
     };
 
     const handleContentChange = (e) => {
-        setContent(e.target.value);
+        setInfo({
+            ...info,
+            content: e.target.value,
+        });
     };
 
     const handleExpireChange = (e) => {
-        setExpire(e.target.value);
+        setInfo({
+            ...info,
+            exipre: e.target.value,
+        });
     };
 
     const handleExtendTypeChange = (e) => {
-        setExtendtype(!extendType);
+        setInfo({
+            ...info,
+            extendType: !info.extendType,
+        });
     };
 
     const handleExtendChange = (e) => {
-        setExtend(e.target.value);
+        setInfo({
+            ...info,
+            extend: e.target.value,
+        });
     };
 
     const resize = (event) => {
@@ -74,15 +95,29 @@ const CodeEditorLayout = (props) => {
 
     const btnClick = (event) => {
         console.log("추가");
-        setExampleList(
-            exampleList.concat({
+
+        setInfo({
+            ...info,
+            example: info.example.concat({
                 input: "",
                 output: "",
-            })
-        );
+            }),
+        });
     };
 
     const inputChange = (idx, value) => {
+        setInfo({
+            ...info,
+            example: info.example.map((item, i) => {
+                return i == idx
+                    ? {
+                          ...item,
+                          input: value,
+                      }
+                    : item;
+            }),
+        });
+        /*
         setExampleList(
             exampleList.map((item, i) => {
                 return i == idx
@@ -92,20 +127,21 @@ const CodeEditorLayout = (props) => {
                       }
                     : item;
             })
-        );
+        );*/
     };
 
     const outputChange = (idx, value) => {
-        setExampleList(
-            exampleList.map((item, i) => {
+        setInfo({
+            ...info,
+            example: info.example.map((item, i) => {
                 return i == idx
                     ? {
                           ...item,
                           output: value,
                       }
                     : item;
-            })
-        );
+            }),
+        });
     };
 
     const createBtn = (e) => {
@@ -114,26 +150,46 @@ const CodeEditorLayout = (props) => {
             return;
         }
 
-        Util.requestServer("task/create", "POST", {
-            courseIdx: storeLecture.selectLecture.courseIdx,
-            title: title,
-            content: content,
-            language: language,
-            exampleList: exampleList,
-            expireDate: expire,
-            extendType: extendType,
-            extendDate: extend,
-        }).then(function (result) {
-            console.log(result);
-            if (result.code == 200) {
-                alert(result.body.msg);
-            } else {
-                alert(result.body.msg);
-            }
-        });
+        if (props.id) {
+            Util.requestServer("task/edit", "POST", {
+                courseIdx: storeLecture.selectLecture.courseIdx,
+                title: info.title,
+                content: info.content,
+                language: info.language,
+                exampleList: info.example,
+                expireDate: info.expire,
+                extendType: info.extendType,
+                extendDate: info.extend,
+            }).then(function (result) {
+                console.log(result);
+                if (result.code == 200) {
+                    alert(result.body.msg);
+                } else {
+                    alert(result.body.msg);
+                }
+            });
+        } else {
+            Util.requestServer("task/create", "POST", {
+                courseIdx: storeLecture.selectLecture.courseIdx,
+                title: info.title,
+                content: info.content,
+                language: info.language,
+                exampleList: info.example,
+                expireDate: info.expire,
+                extendType: info.extendType,
+                extendDate: info.extend,
+            }).then(function (result) {
+                console.log(result);
+                if (result.code == 200) {
+                    alert(result.body.msg);
+                } else {
+                    alert(result.body.msg);
+                }
+            });
+        }
     };
 
-    let exampleListElem = exampleList.map((item, i) => {
+    let exampleListElem = info.example.map((item, i) => {
         return (
             <Example
                 key={i}
@@ -152,13 +208,10 @@ const CodeEditorLayout = (props) => {
                 <div className="title">
                     <select
                         name="language"
-                        value={language}
+                        value={info.language}
                         onChange={handleLanguageChange}
                         className="language"
                     >
-                        <option value="none" disabled hidden>
-                            미선택
-                        </option>
                         <option value="c">C</option>
                         <option value="java">JAVA</option>
                         <option value="python">Python</option>
@@ -167,7 +220,7 @@ const CodeEditorLayout = (props) => {
 
                     <Textarea
                         padding="5px 0px 0px 5px"
-                        value={title}
+                        value={info.title}
                         height="35px"
                         onChange={handleTitleChange}
                         onKeyUp={resize}
@@ -179,7 +232,7 @@ const CodeEditorLayout = (props) => {
                 <div className="middle">
                     <Textarea
                         padding="5px 0px 0px 5px"
-                        value={content}
+                        value={info.content}
                         height="35px"
                         onChange={handleContentChange}
                         onKeyUp={resize}
@@ -204,7 +257,7 @@ const CodeEditorLayout = (props) => {
                             <p className="item_title">제출 기한 설정</p>
                             <Input
                                 type="date"
-                                value={expire}
+                                value={info.expire}
                                 onChange={handleExpireChange}
                                 className="expire"
                                 placeholder="마감 날짜"
@@ -220,7 +273,7 @@ const CodeEditorLayout = (props) => {
                                 >
                                     <input
                                         type="checkbox"
-                                        checked={extendType}
+                                        checked={info.extendType}
                                         onChange={handleExtendTypeChange}
                                         id="extendType"
                                         className="extendType"
@@ -229,7 +282,7 @@ const CodeEditorLayout = (props) => {
                                 </label>
                                 <Input
                                     type="date"
-                                    value={extend}
+                                    value={info.extend}
                                     onChange={handleExtendChange}
                                     className="extendDate"
                                     placeholder="연장 날짜"

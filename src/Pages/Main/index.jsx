@@ -9,6 +9,8 @@ import AssignmentListView from "@views/AssignmentList";
 import EditorView from "@views/Editor";
 import QnATalkView from "@views/Qna";
 import NoticeTalkView from "@views/Notice";
+import GradeView from "@views/Grade";
+import AssignmentGrade from "@views/AssignmentGrade";
 
 import * as Util from "@util";
 import "./style.scss";
@@ -61,6 +63,10 @@ const MainPage = (props) => {
         viewElem = (
             <AssignmentEvaluation match={match} history={history}></AssignmentEvaluation>
         );
+    } else if (storeMain.menu === "grade") {
+        viewElem = <GradeView match={match} history={history}></GradeView>;
+    } else if (storeMain.menu === "assignmentGrade") {
+        viewElem = <AssignmentGrade match={match} history={history}></AssignmentGrade>;
     }
 
     return <MainLayout>{viewElem}</MainLayout>;
