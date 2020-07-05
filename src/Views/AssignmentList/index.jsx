@@ -60,11 +60,11 @@ const AssignmentListView = (props) => {
 
     const clickDelete = (item) => {
         console.log(item.taskIdx);
-        /*
-        Util.requestServer("task/delete", "PUT", {
-            taskIdx: e.target,
+
+        Util.requestServer("task/delete", "DELETE", {
+            taskIdx: item.taskIdx,
         }).then(function (result) {
-        });*/
+        });
     };
 
     if (storeMain.userType === 0) {
@@ -174,7 +174,8 @@ const AssignmentListView = (props) => {
                             <img
                                 className="lectureIcon"
                                 src={deleteIcon}
-                                onClick={(e) => clickDelete(item)}
+                                
+                                onClick={(e) => {window.confirm('삭제?') ? clickDelete(item) : ""; window.location.reload(false);}}
                             ></img>
                         </div>
                     </td>
