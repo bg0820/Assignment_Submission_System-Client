@@ -22,6 +22,7 @@ const MainLayout = (props) => {
     let modal = null;
     let menuElem = null;
     let nonAssignmentElem = null;
+    let scoreElem = null;
 
     if (storeModal.modalView === "createLecture")
         modal = (
@@ -63,6 +64,25 @@ const MainLayout = (props) => {
                 <div className="notification">
                 <p>{storeMain.nonAssignmentCount}</p>
                 </div>
+            </li>
+        );
+    }
+
+    if(storeMain.userType == 1) {
+        scoreElem = (
+            <li
+                className={
+                    storeMain.menu === "grade" ? "select" : ""
+                }
+                onClick={() => {
+                    storeMain.setMenu("grade");
+                    props.history.replace(
+                        "/" + props.match.params.courseIdx
+                    );
+                }}
+            >
+                <img className="lectureIcon" src={gradeIcon}></img>
+                <p>성적</p>
             </li>
         );
     }
@@ -134,20 +154,7 @@ const MainLayout = (props) => {
                             <img className="lectureIcon" src={ToDoIcon}></img>
                             <p>과제 목록</p>
                         </li>
-                        <li
-                            className={
-                                storeMain.menu === "grade" ? "select" : ""
-                            }
-                            onClick={() => {
-                                storeMain.setMenu("grade");
-                                props.history.replace(
-                                    "/" + props.match.params.courseIdx
-                                );
-                            }}
-                        >
-                            <img className="lectureIcon" src={gradeIcon}></img>
-                            <p>성적</p>
-                        </li>
+                        {scoreElem}
                     </ul>
                 </React.Fragment>
             );
