@@ -4,15 +4,14 @@ import { observer, inject } from "mobx-react";
 import Button from "@components/Button";
 import Input from "@components/Input";
 
+import CodeHighlighter from "@components/CodeHighlighter";
+
 import * as Util from "@util";
 import "./style.scss";
 
 const AssignmentHtmlBox = (props) => {
-    const { storeMain, storeModal, storeTask,storeLecture } = props;
-    const [codeView, setCodeView] = useState(false);
+    const { storeMain, storeModal, storeLecture } = props;
     const [score, setScore] = useState("");
-
-    const showHtml = useRef();
 
     const handleEvaluation = (e) => {
         Util.requestServer("task/evaluate", "PUT", {
@@ -28,36 +27,17 @@ const AssignmentHtmlBox = (props) => {
     const handleScoreChange = (e) => {
         setScore(e.target.value);
     };
+    console.log(props);
 
-    const handleCode = (e) => {
-        if (codeView) {
-            console.log("true");
-            setCodeView(false);
-        } else {
-            console.log("false");
-            setCodeView(true);
-        }
-    }
-
-    let codeElem = null;
-
-    if (codeView) {
-        codeElem = (
-            <textarea className="codeView" defaultValue={props.code}>
-                
-            </textarea>
-        );
-    }
-
-    return (
+    return(
         <div className="AssignmentHtmlBox">
             <div className="box">
-                <div className="top">
+                <div className="Header">
                     <div className="studentInfo">
                         <p className="studentNumber">{props.id}</p>
                         <p className="studentName">{props.studentName}</p>
                     </div>
-                    <div className="score">
+                    <div className="grade">
                         <Input
                             placeholder={props.score}
                             width="45px"
@@ -66,26 +46,28 @@ const AssignmentHtmlBox = (props) => {
                             value={score}
                             onChange={handleScoreChange}
                         />
-                            <Button
-                                value="코드보기"
-                                color="green"
-                                width="90px"
-                                height="40px"
-                                onClick={handleCode}
-                                margin="0px 10px 0px 0px"
-                            ></Button>
-                            <Button
-                                value="평가"
-                                width="90px"
-                                height="40px"
-                                onClick={handleEvaluation}
-                            ></Button>
+
+                        <Button
+                            value="평가"
+                            width="90px"
+                            height="40px"
+                            onClick={handleEvaluation}
+                        ></Button>
                     </div>
                 </div>
-                <div className="result" dangerouslySetInnerHTML={ {__html: props.code} }>
-                </div>
-                {codeElem}
+                <div className="Code">
+                    <div className="wrap border">
+                        <CodeHighlighter language={props.language} code={props.code}></CodeHighlighter>
+                    </div>
+                    <div className="wrap">
+                        <div className="live" dangerouslySetInnerHTML={ {__html: props.code} }>
+                            
+                        </div>
 
+                        
+                    </div>
+                    
+                </div>
             </div>
         </div>
     );
@@ -94,6 +76,5 @@ const AssignmentHtmlBox = (props) => {
 export default inject(
     "storeMain",
     "storeModal",
-    "storeLecture",
-    "storeTask"
+    "storeLecture"
 )(observer(AssignmentHtmlBox));

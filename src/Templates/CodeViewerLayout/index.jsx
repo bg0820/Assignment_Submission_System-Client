@@ -22,6 +22,7 @@ const CodeViewerLayout = (props) => {
         content: "",
         language: "",
         example: [],
+        code: ''
     });
     
     useEffect(() => {
@@ -40,6 +41,7 @@ const CodeViewerLayout = (props) => {
                         content: body.info.content,
                         language: body.info.language,
                         example: body.info.example,
+                        code: body.info.code
                     });
                 }
             });
@@ -63,7 +65,7 @@ const CodeViewerLayout = (props) => {
             type: "code_submit",
             data: {
                 taskIdx: props.match.params.taskIdx,
-                code: storeCode.code,
+                code: info.code,
                 language: info.language
             },
             token: sessionStorage["token"]
@@ -75,13 +77,13 @@ const CodeViewerLayout = (props) => {
 
         if(info.language == "HTML" || info.language == "html") {
             let win = window.open("", "new window");
-            win.document.write(storeCode.code);
+            win.document.write(info.code);
         } else {
             storeMain.socket.emit("message", {
                 type: "code_exec",
                 data: {
                     taskIdx: props.match.params.taskIdx,
-                    code: storeCode.code,
+                    code: info.code,
                     language: info.language,
                     example: info.example
                 },
@@ -89,6 +91,13 @@ const CodeViewerLayout = (props) => {
             });
         }
     };
+
+    const handleCode = (value) => {
+        setInfo({
+            ...info,
+            code: value
+        });
+    }
 
 
     let exampleListElem = info.example.map((item, i) => {
@@ -127,7 +136,7 @@ const CodeViewerLayout = (props) => {
             <div className="code">
                 <p className="testTitle">코드 테스트</p>
                 <div className="editor">
-                    <CodeHighlighter language={info.language}></CodeHighlighter>
+                    <CodeHighlighter language={info.language} code={info.code} onCodeChange={handleCode}></CodeHighlighter>
                 </div>
                 <div className="result">
                     <div className="outputMsgArea">{outputElem}</div>

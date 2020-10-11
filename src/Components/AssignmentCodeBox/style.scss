@@ -1,6 +1,12 @@
 .AssignmentCodeBox {
     padding: 15px;
-    width: 100%;
+    width: 50%;
+    float: left;
+    
+    @media screen and (max-width:1280px){
+        width: 100%;
+    }
+
     .box {
         position: relative;
         border: 1px solid #707070;

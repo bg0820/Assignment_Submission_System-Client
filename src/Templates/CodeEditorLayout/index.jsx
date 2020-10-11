@@ -25,6 +25,7 @@ const CodeEditorLayout = (props) => {
         expire: "",
         extendType: false,
         extend: "",
+        code: ''
     });
 
     useEffect(() => {
@@ -51,6 +52,17 @@ const CodeEditorLayout = (props) => {
 
                     });
                 }
+            });
+        } else {
+            Util.requestServer("course/lang", "GET", {
+                courseIdx: props.match.params.courseIdx,
+            }).then(function (resp) {
+                let body = resp.body;
+                
+                setInfo({
+                    ...info,
+                    language: body.language
+                });
             });
         }
 
@@ -82,13 +94,6 @@ const CodeEditorLayout = (props) => {
         setInfo({
             ...info,
             title: e.target.value,
-        });
-    };
-
-    const handleLanguageChange = (e) => {
-        setInfo({
-            ...info,
-            language: e.target.value,
         });
     };
 
@@ -152,17 +157,6 @@ const CodeEditorLayout = (props) => {
                     : item;
             }),
         });
-        /*
-        setExampleList(
-            exampleList.map((item, i) => {
-                return i == idx
-                    ? {
-                          ...item,
-                          input: value,
-                      }
-                    : item;
-            })
-        );*/
     };
 
     const outputChange = (idx, value) => {
@@ -247,12 +241,12 @@ const CodeEditorLayout = (props) => {
 
         if(info.language == "HTML" || info.language == "html") {
             let win = window.open("", "new window");
-            win.document.write(storeCode.code);
+            win.document.write(info.code);
         } else {
             storeMain.socket.emit("message", {
                 type: "code_exec",
                 data: {
-                    code: storeCode.code,
+                    code: info.code,
                     language: info.language,
                     example: info.example
                 },
@@ -260,6 +254,13 @@ const CodeEditorLayout = (props) => {
             });
         }
     };
+    
+    const handleCode = (value) => {
+        setInfo({
+            ...info,
+            code: value
+        });
+    }
 
     let exampleListElem = info.example.map((item, i) => {
         return (
@@ -285,17 +286,7 @@ const CodeEditorLayout = (props) => {
         <div className="CodeEditorLayout">
             <div className="explain">
                 <div className="title">
-                    <select
-                        name="language"
-                        value={info.language}
-                        onChange={handleLanguageChange}
-                        className="language"
-                    >
-                        <option value="c">C</option>
-                        <option value="java">JAVA</option>
-                        <option value="python">Python</option>
-                        <option value="html">HTML</option>
-                    </select>
+                    <Language language={info.language}></Language>
 
                     <Textarea
                         padding="5px 0px 0px 5px"
@@ -377,7 +368,7 @@ const CodeEditorLayout = (props) => {
             <div className="code">
                 <p className="testTitle">코드 테스트</p>
                 <div className="editor">
-                    <CodeHighlighter language={info.language}></CodeHighlighter>
+                <CodeHighlighter language={info.language} code={info.code} onCodeChange={handleCode}></CodeHighlighter>
                 </div>
                 <div className="result">
                     <div className="outputMsgArea">{outputElem}</div>

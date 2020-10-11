@@ -9,7 +9,7 @@ import * as Util from "@util";
 import "./style.scss";
 
 const NonAssignmentListView = (props) => {
-    const { storeMain, storeLecture, storeTask } = props;
+    const { storeMain, storeLecture } = props;
     const [list, setList] = useState([]);
 
     let headerItem = [];
@@ -28,7 +28,6 @@ const NonAssignmentListView = (props) => {
     }, []);
 
     const handleTask = (item) => {
-        storeTask.setSelectTaskItem(item);
         storeMain.setMenu("editor");
 
         console.log(props.match.params.courseIdx + "/" + item.taskIdx);
@@ -107,6 +106,5 @@ const NonAssignmentListView = (props) => {
 export default inject(
     "storeMain",
     "storeModal",
-    "storeTask",
     "storeLecture"
 )(observer(NonAssignmentListView));

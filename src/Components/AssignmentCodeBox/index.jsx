@@ -27,6 +27,7 @@ const AssignmentCodeBox = (props) => {
     const handleScoreChange = (e) => {
         setScore(e.target.value);
     };
+    console.log(props);
 
     return(
         <div className="AssignmentCodeBox">

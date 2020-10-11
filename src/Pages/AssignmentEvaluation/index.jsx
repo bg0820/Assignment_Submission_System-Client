@@ -12,9 +12,8 @@ const AssignmentEvaluation = (props) => {
     const { storeMain, storeLecture } = props;
     const [list, setList] = useState();
     const [users, setUsers] = useState([]);
-    const [language, setLanguage] = useState('java');
+    const [language, setLanguage] = useState('');
 
-    let assignmentElem = null;
 
     useEffect(() => {
         Util.requestServer("task/list/apply", "GET", {
@@ -24,14 +23,13 @@ const AssignmentEvaluation = (props) => {
 
             if(resp.code === 200) {
                 console.log("성공");
-                //setList(body.list);
                 setLanguage(body.data.language);
                 setUsers(body.data.users);
-                //setAssignment(body.assignment);
             }
         })
     }, []);
 
+    let assignmentElem = null;
 
     if(language == "HTML" || language == "html") {
         assignmentElem = users.map((item, idx) => {
@@ -44,21 +42,10 @@ const AssignmentEvaluation = (props) => {
                     code={item.code}
                     result={item.result}
                     evaluationIdx={item.evaluationIdx}
+                    language={language}
                 ></AssignmentHtmlBox>
             );
         });
-        /*
-        assignmentElem = (
-            <AssignmentHtmlBox
-                id={assignment.id}
-                studentName={assignment.studentName}
-                score={assignment.score}
-                code={assignment.code}
-                result={assignment.result}
-                evaluationIdx={assignment.evaluationIdx}
-            ></AssignmentHtmlBox>
-        );
-        */
     } else {
         assignmentElem = users.map((item, idx) => {
             return(
@@ -70,22 +57,12 @@ const AssignmentEvaluation = (props) => {
                     code={item.code}
                     result={item.output}
                     evaluationIdx={item.evaluationIdx}
+                    language={language}
                 ></AssignmentCodeBox>
             );
         });
-        /*
-        assignmentElem = (
-            <AssignmentCodeBox
-                id={assignment.id}
-                studentName={assignment.studentName}
-                score={assignment.score}
-                code={assignment.code}
-                result={assignment.result}
-                evaluationIdx={assignment.evaluationIdx}
-            ></AssignmentCodeBox>
-        );
-        */
     }
+
     return (
         <div className="AssignmentEvaluation">
             {assignmentElem}

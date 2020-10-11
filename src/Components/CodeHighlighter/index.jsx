@@ -18,7 +18,6 @@ import "./style.scss";
 
 const CodeHighlighter = (props) => {
     const { storeMain, storeCode } = props;
-    const [code, setCode] = useState("");
     let instance = null;
 
     /*
@@ -168,10 +167,10 @@ const CodeHighlighter = (props) => {
         <div className="CodeHighlighter">
             <CodeMirror
                 editorDidMount={editor => { instance = editor }}
-                value={storeCode.code}
+                value={props.code}
                 options={options}
                 onBeforeChange={(editor, data, value) => {
-                    storeCode.setCode(value);
+                    props.onCodeChange(value);
                 }}
                 onChange={(editor, data, value) => {
                     console.log(editor, data, value);
