@@ -23,8 +23,6 @@
 				// root 폴더 설정
 				"root": "./src",
 				"alias": {
-					"jquery-ui": "jquery-ui-dist/jquery-ui.js",
-					"jquery-ui-css": "jquery-ui-dist/jquery-ui.css",
 					"@asset": "./src/Assets",
 					"@root": "./src",
 					"@components": "./src/Components",

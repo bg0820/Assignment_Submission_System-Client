@@ -1,6 +1,29 @@
 .Example {
 	width: 100%;
-	margin-bottom: 5px;
+	margin-top: 10px; 
+	position: relative;
+
+	.hiddenCheck {
+		position: absolute;
+		right: 5px;
+		top: 5px;
+		width: 80px;
+		
+		input[type='checkbox'] {
+			-webkit-appearance: checkbox;
+			height: 20px;
+			float: right;
+		}
+
+		label {
+			margin-right: 7px;
+			font-size: 11px;
+			line-height: 12px;
+			text-align: right;
+			float: right;
+			line-height: 20px;
+		}
+	}
 
 	p {
 		font-size: 18px;

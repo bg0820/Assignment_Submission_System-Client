@@ -23,24 +23,54 @@ const MainPage = (props) => {
     let viewElem = null;
 
     useEffect(() => {
-        if (props.match.params.courseIdx) {
-            Util.requestServer("course/info", "GET", {
-                courseIdx: props.match.params.courseIdx,
-            }).then(async function (result) {
-                storeLecture.selectLectureItem(result.body.info);
+        GetCourseInfo();
+    }, []);
+    
+    const GetCourseInfo = async () => {
+        if(props.match.params.taskIdx) {
+            let resp = await Util.requestServer("course/info", "GET", {
+                courseIdx: props.match.params.courseIdx
             });
-
+    
+            storeLecture.selectLectureItem(resp.body.info);
             storeMain.socket.emit("message", {
                 token: sessionStorage.token,
                 type: "join",
                 data: {
                     courseIdx: props.match.params.courseIdx,
-                },
+                }
             });
-        }
-    }, []);
 
-    console.log(storeMain.menu, match);
+            if(!isNaN(props.match.params.taskIdx))
+                storeMain.setMenu("editor");
+            else {
+                props.history.replace('/' + props.match.params.courseIdx)
+                storeMain.setMenu("assignmentList");
+            }
+        } else {
+            if (props.match.params.courseIdx) {
+                let resp = await Util.requestServer("course/info", "GET", {
+                    courseIdx: props.match.params.courseIdx
+                });
+        
+                storeLecture.selectLectureItem(resp.body.info);
+    
+                storeMain.socket.emit("message", {
+                    token: sessionStorage.token,
+                    type: "join",
+                    data: {
+                        courseIdx: props.match.params.courseIdx,
+                    }
+                });
+
+                if(!isNaN(props.match.params.courseIdx))
+                    storeMain.setMenu("assignmentList");
+            }
+        }
+
+        
+    }
+
     if (storeMain.menu === "lectureList") {
         viewElem = (
             <LecutreListView match={match} history={history}></LecutreListView>
@@ -65,7 +95,11 @@ const MainPage = (props) => {
             <AssignmentEvaluation match={match} history={history}></AssignmentEvaluation>
         );
     } else if (storeMain.menu === "grade") {
-        viewElem = <GradeView match={match} history={history}></GradeView>;
+        if (storeMain.userType === 1) {
+            viewElem = <GradeView match={match} history={history}></GradeView>;
+        } else { viewElem = <AssignmentGrade match={match} history={history}></AssignmentGrade>;
+        }
+        
     } else if (storeMain.menu === "assignmentGrade") {
         viewElem = <AssignmentGrade match={match} history={history}></AssignmentGrade>;
     } else if (storeMain.menu === "NonAssignmentList") {

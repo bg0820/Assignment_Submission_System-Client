@@ -1,11 +1,32 @@
 import React, { useEffect, useState, memo, useRef } from "react";
 import { observer, inject } from "mobx-react";
+import {Controlled as CodeMirror} from 'react-codemirror2'
 
+import 'codemirror/lib/codemirror.css';
+
+import 'codemirror/keymap/sublime.js';
+import 'codemirror/mode/xml/xml.js';
+import 'codemirror/mode/clike/clike';
+import 'codemirror/mode/javascript/javascript.js';
+
+import 'codemirror/addon/display/autorefresh.js';
+import 'codemirror/addon/comment/comment.js';
+import 'codemirror/addon/edit/matchbrackets.js';
+
+import "./code.css";
 import "./style.scss";
 
 const CodeHighlighter = (props) => {
     const { storeMain, storeCode } = props;
+    const [code, setCode] = useState("");
+    let instance = null;
 
+    /*
+    useEffect(() => {
+        console.log(editor, editor.current);
+        codeEditor = new CodeMirror(editor.current);
+    }, []);*/
+    /*
     const editor = useRef(null);
     const [highlight, setHighlight] = useState("");
 
@@ -44,7 +65,7 @@ const CodeHighlighter = (props) => {
         } else if (word === "\n") {
             return "<br/>";
         } else if (word === "\t") {
-            return "<span>  </span>";
+            return "<span>    </span>";
         } else {
             return "<span>" + word + "</span>";
         }
@@ -70,11 +91,6 @@ const CodeHighlighter = (props) => {
     };
 
     const handleCode = (e) => {
-        // console.log(e.target.value);
-        // setCode(e.target.value);
-
-        // console.log(storeCode.code);
-
         storeCode.setCode(e.target.value);
 
         let out = handleWord(e.target.value);
@@ -126,7 +142,43 @@ const CodeHighlighter = (props) => {
                 onKeyDown={handleKeyDown}
             ></textarea>
         </div>
-    );
+    );*/
+
+    let mode = '';
+
+    if(props.language == 'c' || props.language == 'cpp') {
+        mode = 'text/x-c++src'
+    } else  if(props.language == 'java') {
+        mode = 'text/x-java'
+    } else  if(props.language == 'html') {
+        mode = 'text/html'
+    }
+    console.log(props.language, mode);
+
+    let options = {
+        theme: 'darcula',
+        tabSize: 4,
+        mode: mode,
+        lineNumbers: true,
+        indentUnit: 4,
+        spellcheck: false
+    }; 
+
+    return (
+        <div className="CodeHighlighter">
+            <CodeMirror
+                editorDidMount={editor => { instance = editor }}
+                value={storeCode.code}
+                options={options}
+                onBeforeChange={(editor, data, value) => {
+                    storeCode.setCode(value);
+                }}
+                onChange={(editor, data, value) => {
+                    console.log(editor, data, value);
+                }}
+            />
+        </div>
+    )
 };
 
 export default inject("storeMain", "storeCode")(observer(CodeHighlighter));

@@ -57,11 +57,16 @@
 				text-align-last: center;
 				float: left;
 				padding: 1px;
+				outline: none;
 				-webkit-appearance: none;
 				-moz-appearance: none;
 				appearance: none;
 				margin-right: 5px;
 				border-radius: 0px;
+
+				&:focus {
+					border: 1px solid #048DEE;
+				}
 			}
 
 			.text {
@@ -148,12 +153,17 @@
 		}
 
 		.result {
+			border-top: 1px solid #ccc;
+			position: relative;
 			padding-top: 5px;
 			min-height: 150px;
 			flex: 1;
+			overflow-y: auto;
 
 			.buttons {
-				float: right;
+				position: absolute;
+				top: 10px;
+				right: 10px;
 			}
 		}
 	}

@@ -14,7 +14,7 @@ import * as Util from "@util";
 import "./style.scss";
 
 const AssignmentListView = (props) => {
-    const { storeMain, storeLecture, storeTask } = props;
+    const { storeMain, storeLecture } = props;
     const [list, setList] = useState([]);
 
     let headerItem = [];
@@ -42,7 +42,6 @@ const AssignmentListView = (props) => {
     const handleTask = (item) => {
         if(item.isSubmission) {
             if(window.confirm('이미 제출한 과제입니다. 수정하시겠습니까?')) {
-                storeTask.setSelectTaskItem(item);
                 storeMain.setMenu("editor");
 
                 console.log(props.match.params.courseIdx + "/" + item.taskIdx);
@@ -51,7 +50,6 @@ const AssignmentListView = (props) => {
                 );
             }
         } else {
-            storeTask.setSelectTaskItem(item);
             storeMain.setMenu("editor");
     
             console.log(props.match.params.courseIdx + "/" + item.taskIdx);
@@ -69,7 +67,6 @@ const AssignmentListView = (props) => {
 
     const clickEdit = (item) => {
         storeMain.setMenu("editor");
-        storeTask.setSelectTaskItem(item);
         props.history.push(
             "/" + props.match.params.courseIdx + "/" + item.taskIdx
         );
@@ -77,7 +74,6 @@ const AssignmentListView = (props) => {
 
     const clickGrade = (item) => {
         storeMain.setMenu("evaluation");
-        storeTask.setSelectTaskItem(item);
         props.history.push(
             "/" + props.match.params.courseIdx + "/" + item.taskIdx
         );
@@ -233,6 +229,5 @@ const AssignmentListView = (props) => {
 export default inject(
     "storeMain",
     "storeModal",
-    "storeTask",
     "storeLecture"
 )(observer(AssignmentListView));

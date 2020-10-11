@@ -141,7 +141,7 @@ const MainLayout = (props) => {
                             onClick={() => {
                                 storeMain.setMenu("grade");
                                 props.history.replace(
-                                    "/" + props.match.params.courseIdx
+                                    "/" + props.match.params.courseIdx + '/grade'
                                 );
                             }}
                         >
@@ -213,7 +213,7 @@ const MainLayout = (props) => {
                             onClick={() => {
                                 storeMain.setMenu("grade");
                                 props.history.replace(
-                                    "/" + props.match.params.courseIdx
+                                    "/" + props.match.params.courseIdx + '/grade'
                                 );
                             }}
                         >

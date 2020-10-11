@@ -7,13 +7,15 @@ import Textarea from "@components/Textarea";
 import Example from "@components/Example";
 import Language from "@components/Language";
 
+import CodeOutput from '@components/Output';
+
 import CodeHighlighter from "@components/CodeHighlighter";
 
 import * as Util from "@util";
 import "./style.scss";
 
 const CodeViewerLayout = (props) => {
-    const { storeMain, storeTask, storeCode } = props;
+    const { storeMain, storeCode } = props;
 
     const [info, setInfo] = useState({
         title: "",
@@ -21,11 +23,9 @@ const CodeViewerLayout = (props) => {
         language: "",
         example: [],
     });
-
+    
     useEffect(() => {
-        storeMain.socket.on("code_exec", onExec);
-        storeMain.socket.on("code_compile", onCompile);
-        storeMain.socket.on("code_submit", onSubmit);
+        storeMain.socket.on("code_output", onOutput);
 
         if (props.id) {
             Util.requestServer("task/detail", "GET", {
@@ -46,69 +46,31 @@ const CodeViewerLayout = (props) => {
         }
 
         return () => {
-            storeMain.socket.off("code_exec", onExec);
-            storeMain.socket.off("code_compile", onCompile);
-            storeMain.socket.off("code_submit", onSubmit);
+            storeMain.socket.off("code_output", onOutput);
         };
     }, []);
 
-    const onExec = (data) => {
-        console.log("onExec", data);
 
-        if (data.type !== "exit") {
-            storeCode.addOutput(data.msg);
-        }
-    };
-
-    const onCompile = (data) => {
-        console.log("onCompile", data);
-        storeCode.addOutput(data.msg);
-        storeCode.addOutput("=====================");
-    };
-
-    const onSubmit = (data) => {
-        console.log("onSubmit", data);
-        alert(data.msg);
-
-        if(data.type == 'result') {
-            if(data.result === 'success') {
-                props.history.replace("/" + props.match.params.courseIdx);
-                storeMain.setMenu('assignmentList');
-            } else if(data.result === 'failed') {
-                alert(data.msg);
-            }
-            
-        }
+    const onOutput = (data) => {
+        storeCode.addOutput(data);
     }
 
-    let outputElem = null;
-    let exampleListElem = info.example.map((item, i) => {
-        return (
-            <Example
-                key={i}
-                idx={i}
-                view={true}
-                input={item.input}
-                output={item.output}
-            ></Example>
-        );
-    });
     const handleSubmission = (e) => {
+        storeCode.clearOutput();
+        console.log(info);
+
         storeMain.socket.emit("message", {
             type: "code_submit",
             data: {
-                studentId: storeMain.id,
-                taskIdx: storeTask.selectTask.taskIdx,
+                taskIdx: props.match.params.taskIdx,
                 code: storeCode.code,
-                language: storeTask.selectTask.language,
-                userIdx: storeMain.userIdx,
+                language: info.language
             },
             token: sessionStorage["token"]
         });
     };
 
     const handleExcute = (e) => {
-        console.log(storeTask.selectTask);
         storeCode.clearOutput();
 
         if(info.language == "HTML" || info.language == "html") {
@@ -118,19 +80,33 @@ const CodeViewerLayout = (props) => {
             storeMain.socket.emit("message", {
                 type: "code_exec",
                 data: {
-                    studentId: storeMain.id,
-                    taskIdx: storeTask.selectTask.taskIdx,
+                    taskIdx: props.match.params.taskIdx,
                     code: storeCode.code,
-                    language: storeTask.selectTask.language,
+                    language: info.language,
+                    example: info.example
                 },
                 token: sessionStorage["token"]
             });
         }
     };
 
-    outputElem = storeCode.output.map((item, i) => {
-        return <pre key={i}>{item}</pre>;
+
+    let exampleListElem = info.example.map((item, i) => {
+        return (
+            <Example
+                key={i}
+                idx={i}
+                view={true}
+                input={item.input}
+                output={item.output}
+                showHidden={false}
+            ></Example>
+        );
     });
+    let outputElem = storeCode.output.map((item, i) => {
+        return <CodeOutput key={i} msg={item.msg} type={item.type}></CodeOutput>
+    });
+
     return (
         <div className="CodeViewerLayout">
             <div className="explain">
@@ -151,7 +127,7 @@ const CodeViewerLayout = (props) => {
             <div className="code">
                 <p className="testTitle">코드 테스트</p>
                 <div className="editor">
-                    <CodeHighlighter></CodeHighlighter>
+                    <CodeHighlighter language={info.language}></CodeHighlighter>
                 </div>
                 <div className="result">
                     <div className="outputMsgArea">{outputElem}</div>
@@ -179,6 +155,5 @@ const CodeViewerLayout = (props) => {
 
 export default inject(
     "storeMain",
-    "storeTask",
     "storeCode"
 )(observer(CodeViewerLayout));

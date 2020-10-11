@@ -7,13 +7,15 @@ import Textarea from "@components/Textarea";
 import Example from "@components/Example";
 import Language from "@components/Language";
 
+import CodeOutput from '@components/Output';
+
 import CodeHighlighter from "@components/CodeHighlighter";
 
 import * as Util from "@util";
 import "./style.scss";
 
 const CodeEditorLayout = (props) => {
-    const { storeMain, storeTask, storeLecture } = props;
+    const { storeMain, storeCode } = props;
 
     const [info, setInfo] = useState({
         title: "",
@@ -25,21 +27,9 @@ const CodeEditorLayout = (props) => {
         extend: "",
     });
 
-    const formatDate = (date) => {
-        var d = new Date(date),
-            month = '' + (d.getMonth() + 1),
-            day = '' + d.getDate(),
-            year = d.getFullYear();
-    
-        if (month.length < 2) 
-            month = '0' + month;
-        if (day.length < 2) 
-            day = '0' + day;
-    
-        return [year, month, day].join('-');
-    }
-
     useEffect(() => {
+        storeMain.socket.on("code_output", onOutput);
+
         if (props.id) {
             Util.requestServer("task/detail", "GET", {
                 taskIdx: props.id,
@@ -63,7 +53,30 @@ const CodeEditorLayout = (props) => {
                 }
             });
         }
+
+        return () => {
+            storeMain.socket.off("code_output", onOutput);
+        };
     }, []);
+
+    
+    const onOutput = (data) => {
+        storeCode.addOutput(data);
+    }
+
+    const formatDate = (date) => {
+        var d = new Date(date),
+            month = '' + (d.getMonth() + 1),
+            day = '' + d.getDate(),
+            year = d.getFullYear();
+    
+        if (month.length < 2) 
+            month = '0' + month;
+        if (day.length < 2) 
+            day = '0' + day;
+    
+        return [year, month, day].join('-');
+    }
 
     const handleTitleChange = (e) => {
         setInfo({
@@ -122,6 +135,7 @@ const CodeEditorLayout = (props) => {
             example: info.example.concat({
                 input: "",
                 output: "",
+                isHidden: false
             }),
         });
     };
@@ -165,6 +179,20 @@ const CodeEditorLayout = (props) => {
         });
     };
 
+    const hiddenChange = (idx, value) => {
+        setInfo({
+            ...info,
+            example: info.example.map((item, i) => {
+                return i == idx
+                    ? {
+                          ...item,
+                          isHidden: value,
+                      }
+                    : item;
+            }),
+        });
+    }
+
     const createBtn = (e) => {
         if (info.language === "none") {
             alert("언어를 선택해주세요.");
@@ -193,7 +221,7 @@ const CodeEditorLayout = (props) => {
             });
         } else {
             Util.requestServer("task/create", "POST", {
-                courseIdx: storeLecture.selectLecture.courseIdx,
+                courseIdx: props.match.params.courseIdx,
                 title: info.title,
                 content: info.content,
                 language: info.language,
@@ -214,6 +242,25 @@ const CodeEditorLayout = (props) => {
         }
     };
 
+    const handleExcute = (e) => {
+        storeCode.clearOutput();
+
+        if(info.language == "HTML" || info.language == "html") {
+            let win = window.open("", "new window");
+            win.document.write(storeCode.code);
+        } else {
+            storeMain.socket.emit("message", {
+                type: "code_exec",
+                data: {
+                    code: storeCode.code,
+                    language: info.language,
+                    example: info.example
+                },
+                token: sessionStorage["token"]
+            });
+        }
+    };
+
     let exampleListElem = info.example.map((item, i) => {
         return (
             <Example
@@ -221,10 +268,17 @@ const CodeEditorLayout = (props) => {
                 idx={i}
                 inputChange={inputChange}
                 outputChange={outputChange}
+                hiddenChange={hiddenChange}
                 input={item.input}
                 output={item.output}
+                isHidden={item.isHidden}
+                showHidden={true}
             ></Example>
         );
+    });
+
+    let outputElem = storeCode.output.map((item, i) => {
+        return <CodeOutput key={i} msg={item.msg} type={item.type}></CodeOutput>
     });
 
     return (
@@ -247,6 +301,7 @@ const CodeEditorLayout = (props) => {
                         padding="5px 0px 0px 5px"
                         value={info.title}
                         height="35px"
+                        style="simple"
                         onChange={handleTitleChange}
                         onKeyUp={resize}
                         onKeyDown={resize}
@@ -259,6 +314,7 @@ const CodeEditorLayout = (props) => {
                         padding="5px 0px 0px 5px"
                         value={info.content}
                         height="35px"
+                        style="simple"
                         onChange={handleContentChange}
                         onKeyUp={resize}
                         onKeyDown={resize}
@@ -271,7 +327,6 @@ const CodeEditorLayout = (props) => {
                             onClick={btnClick}
                             width="75px"
                             height="35px"
-                            margin="0px 0px 10px 0px"
                             value="예시 추가"
                         ></Button>
                         {exampleListElem}
@@ -322,9 +377,10 @@ const CodeEditorLayout = (props) => {
             <div className="code">
                 <p className="testTitle">코드 테스트</p>
                 <div className="editor">
-                    <CodeHighlighter></CodeHighlighter>
+                    <CodeHighlighter language={info.language}></CodeHighlighter>
                 </div>
                 <div className="result">
+                    <div className="outputMsgArea">{outputElem}</div>
                     <div className="buttons">
                         <Button
                             width="75px"
@@ -332,6 +388,7 @@ const CodeEditorLayout = (props) => {
                             value="실행"
                             color="green"
                             margin="0px 10px 0px 0px"
+                            onClick={handleExcute}
                         ></Button>
                         <Button
                             width="75px"
@@ -346,4 +403,4 @@ const CodeEditorLayout = (props) => {
     );
 };
 
-export default inject("storeMain", "storeTask", "storeLecture")(observer(CodeEditorLayout));
+export default inject("storeMain", "storeCode")(observer(CodeEditorLayout));

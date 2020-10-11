@@ -9,7 +9,7 @@ import * as Util from "@util";
 import "./style.scss";
 
 const AssignmentEvaluation = (props) => {
-    const { storeMain, storeLecture, storeTask } = props;
+    const { storeMain, storeLecture } = props;
     const [list, setList] = useState();
     const [users, setUsers] = useState([]);
     const [language, setLanguage] = useState('java');
@@ -93,4 +93,4 @@ const AssignmentEvaluation = (props) => {
     );
 };
 
-export default inject("storeMain", "storeLecture", "storeTask")(observer(AssignmentEvaluation));
+export default inject("storeMain", "storeLecture")(observer(AssignmentEvaluation));

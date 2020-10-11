@@ -2,7 +2,44 @@
 	width: 100%;
 	height: 100%;
 	position: relative;
-	border-bottom: 1px solid #CCCCCC;
+
+	.react-codemirror2 {
+		height: 100%;
+		position: relative;
+
+		.CodeMirror  {
+			height: 100%;
+			width: 100%;
+			/* overflow-y: scroll; */
+			position: absolute;
+		}
+	}
+
+	/*
+	pre {
+		word-wrap: break-word;
+		white-space: pre-wrap;
+		word-break: normal;
+
+		-moz-border-radius: 0;
+		-webkit-border-radius: 0;
+		border-radius: 0;
+		border-width: 0;
+		background: 0 0;
+		font-family: inherit;
+		font-size: inherit;
+		margin: 0;
+		white-space: pre;
+		word-wrap: normal;
+		line-height: inherit;
+		color: inherit;
+		z-index: 2;
+		position: relative;
+		overflow: visible;
+		-webkit-tap-highlight-color: transparent;
+		-webkit-font-variant-ligatures: contextual;
+		font-variant-ligatures: contextual;
+	}
 
 	textarea {
 
@@ -46,5 +83,5 @@
 
 	.accessType {
 		color: #9754CB;
-	}
+	}*/
 }

@@ -47,19 +47,19 @@ const App = (props) => {
     return (
         <React.Fragment>
             <BrowserRouter>
+            <Switch> 
                 <Route exact path="/" component={MainPage} />
                 <Route path="/register" component={RegisterPage} />
                 <Route path="/login" component={LoginPage} />
                 <Route path="/createLecture" component={CreateLecturePage} />
                 <Route path="/evaluation" component={EvaluationPage} />
-                <Switch>
-                    <Route path="/:courseIdx/notice" component={MainPage} />
-                    <Route path="/:courseIdx/qna" component={MainPage} />
-                    <Route path="/:courseIdx/:taskIdx" component={MainPage} />
-                    <Route path="/:courseIdx" component={MainPage} />
-                </Switch>
                 <Route path="/pwFind" component={PwFind} />
                 <Route path="/MyPage" component={MyPage} />
+                    <Route exact path="/:courseIdx/:taskIdx" component={MainPage} />
+                    <Route path="/:courseIdx/notice" component={MainPage} />
+                    <Route path="/:courseIdx/qna" component={MainPage} />
+                    <Route path="/:courseIdx" component={MainPage} />
+                </Switch>
             </BrowserRouter>
         </React.Fragment>
     );

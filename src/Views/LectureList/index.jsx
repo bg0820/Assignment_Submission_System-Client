@@ -22,6 +22,7 @@ const LectureListView = (props) => {
             if (result.code === 200) {
                 setList(result.body.list);
             }
+
             Util.requestServer("task/list/nonAssignment", "GET", {}).then(
                 async function (result) {
                     if (result.code === 200) {
@@ -30,23 +31,30 @@ const LectureListView = (props) => {
                 }
             );
         });
-        /*
+
+        return () => {
+            
+        };
+    }, []);
+
+    const handleLecture = (item) => {
+        storeLecture.selectLectureItem(item);
+
+        props.history.replace("/" + item.courseIdx);
         storeMain.socket.emit("message", {
             token: sessionStorage.token,
             type: "join",
             data: {
                 courseIdx: item.courseIdx,
-            },
-        });*/
+            }
+        });
 
-        return () => {};
-    }, []);
-
-    const handleLecture = (item) => {
-        console.log(item.courseIdx);
-        props.history.replace("/" + item.courseIdx);
-        storeMain.setMenu("assignmentList");
-        //storeLecture.view('');
+        Util.requestServer("course/info", "GET", {
+            courseIdx: item.courseIdx
+        }).then(async function (result) {
+            storeLecture.selectLectureItem(result.body.info);
+            storeMain.setMenu("assignmentList");
+        });
     };
 
     const handleFloating = (e) => {

@@ -12,8 +12,10 @@ const Input = (props) => {
         clsName += " height_" + props.height;
     } else clsName += " height_default";
 
-    if (props.design) {
-        clsName += " style_" + props.design;
+    if (props.style) {
+        clsName += " style-" + props.style; 
+    } else {
+        clsName +=" style-default";
     }
 
     if (props.width) {

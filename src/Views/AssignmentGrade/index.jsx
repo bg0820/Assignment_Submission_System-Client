@@ -8,16 +8,24 @@ import * as Util from "@util";
 import "./style.scss";
 
 const AssignmentGrade = (props) => {
-    const { storeMain, storeLecture, storeTask } = props;
+    const { storeMain, storeLecture } = props;
     const [list, setList] = useState([]);
 
     let headerItem = [];
     let childElement = null;
 
     useEffect(() => {
+        let studentIdx = 0;
+
+        if(storeMain.userType == 1) {
+            studentIdx = storeMain.selectStudentIdx;
+        } else {
+            studentIdx = storeMain.userIdx;
+        }
+
         Util.requestServer("task/list/grade", "GET", {
             courseIdx: props.match.params.courseIdx,
-            studentIdx: storeMain.selectStudentIdx,
+            studentIdx: studentIdx,
         }).then(async function (result) {
             if (result.code === 200) {
                 setList(result.body.list);
@@ -67,6 +75,5 @@ const AssignmentGrade = (props) => {
 
 export default inject(
     "storeMain",
-    "storeTask",
     "storeLecture"
 )(observer(AssignmentGrade));

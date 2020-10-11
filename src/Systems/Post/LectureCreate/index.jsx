@@ -127,6 +127,10 @@ const LectureCreate = (props) => {
             text: "학번",
             align: "left",
         },
+        { 
+            text: "",
+            align: "center",
+        },
     ];
 
     let userListElem = userList.map((item, idx) => {
@@ -175,18 +179,20 @@ const LectureCreate = (props) => {
         searchResultVisible = "none";
 
     return (
-        <Modal>
+        <Modal> 
             <div className="LectureCreate">
+                <p className="item_title">강의 명 입력</p>
                 <Input
                     className="Id"
-                    placeholder="강의명을 입력하세요."
                     height="small"
                     margin="0px 0px 15px 0px"
+                    placeholder="강의명을 입력하세요."
                     onChange={(e) => {
                         setTitle(e.target.value);
                     }}
                     value={title}
-                />
+                /> 
+                <p className="item_title">강의 언어 선택</p> 
                 <ComboBox
                     className="selectLanguage"
                     height="40px"
@@ -194,11 +200,11 @@ const LectureCreate = (props) => {
                     value={language}
                     onChange={handleLanguage}
                 />
-                <p className="item_title">학생 추가</p>
+                <p className="item_title bottom_margin">학생 추가</p>
 
-                <div className="studentSearch">
+                <div className="studentSearch"> 
                     <Input
-                        className="Password"
+                        className="Password" 
                         placeholder="학생 이름"
                         height="small"
                         onChange={handleStudentName}

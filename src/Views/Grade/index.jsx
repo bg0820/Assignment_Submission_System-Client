@@ -8,7 +8,7 @@ import * as Util from "@util";
 import "./style.scss";
 
 const Grade = (props) => {
-    const { storeMain, storeLecture, storeTask } = props;
+    const { storeMain, storeLecture } = props;
     const [list, setList] = useState([]);
 
     let headerItem = [];
@@ -25,14 +25,8 @@ const Grade = (props) => {
     }, []);
 
     const handleStudent = (item) => {
-        console.log(item);
-       //  props.history.replace('/' + item.studentIdx);
        storeMain.setSelectStudentIdx(item.userIdx);
        storeMain.setMenu('assignmentGrade');
-        
-       //storeLecture.view('');
-
-       
     };
 
     if (storeMain.userType === 1) {
@@ -53,9 +47,10 @@ const Grade = (props) => {
                 width: "100px",
             },
         ];
+
         childElement = list.map((item, idx) => {
             return (
-                <tr key={item.studentIdx} onClick={(e) => handleStudent(item)}>
+                <tr key={item.userIdx} onClick={(e) => handleStudent(item)}>
                     <td align="left">{item.studentId}</td>
                     <td align="left">{item.name}</td>
                     <td align="left">
@@ -75,6 +70,5 @@ const Grade = (props) => {
 
 export default inject(
     "storeMain",
-    "storeTask",
     "storeLecture"
 )(observer(Grade));

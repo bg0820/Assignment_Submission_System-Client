@@ -18,7 +18,11 @@
 	border-bottom: 1px solid #ccc;
 
 	&::placeholder {
-		color: #ababab;
+		color: #ccc;
+	}
+
+	&:disabled {
+		color: #ccc;
 	}
 
 	&:focus {

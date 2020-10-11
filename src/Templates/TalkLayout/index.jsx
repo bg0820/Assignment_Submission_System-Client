@@ -76,7 +76,7 @@ const TalkLayout = (props) => {
                     onChange={handleChat}
                     onKeyDown={handleChatKeyDown}
                     placeholder={placeHolderMsg}
-                    height="40px"
+                    height="small"
                     margin="0px 10px 0px 0px"
                     disabled={disabled}
                 ></Input>
@@ -86,7 +86,6 @@ const TalkLayout = (props) => {
                     disabled={disabled}
                     width="110px"
                     height="40px"
-                    margin="10px 0px 0px 0px"
                 ></Button>
             </div>
         </div>

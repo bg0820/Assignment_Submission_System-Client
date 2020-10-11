@@ -7,7 +7,7 @@ import CodeEditorLayout from "@templates/CodeEditorLayout";
 import * as Util from "@util";
 
 const EditorView = (props) => {
-    const { storeMain, storeTask } = props;
+    const { storeMain } = props;
 
     /*
     const [info, setInfo] = useState({

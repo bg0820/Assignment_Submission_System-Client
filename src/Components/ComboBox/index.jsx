@@ -31,7 +31,7 @@ const ComboBox = (props) => {
 
     const handleChange = (event) => {
         props.onChange(event);
-    };
+    }; 
 
     return (
         <select
@@ -42,7 +42,7 @@ const ComboBox = (props) => {
             style={style}
         >
             <option value="none" disabled hidden>
-                언어를 선택하세요.
+                프로그래밍 언어를 선택하세요.
             </option>
             <option value="java">Java</option>
             <option value="html">Html</option>

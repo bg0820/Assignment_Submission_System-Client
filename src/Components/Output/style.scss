@@ -1,0 +1,15 @@
+.CodeOutput {
+    .output {
+        color: #343434;
+
+        &.style {
+            &-error {
+                color: #ff4646;
+            }
+            
+            &-score {
+                color: #26c784;
+            }
+        }
+    }
+}
